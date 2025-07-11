@@ -86,13 +86,16 @@ export default function HomePage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/waitlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://matalkwebsitebe-production.up.railway.app/api/waitlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         setSubmitted(true);
