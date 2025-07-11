@@ -40,13 +40,13 @@ export default function HomePage() {
 
   const loadTestimonials = async () => {
     // Static testimonials data
-    const staticTestimonials = [ 
+    const staticTestimonials = [
       {
         id: 1,
         author: "Andrea Pham, MA, CCC-SLP Chen",
         role: "Speech-Language Pathologist",
         quote:
-          "Verbali's Augmentative and Alternative Communication (AAC) has revolutionized how individuals with complex communication needs (CCNs) engage with the world"
+          "Verbali's Augmentative and Alternative Communication (AAC) has revolutionized how individuals with complex communication needs (CCNs) engage with the world",
       },
       {
         id: 2,
@@ -67,19 +67,17 @@ export default function HomePage() {
         author: "Sharyl Stevens, MS, CCC-SLP",
         role: "Speech-Language Pathologist",
         quote:
-          "Verbali has knocked down those barriers and allows for so much potential for more natural social interactions, streamlined data for progress of use, and a way for SLPs to identify the expressive and receptive needs of the user"
+          "Verbali has knocked down those barriers and allows for so much potential for more natural social interactions, streamlined data for progress of use, and a way for SLPs to identify the expressive and receptive needs of the user",
       },
       {
         id: 5,
         author: "Dana Goldberg, MA, CCC-SLP",
         role: "Speech-Language Pathologist, Owner Speech Therapy Solutions, LLC",
         quote:
-          "This product offers individuals with access to cutting-edge technology while giving people with communication needs more fluid, effective, and timely interaction"
+          "This product offers individuals with access to cutting-edge technology while giving people with communication needs more fluid, effective, and timely interaction",
       },
     ];
 
-
-    
     setTestimonials(staticTestimonials);
   };
 
@@ -87,23 +85,40 @@ export default function HomePage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitted(true);
-      setTimeout(() => {
-        setShowWaitlistForm(false);
-        setSubmitted(false);
-        setFormData({
-          first_name: "",
-          last_name: "",
-          email: "",
-          role: "",
-          other_description: "",
-        });
-      }, 2000);
-    }, 1000);
+    try {
+      const response = await fetch("http://localhost:3000/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitting(false);
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setShowWaitlistForm(false);
+          setSubmitted(false);
+          setFormData({
+            first_name: "",
+            last_name: "",
+            email: "",
+            role: "",
+            other_description: "",
+          });
+        }, 2000);
+      } else {
+        const error = await response.json();
+        console.error("Submission failed:", error);
+        // You can add error handling here (show toast notification, etc.)
+        alert(`Error: ${error.message || "Failed to join waitlist"}`);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Please check if the server is running.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
