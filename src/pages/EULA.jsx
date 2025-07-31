@@ -239,19 +239,19 @@ export default function EULAPage() {
                 <p>
                   Privacy Policy:{" "}
                   <a
-                    href="https://matalk.ai/privacy"
+                    href="https://www.verbali.io/matalk-ai-privacy-policy"
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
-                    https://matalk.ai/privacy
+                    MaTalk AI Privacy Policy
                   </a>
                 </p>
                 <p>
                   Terms of Use (EULA):{" "}
                   <a
-                    href="https://matalk.ai/eula"
+                    href="https://www.verbali.io/eula"
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
-                    https://matalk.ai/eula
+                    MaTalk AI EULA
                   </a>
                 </p>
               </div>
