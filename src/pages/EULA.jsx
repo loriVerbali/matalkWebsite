@@ -10,24 +10,22 @@ export default function EULAPage() {
               End-User License Agreement (EULA) for MaTalk AI
             </h1>
             <p className="mt-4 text-lg text-gray-600">
-              Effective Date: January 1, 2025
+              Effective Date: [Insert Date]
             </p>
-            <p className="text-lg text-gray-600">
-              Last Updated: January 1, 2025
-            </p>
+            <p className="text-lg text-gray-600">Last Updated: [Insert Date]</p>
           </div>
 
           <div className="text-gray-700 space-y-6">
             <p className="text-lg">
-              This End-User License Agreement ("Agreement") is a legal contract
+              This End-User License Agreement ("Agreement") is a legal agreement
               between you ("User" or "You") and MaTalk AI ("Company", "we", or
               "us") governing your use of the MaTalk AI mobile application
               ("App").
             </p>
 
             <p className="text-lg">
-              By downloading or using the App, you agree to this Agreement. If
-              you do not agree, do not install or use the App.
+              By downloading, installing, or using the App, you agree to this
+              Agreement. If you do not agree, do not use the App.
             </p>
 
             <section className="space-y-4">
@@ -36,141 +34,190 @@ export default function EULAPage() {
               </h2>
               <p className="text-gray-700">
                 We grant you a limited, non-exclusive, non-transferable,
-                revocable license to use the App solely for personal,
-                non-commercial use on a mobile device you own or control.
+                revocable license to use the App solely for your personal,
+                non-commercial use on devices you own or control.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                2. COPPA Compliance and Children's Use
+                2. Subscription & Billing Terms
+              </h2>
+              <div className="space-y-4">
+                <p className="text-gray-700 font-semibold">
+                  Title of Subscription: MaTalk AI Premium
+                </p>
+
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-semibold">
+                    Length of Subscription:
+                  </p>
+                  <ul className="space-y-1 text-gray-700 ml-6">
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>1 Month (Auto-renewing)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>1 Year (Auto-renewing)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-semibold">Pricing:</p>
+                  <ul className="space-y-1 text-gray-700 ml-6">
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>$29.99/month</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>$300.00/year</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-semibold">
+                    Introductory Offer (Monthly Plan Only):
+                  </p>
+                  <ul className="space-y-1 text-gray-700 ml-6">
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>$6.99/month for the first 3 months</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>Then automatically renews at $29.99/month</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-gray-700 font-semibold">
+                    Subscription Details:
+                  </p>
+                  <ul className="space-y-1 text-gray-700 ml-6">
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>
+                        Payment will be charged to your Apple ID account at the
+                        time of purchase.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>
+                        Subscriptions automatically renew unless canceled at
+                        least 24 hours before the end of the current period.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>
+                        Your account will be charged for renewal within 24 hours
+                        prior to the end of the current period.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-gray-400 mr-2">●</span>
+                      <span>
+                        You can manage and cancel your subscription anytime
+                        through your App Store account settings.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-4">
+              <h2 className="text-2xl font-semibold text-gray-900">
+                3. COPPA Compliance
               </h2>
               <p className="text-gray-700">
-                MaTalk AI is designed with children's privacy and safety in
-                mind. The App is intended to be used with the supervision and
-                consent of a parent or legal guardian.
-              </p>
-              <p className="text-gray-700">
-                We comply with the Children's Online Privacy Protection Act
-                (COPPA) and:
-              </p>
-              <ul className="space-y-2 text-gray-700 ml-6">
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>
-                    Do not knowingly collect any personal information from
-                    children under 13 without verifiable parental consent;
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>
-                    Provide tools and settings to ensure the App works fully
-                    offline with no data sent to external servers;
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>
-                    Do not include third-party advertising or tracking
-                    mechanisms;
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>
-                    Provide parents with access to our Privacy Policy and
-                    contact information for any concerns.
-                  </span>
-                </li>
-              </ul>
-              <p className="text-gray-700">
-                Parents or legal guardians who believe we may have collected
-                information from a child without consent should contact us at
-                privacy@matalk.ai.
+                MaTalk AI is designed for use by children under the supervision
+                of a parent or legal guardian. We comply with the Children's
+                Online Privacy Protection Act (COPPA) and do not knowingly
+                collect personal data from children without verifiable parental
+                consent. The App can be used entirely offline and does not
+                transmit any personal data to servers.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                3. Restrictions
+                4. Restrictions
               </h2>
               <p className="text-gray-700">You may not:</p>
               <ul className="space-y-2 text-gray-700 ml-6">
                 <li className="flex items-start">
                   <span className="text-gray-400 mr-2">●</span>
-                  <span>Reverse-engineer, decompile, or modify the App;</span>
+                  <span>
+                    Copy, reverse-engineer, decompile, or alter the App;
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-gray-400 mr-2">●</span>
-                  <span>Use the App for any harmful or illegal purpose;</span>
+                  <span>Use the App for unlawful or harmful purposes;</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-gray-400 mr-2">●</span>
-                  <span>Resell or sublicense the App.</span>
+                  <span>Sell, sublicense, or redistribute the App.</span>
                 </li>
               </ul>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                4. Ownership
+                5. Ownership
               </h2>
               <p className="text-gray-700">
-                All intellectual property rights in the App remain with MaTalk
-                AI. This Agreement does not grant you any ownership rights.
+                All rights, title, and interest in the App, including
+                intellectual property, remain with MaTalk AI or its licensors.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                5. Privacy
+                6. Privacy
               </h2>
               <p className="text-gray-700">
-                MaTalk AI does not transmit personal data from children under 13
-                to servers or third parties. For full details, refer to our
-                Privacy Policy.
+                We respect your privacy. Please review our full Privacy Policy
+                for information about how we handle user data.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                6. No Warranty
+                7. No Warranty
               </h2>
               <p className="text-gray-700">
-                The App is provided "as is", without warranties of any kind. We
-                do not guarantee error-free performance or uninterrupted use.
+                The App is provided "as is" without warranty of any kind,
+                express or implied.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                7. Limitation of Liability
+                8. Limitation of Liability
               </h2>
               <p className="text-gray-700">
-                To the extent permitted by law, we are not liable for indirect
-                or incidental damages arising from use of the App.
+                To the maximum extent allowed by law, we are not liable for any
+                indirect or consequential damages arising out of your use of the
+                App.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                8. Termination
+                9. Termination
               </h2>
               <p className="text-gray-700">
-                We may suspend or terminate your license if you violate this
-                Agreement. You may also terminate this license by uninstalling
-                the App.
-              </p>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-2xl font-semibold text-gray-900">
-                9. Updates
-              </h2>
-              <p className="text-gray-700">
-                We may update this Agreement. Continued use of the App after
-                updates indicates your acceptance.
+                This license remains in effect until terminated. You may
+                terminate it by uninstalling the App. We may terminate it at any
+                time for violations of this Agreement.
               </p>
             </section>
 
@@ -179,21 +226,34 @@ export default function EULAPage() {
                 10. Governing Law
               </h2>
               <p className="text-gray-700">
-                This Agreement is governed by the laws of the State of Maryland,
-                excluding its conflict of law principles.
+                This Agreement is governed by the laws of the State of [Insert
+                State, e.g., Maryland].
               </p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-900">
-                11. Contact Information
+                11. Legal Links
               </h2>
-              <p className="text-gray-700">
-                For questions or to exercise your rights under COPPA, contact:
-              </p>
-              <div className="ml-6 space-y-2 text-gray-700">
-                <p>📧 privacy@matalk.ai</p>
-                <p>🌐 https://matalk.ai/privacy</p>
+              <div className="space-y-2 text-gray-700">
+                <p>
+                  Privacy Policy:{" "}
+                  <a
+                    href="https://matalk.ai/privacy"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    https://matalk.ai/privacy
+                  </a>
+                </p>
+                <p>
+                  Terms of Use (EULA):{" "}
+                  <a
+                    href="https://matalk.ai/eula"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    https://matalk.ai/eula
+                  </a>
+                </p>
               </div>
             </section>
           </div>
