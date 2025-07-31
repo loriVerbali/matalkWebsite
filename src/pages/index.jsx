@@ -10,6 +10,7 @@ import Layout from "./Layout";
 import TermOfUse from "./TermOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import MaTalkPrivacyPolicy from "./MaTalkPrivacyPolicy";
+import EULA from "./EULA";
 
 // Import routes configuration
 import routes from "./routes";
@@ -23,6 +24,7 @@ export default function Pages() {
       TermOfUse,
       PrivacyPolicy,
       MaTalkPrivacyPolicy,
+      EULA,
     };
     return components[pageName];
   };
@@ -55,3 +57,4 @@ export { default as Layout } from "./Layout";
 export { default as TermOfUse } from "./TermOfUse";
 export { default as PrivacyPolicy } from "./PrivacyPolicy";
 export { default as MaTalkPrivacyPolicy } from "./MaTalkPrivacyPolicy";
+export { default as EULA } from "./EULA";
