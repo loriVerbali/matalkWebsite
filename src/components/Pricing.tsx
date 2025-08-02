@@ -107,7 +107,10 @@ export function Pricing({ onBack }: PricingProps) {
 
                 <Button
                   onClick={() => {
-                    window.open("https://apps.apple.com", "_blank");
+                    window.open(
+                      "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                      "_blank"
+                    );
                   }}
                   className="w-full btn-primary text-lg py-4"
                 >
@@ -179,7 +182,10 @@ export function Pricing({ onBack }: PricingProps) {
 
                 <Button
                   onClick={() => {
-                    window.open("https://apps.apple.com", "_blank");
+                    window.open(
+                      "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                      "_blank"
+                    );
                   }}
                   className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white rounded-full py-4 text-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg"
                 >
@@ -256,7 +262,10 @@ export function Pricing({ onBack }: PricingProps) {
             <div className="flex justify-center">
               <Button
                 onClick={() => {
-                  window.open("https://apps.apple.com", "_blank");
+                  window.open(
+                    "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                    "_blank"
+                  );
                 }}
                 className="bg-white text-violet-600 hover:bg-violet-50 px-8 py-4 text-lg font-medium rounded-full"
               >
