@@ -438,7 +438,7 @@ export function LanguageRequest({ onBack, isOpen }: LanguageRequestProps) {
                 >
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border border-slate-200 shadow-lg">
                   {roles.map((role) => (
                     <SelectItem key={role.value} value={role.value}>
                       {role.label}
@@ -498,7 +498,7 @@ export function LanguageRequest({ onBack, isOpen }: LanguageRequestProps) {
                 >
                   <SelectValue placeholder="Select the language you need" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border border-slate-200 shadow-lg">
                   {languages.map((language) => (
                     <SelectItem key={language.value} value={language.value}>
                       {language.label}
@@ -558,7 +558,7 @@ export function LanguageRequest({ onBack, isOpen }: LanguageRequestProps) {
                 >
                   <SelectValue placeholder="Select your region or dialect" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border border-slate-200 shadow-lg">
                   {regions.map((region) => (
                     <SelectItem key={region.value} value={region.value}>
                       {region.label}
