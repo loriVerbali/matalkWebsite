@@ -1,37 +1,67 @@
-# Verbali Website
+# Verbali.io Website
 
-This is the official website for Verbali, an AI-powered communication platform that helps individuals express themselves through advanced assistive technology.
+A modern React TypeScript website inspired by Verbali.io, featuring AI-powered meeting transcription services.
 
 ## Features
 
-- Modern, responsive design built with React and Tailwind CSS
-- Static content showcase for the Verbali platform
-- Blog section with articles about AI communication technology
-- Testimonials and user stories
-- Contact and privacy information
+- Modern React with TypeScript
+- Tailwind CSS for styling
+- Vite for fast development and building
+- Responsive design
+- Component-based architecture
 
-## Development
+## Getting Started
 
-This is a Vite + React application.
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn
 
 ### Installation
+
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Running locally
+2. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-### Building for production
+3. Open your browser and navigate to `http://localhost:5173`
 
-```bash
-npm run build
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Project Structure
+
+```
+src/
+├── components/     # React components
+├── data/          # Static data files
+├── guidelines/     # Project guidelines
+├── styles/        # CSS and styling files
+├── App.tsx        # Main application component
+└── main.tsx       # Application entry point
 ```
 
-## Contact
+## Technologies Used
 
-For more information about Verbali, please contact us at info@verbali.io.
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Lucide React (icons)
+- Class Variance Authority
+- ESLint
+
+## Development
+
+The project uses Vite for fast development with hot module replacement. All components are written in TypeScript with proper type safety.
