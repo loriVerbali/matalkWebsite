@@ -7,11 +7,7 @@ const robotDog1 = "/images/verbiFlying.png";
 const robotDog2 = "/images/verbiFlyingRight.png";
 const playfulRobotDog = "/images/verbiBall.png";
 
-interface DemoProps {
-  onNavigate?: (page: string) => void;
-}
-
-export function Demo({ onNavigate }: DemoProps) {
+export function Demo() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);

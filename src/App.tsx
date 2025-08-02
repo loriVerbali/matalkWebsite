@@ -151,9 +151,7 @@ export default function App() {
   const renderMainContent = () => {
     switch (currentPage) {
       case "pricing":
-        return (
-          <Pricing onBack={handleBackToHome} onNavigate={handleNavigation} />
-        );
+        return <Pricing onBack={handleBackToHome} />;
 
       case "about-us":
         return <AboutUs onBack={handleBackToHome} />;
@@ -188,7 +186,7 @@ export default function App() {
       default:
         return (
           <>
-            <Hero onNavigate={handleNavigation} />
+            <Hero />
             <div className="mb-8 sm:mb-0">
               <Struggle />
             </div>
@@ -196,7 +194,7 @@ export default function App() {
               <Features />
             </div>
             <div className="mb-8 sm:mb-0">
-              <Demo onNavigate={handleNavigation} />
+              <Demo />
             </div>
             <div className="mb-8 sm:mb-0">
               <CoreValues />
@@ -208,7 +206,7 @@ export default function App() {
               <FAQ onNavigate={handleNavigation} />
             </div>
             <div className="mb-8 sm:mb-0">
-              <CTA onNavigate={handleNavigation} />
+              <CTA />
             </div>
             <Footer onNavigate={handleNavigation} />
           </>

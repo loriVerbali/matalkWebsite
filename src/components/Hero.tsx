@@ -3,11 +3,7 @@ const appStoreButton = "/images/black.svg";
 const runningRobotDog = "/images/chasingBall.png";
 import { motion } from "framer-motion";
 
-interface HeroProps {
-  onNavigate?: (page: "waitlist") => void;
-}
-
-export function Hero({ onNavigate }: HeroProps = {}) {
+export function Hero() {
   return (
     <section className="py-24 sm:mobile-section-padding bg-gradient-to-b from-purple-100/50 to-blue-100/50 relative overflow-hidden mobile-no-overflow">
       {/* Static Robot Dog on Section Border - Hidden on mobile for cleaner design */}
