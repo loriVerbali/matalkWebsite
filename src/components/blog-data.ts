@@ -1,13 +1,14 @@
-import { BlogPost } from './blog-types';
+import { BlogPost, BlogFilters } from "./blog-types";
 
-const STORAGE_KEY = 'matalk_blog_posts';
+const STORAGE_KEY = "matalk_blog_posts";
 
 // Default blog posts
 const defaultBlogPosts: BlogPost[] = [
   {
-    id: '1',
-    title: 'The Future of AAC: How AI is Transforming Communication',
-    excerpt: 'Explore how artificial intelligence is revolutionizing Augmentative and Alternative Communication, making it more intuitive and accessible than ever before.',
+    id: "1",
+    title: "The Future of AAC: How AI is Transforming Communication",
+    excerpt:
+      "Explore how artificial intelligence is revolutionizing Augmentative and Alternative Communication, making it more intuitive and accessible than ever before.",
     content: `
 # The Future of AAC: How AI is Transforming Communication
 
@@ -48,18 +49,20 @@ As we continue to develop Ma-Talk AI, we're focused on making communication as n
 
 *What aspects of AI-powered AAC are you most excited about? Share your thoughts with our community.*
     `,
-    author: 'Dr. Sarah Chen',
-    authorRole: 'Lead AI Researcher',
-    publishDate: '2024-01-15',
-    tags: ['AI', 'AAC', 'Technology', 'Innovation'],
+    author: "Dr. Sarah Chen",
+    authorRole: "Lead AI Researcher",
+    publishDate: "2024-01-15",
+    tags: ["AI", "AAC", "Technology", "Innovation"],
     featured: true,
-    imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    readTime: 5
+    imageUrl:
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    readTime: 5,
   },
   {
-    id: '2',
-    title: 'Building Inclusive Communication Environments',
-    excerpt: 'Learn practical strategies for creating environments that support and encourage communication for all users, regardless of their communication method.',
+    id: "2",
+    title: "Building Inclusive Communication Environments",
+    excerpt:
+      "Learn practical strategies for creating environments that support and encourage communication for all users, regardless of their communication method.",
     content: `
 # Building Inclusive Communication Environments
 
@@ -104,18 +107,20 @@ Our platform is designed with these principles in mind, offering:
 
 Creating inclusive communication environments benefits everyone. When we design for accessibility, we create better experiences for all users.
     `,
-    author: 'Maria Rodriguez',
-    authorRole: 'Inclusive Design Specialist',
-    publishDate: '2024-01-10',
-    tags: ['Inclusion', 'Accessibility', 'Design', 'Community'],
+    author: "Maria Rodriguez",
+    authorRole: "Inclusive Design Specialist",
+    publishDate: "2024-01-10",
+    tags: ["Inclusion", "Accessibility", "Design", "Community"],
     featured: false,
-    imageUrl: 'https://images.unsplash.com/photo-1529390079861-591de354faf5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    readTime: 4
+    imageUrl:
+      "https://images.unsplash.com/photo-1529390079861-591de354faf5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    readTime: 4,
   },
   {
-    id: '3',
-    title: 'AAC Success Stories: Real Users, Real Impact',
-    excerpt: 'Discover inspiring stories from Ma-Talk AI users who have transformed their communication experiences and connected with their communities.',
+    id: "3",
+    title: "AAC Success Stories: Real Users, Real Impact",
+    excerpt:
+      "Discover inspiring stories from Ma-Talk AI users who have transformed their communication experiences and connected with their communities.",
     content: `
 # AAC Success Stories: Real Users, Real Impact
 
@@ -155,14 +160,15 @@ Every user's journey is unique, and we'd love to hear about yours. Whether you'r
 
 *Ready to start your own success story? Join our community today.*
     `,
-    author: 'James Thompson',
-    authorRole: 'Community Manager',
-    publishDate: '2024-01-05',
-    tags: ['Success Stories', 'Community', 'User Experience', 'Impact'],
+    author: "James Thompson",
+    authorRole: "Community Manager",
+    publishDate: "2024-01-05",
+    tags: ["Success Stories", "Community", "User Experience", "Impact"],
     featured: true,
-    imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    readTime: 3
-  }
+    imageUrl:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    readTime: 3,
+  },
 ];
 
 export function getBlogPosts(): BlogPost[] {
@@ -173,7 +179,7 @@ export function getBlogPosts(): BlogPost[] {
       return Array.isArray(posts) ? posts : defaultBlogPosts;
     }
   } catch (error) {
-    console.error('Error loading blog posts:', error);
+    console.error("Error loading blog posts:", error);
   }
   return defaultBlogPosts;
 }
@@ -182,27 +188,30 @@ export function saveBlogPosts(posts: BlogPost[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
   } catch (error) {
-    console.error('Error saving blog posts:', error);
+    console.error("Error saving blog posts:", error);
   }
 }
 
-export function addBlogPost(post: Omit<BlogPost, 'id'>): BlogPost {
+export function addBlogPost(post: Omit<BlogPost, "id">): BlogPost {
   const posts = getBlogPosts();
   const newPost: BlogPost = {
     ...post,
-    id: Date.now().toString()
+    id: Date.now().toString(),
   };
   posts.unshift(newPost);
   saveBlogPosts(posts);
   return newPost;
 }
 
-export function updateBlogPost(id: string, updates: Partial<BlogPost>): BlogPost | null {
+export function updateBlogPost(
+  id: string,
+  updates: Partial<BlogPost>
+): BlogPost | null {
   const posts = getBlogPosts();
-  const index = posts.findIndex(post => post.id === id);
-  
+  const index = posts.findIndex((post) => post.id === id);
+
   if (index === -1) return null;
-  
+
   posts[index] = { ...posts[index], ...updates };
   saveBlogPosts(posts);
   return posts[index];
@@ -210,16 +219,19 @@ export function updateBlogPost(id: string, updates: Partial<BlogPost>): BlogPost
 
 export function deleteBlogPost(id: string): boolean {
   const posts = getBlogPosts();
-  const filteredPosts = posts.filter(post => post.id !== id);
-  
+  const filteredPosts = posts.filter((post) => post.id !== id);
+
   if (filteredPosts.length === posts.length) return false;
-  
+
   saveBlogPosts(filteredPosts);
   return true;
 }
 
-export function filterBlogPosts(posts: BlogPost[], filters: BlogFilters): BlogPost[] {
-  return posts.filter(post => {
+export function filterBlogPosts(
+  posts: BlogPost[],
+  filters: BlogFilters
+): BlogPost[] {
+  return posts.filter((post) => {
     if (filters.featured !== undefined && post.featured !== filters.featured) {
       return false;
     }
@@ -236,8 +248,8 @@ export function filterBlogPosts(posts: BlogPost[], filters: BlogFilters): BlogPo
 export function getAllTags(): string[] {
   const posts = getBlogPosts();
   const tagSet = new Set<string>();
-  posts.forEach(post => {
-    post.tags.forEach(tag => tagSet.add(tag));
+  posts.forEach((post) => {
+    post.tags.forEach((tag) => tagSet.add(tag));
   });
   return Array.from(tagSet).sort();
 }
@@ -245,6 +257,6 @@ export function getAllTags(): string[] {
 export function getAllAuthors(): string[] {
   const posts = getBlogPosts();
   const authorSet = new Set<string>();
-  posts.forEach(post => authorSet.add(post.author));
+  posts.forEach((post) => authorSet.add(post.author));
   return Array.from(authorSet).sort();
 }

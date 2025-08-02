@@ -3,10 +3,9 @@ import { Button } from "./ui/button";
 
 interface PricingProps {
   onBack: () => void;
-  onNavigate: (destination: string) => void;
 }
 
-export function Pricing({ onBack, onNavigate }: PricingProps) {
+export function Pricing({ onBack }: PricingProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 py-12">
       <div className="max-w-6xl mx-auto px-4">

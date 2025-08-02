@@ -1,8 +1,4 @@
-interface CTAProps {
-  onNavigate?: (page: "waitlist") => void;
-}
-
-export function CTA({ onNavigate }: CTAProps = {}) {
+export function CTA() {
   return (
     <section className="py-20 bg-gradient-primary text-white">
       <div className="max-w-7xl mx-auto px-4">
