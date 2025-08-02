@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PrivacyPolicyStandalone() {
   return (
     <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
