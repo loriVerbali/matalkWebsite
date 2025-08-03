@@ -1,6 +1,6 @@
 # Verbali.io Website
 
-A modern React TypeScript website inspired by Verbali.io, featuring AI-powered meeting transcription services.
+A modern React TypeScript website inspired by Verbali.io, featuring Verbali.io - AI meets AAC transcription services.
 
 ## Features
 
