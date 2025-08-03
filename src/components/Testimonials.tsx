@@ -813,8 +813,12 @@ export function Testimonials() {
 
               {/* Quote text */}
               <div className="text-center mb-8 mt-4">
-                <p className="text-slate-700 leading-relaxed text-lg lg:text-xl italic font-medium">
+                {/* Show highlight on mobile, full quote on desktop */}
+                <p className="text-slate-700 leading-relaxed text-lg lg:text-xl italic font-medium hidden lg:block">
                   "{currentTestimonial.quote}"
+                </p>
+                <p className="text-slate-700 leading-relaxed text-base italic font-medium lg:hidden">
+                  "{currentTestimonial.highlight}"
                 </p>
               </div>
 
