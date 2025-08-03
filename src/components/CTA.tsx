@@ -12,16 +12,16 @@ export function CTA() {
           </p>
           <div className="flex justify-center items-center">
             <a
-              href="https://apps.apple.com/app/ma-talk-ai"
+              href="https://apps.apple.com/us/app/ma-talk-ai/id6747360381"
               target="_blank"
               rel="noopener noreferrer"
               className="group transition-transform duration-200 hover:scale-105"
             >
-              {/* <img
-                src={appStoreButton}
+              <img
+                src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
                 alt="Download on the App Store"
                 className="h-14 w-auto transition-all duration-200"
-              /> */}
+              />
             </a>
           </div>
           <p className="caption opacity-75 mt-6">

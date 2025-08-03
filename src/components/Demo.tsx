@@ -143,10 +143,7 @@ export function Demo() {
   };
 
   return (
-    <section
-      id="demo"
-      className="mobile-section-padding lg:py-28 bg-gradient-to-br from-purple-50/70 via-blue-50/60 to-indigo-50/70 relative overflow-hidden mobile-no-overflow"
-    >
+    <section className="mobile-section-padding lg:py-28 bg-lavender-50 relative overflow-hidden mobile-no-overflow">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/30 via-transparent to-blue-100/40"></div>
 

@@ -12,9 +12,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 // Placeholder images - replace with actual images when available
 const dogImage = "/images/verbiPose.png";
-const karateChopGif = "/images/verbiPose.png";
-const communityGif = "/images/community.png";
-const innovationGif = "/images/artificial-intelligence.png";
+const karateChopGif = "/images/karate.gif";
+const communityGif = "/images/people-celebrating.gif";
+const innovationGif = "/images/out-of-the-box.gif";
 
 export function CoreValues() {
   const [activeValue, setActiveValue] = useState(0);
@@ -173,10 +173,7 @@ export function CoreValues() {
   };
 
   return (
-    <section
-      id="core-values"
-      className="py-12 lg:py-16 bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-pink-50/30 relative overflow-hidden min-h-screen flex items-center"
-    >
+    <section className="py-12 lg:py-16 bg-lavender-50 relative overflow-hidden min-h-screen flex items-center">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {/* Floating speech bubbles */}
@@ -588,17 +585,22 @@ export function CoreValues() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 max-w-xl mx-auto border border-white/50">
-              <p className="text-slate-600 italic leading-relaxed text-sm">
-                "Like Shay said, AAC should be intuitive, fast, and empowering.
-                Our values ensure every feature we build serves that
-                mission—helping every child find their unique voice."
-              </p>
-              <div className="flex items-center justify-center mt-3 space-x-2">
-                <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-purple-600">
-                  The Verbali Team
-                </span>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/50 overflow-hidden max-w-xl mx-auto">
+              {/* Gradient Top Border */}
+              <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+
+              <div className="p-6">
+                <p className="text-slate-600 italic leading-relaxed text-sm">
+                  "Like Shay said, AAC should be intuitive, fast, and
+                  empowering. Our values ensure every feature we build serves
+                  that mission—helping every child find their unique voice."
+                </p>
+                <div className="flex items-center justify-center mt-4 space-x-2">
+                  <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-purple-600">
+                    The Verbali Team
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>

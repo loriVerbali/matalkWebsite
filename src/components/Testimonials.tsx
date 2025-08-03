@@ -515,7 +515,7 @@ export function Testimonials() {
   const currentTestimonial = displayTestimonials[currentIndex];
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-blue-50/30 relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-lavender-50 relative overflow-hidden">
       {/* Floating Testimonial Watermarks */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Floating Thumbs Up Icons */}
