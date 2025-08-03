@@ -2,11 +2,8 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import { motion } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight, ThumbsUp, Star } from "lucide-react";
 import { useState, useEffect } from "react";
-import {
-  Testimonial,
-  getDisplayedTestimonials,
-  listenForTestimonialsUpdates,
-} from "./testimonials-data";
+import { Testimonial } from "./testimonials-types";
+import testimonialsData from "./testimonials-data.json";
 const testimonialsInspiration = "/images/abc.png";
 
 export function Testimonials() {
@@ -17,24 +14,17 @@ export function Testimonials() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load testimonials from database
+    // Load testimonials from JSON data
     const loadTestimonials = () => {
-      const testimonials = getDisplayedTestimonials();
-      setDisplayTestimonials(testimonials);
+      const displayed = testimonialsData.filter(
+        (t: Testimonial) => t.displayed
+      );
+      setDisplayTestimonials(displayed);
       setIsLoading(false);
     };
 
     // Initial load
     loadTestimonials();
-
-    // Listen for updates
-    const cleanup = listenForTestimonialsUpdates((updatedTestimonials) => {
-      const displayed = updatedTestimonials.filter((t) => t.displayed);
-      setDisplayTestimonials(displayed);
-      setCurrentIndex(0); // Reset to first testimonial
-    });
-
-    return cleanup;
   }, []);
 
   // Navigation functions
