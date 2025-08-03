@@ -10,7 +10,7 @@ interface MissionProps {
 
 export function Mission({ onBack }: MissionProps) {
   return (
-    <div className="min-h-screen bg-lavender-50 relative">
+    <div className="min-h-screen bg-white relative">
       {/* Background Parachuting Dogs */}
       <FloatingWatermark />
 

@@ -18,7 +18,7 @@ interface LeadershipProps {
 
 export function Leadership({ onBack }: LeadershipProps) {
   return (
-    <div className="min-h-screen bg-lavender-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-violet-600/10">
         <div className="max-w-4xl mx-auto px-4 py-6">

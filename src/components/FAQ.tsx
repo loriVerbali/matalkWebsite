@@ -15,10 +15,7 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
   const handleAction = useFAQActions(onNavigate);
 
   return (
-    <section
-      id="faq"
-      className="py-20 lg:py-28 bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/60 relative overflow-hidden"
-    >
+    <section className="py-20 lg:py-28 bg-lavender-50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 via-transparent to-indigo-100/40"></div>
 
@@ -67,7 +64,6 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
               src={graduationRobotDog}
               alt="Ma-Talk AI graduation companion"
               className="w-24 h-24 object-contain drop-shadow-xl"
-              style={{ transform: "scaleX(-1)" }}
             />
           </div>
 

@@ -5,7 +5,7 @@ const sleepingRobotDog = "/images/verbiSleeping.png";
 
 export function Struggle() {
   return (
-    <section className="pt-16 pb-20 sm:mobile-section-padding lg:py-28 bg-gradient-to-br from-purple-50/80 via-white to-blue-50/60 relative overflow-hidden mobile-no-overflow">
+    <section className="pt-16 pb-20 sm:mobile-section-padding lg:py-28 bg-lavender-50 relative overflow-hidden mobile-no-overflow">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-transparent to-blue-100/30"></div>
 

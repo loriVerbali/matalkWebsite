@@ -7,7 +7,10 @@ const maTalkLogo = "/images/MatalkLogoWeb.png";
 
 export function Features() {
   return (
-    <section id="features" className="relative py-20 overflow-hidden">
+    <section
+      id="features"
+      className="relative py-20 overflow-hidden bg-lavender-50"
+    >
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100"></div>
 
@@ -550,7 +553,7 @@ export function Features() {
                 >
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-indigo-500 rounded-lg blur-sm opacity-20 animate-pulse"></div>
-                    <span className="relative px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-violet-700 bg-gradient-to-r from-violet-50 to-indigo-50 border sm:border-2 border-violet-200 rounded-full sm:rounded-lg shadow-lg flex items-center gap-1 sm:gap-2">
+                    <span className="relative px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-violet-700 bg-gradient-to-r from-violet-50 to-indigo-50 border sm:border-2 border-violet-200 rounded-full sm:rounded-lg shadow-lg flex items-center justify-center gap-1 sm:gap-2">
                       <svg
                         className="w-3 h-3 sm:w-4 sm:h-4 text-violet-600"
                         fill="currentColor"
@@ -583,39 +586,39 @@ export function Features() {
                 like a real conversation partner. empowering users to speak up
                 faster and more naturally than ever before.
               </motion.p>
-
-              {/* Verbali Logo as "stamp" positioned between paragraph and Empowering card */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.3, rotate: -15 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
-                whileHover={{
-                  scale: 1.15,
-                  rotate: 0,
-                  transition: {
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 15,
-                  },
-                }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.8,
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 12,
-                }}
-                className="absolute bottom-4 right-4 sm:top-2 sm:right-8 cursor-pointer"
-              >
-                <img
-                  src={maTalkLogo}
-                  alt="Verbali Logo"
-                  className="w-10 h-10 sm:w-[70px] sm:h-[70px] object-contain opacity-90 rounded-[16px]"
-                  style={{
-                    filter: "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15))",
-                  }}
-                />
-              </motion.div>
             </div>
+
+            {/* Verbali Logo positioned above and to the right - mobile only */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.3, rotate: -15 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
+              whileHover={{
+                scale: 1.15,
+                rotate: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 15,
+                },
+              }}
+              transition={{
+                duration: 1.2,
+                delay: 0.8,
+                type: "spring",
+                stiffness: 120,
+                damping: 12,
+              }}
+              className="absolute top-4 right-4 cursor-pointer z-20 md:hidden"
+            >
+              <img
+                src={maTalkLogo}
+                alt="Verbali Logo"
+                className="w-12 h-12 object-contain opacity-90 rounded-[16px]"
+                style={{
+                  filter: "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15))",
+                }}
+              />
+            </motion.div>
 
             {/* Three Feature Columns */}
             <div className="grid md:grid-cols-3 gap-8">
