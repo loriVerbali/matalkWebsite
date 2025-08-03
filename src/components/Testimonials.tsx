@@ -811,34 +811,16 @@ export function Testimonials() {
                 <Quote className="w-12 h-12 text-purple-600" />
               </div>
 
-              {/* Quote text */}
-              <div className="text-center mb-8 mt-4">
-                {/* Show highlight on mobile, full quote on desktop */}
-                <p className="text-slate-700 leading-relaxed text-lg lg:text-xl italic font-medium hidden lg:block">
-                  "{currentTestimonial.quote}"
-                </p>
-                <p className="text-slate-700 leading-relaxed text-base italic font-medium lg:hidden">
-                  "{currentTestimonial.highlight}"
-                </p>
-              </div>
-
-              {/* Author info */}
-              <div className="flex flex-col items-center text-center">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="mb-4"
-                >
-                  <Avatar className="h-16 w-16 ring-4 ring-purple-100 mx-auto">
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white font-medium text-xl">
-                      {currentTestimonial.avatar}
-                    </AvatarFallback>
-                  </Avatar>
-                </motion.div>
-
+              {/* Author info at the top */}
+              <div className="flex flex-col items-center text-center mb-6">
                 <div>
                   <div className="font-semibold text-slate-900 mb-1 text-lg">
                     {currentTestimonial.author}
+                    {currentTestimonial.credentials && (
+                      <span className="text-purple-600 ml-2 font-normal">
+                        {currentTestimonial.credentials}
+                      </span>
+                    )}
                   </div>
                   <div className="text-slate-600 mb-1">
                     {currentTestimonial.role}
@@ -848,7 +830,26 @@ export function Testimonials() {
                       {currentTestimonial.company}
                     </div>
                   )}
+                  {currentTestimonial.website && (
+                    <div className="text-xs text-slate-500 mt-1">
+                      <a
+                        href={`https://${currentTestimonial.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-purple-600 transition-colors duration-200 underline"
+                      >
+                        {currentTestimonial.website}
+                      </a>
+                    </div>
+                  )}
                 </div>
+              </div>
+
+              {/* Quote text */}
+              <div className="text-center">
+                <p className="text-slate-700 leading-relaxed text-base lg:text-lg italic font-medium">
+                  "{currentTestimonial.quote}"
+                </p>
               </div>
             </div>
           </motion.div>

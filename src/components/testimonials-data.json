@@ -2,14 +2,13 @@
   {
     "id": "andrea-pham",
     "author": "Andrea Pham",
-    "credentials": "CCC-SLP",
+    "credentials": "MA, CCC-SLP",
     "role": "Speech-Language Pathologist",
     "company": "",
     "email": "andrea_l_pham@mcspmd.org",
-    "quote": "Ma-Talk Augmentative and Alternative Communication (AAC) has revolutionized how individuals with complex communication needs (CCNs) engage with the world. As technology rapidly evolves, the integration of Artificial Intelligence (AI) into AAC systems offers new possibilities. As a Speech-Language Pathologist (SLP), who specializes in AAC, we must navigate these advancements. Ma-Talk AAC leverages AI to: 1. Predict and personalize vocabulary based on user context and behavior, 2. Generate more natural-sounding voices (e.g., with possibilities to use the user's voice, etc.) 3. Symbol selection using real images, written text, and speaking messages for multi-modal learners, 4. Enhance accessibility (e.g., available on any iPhone, etc.), and 5. Analyze usage data to inform clinical decisions and collect data on communication critical to monitoring progress, which cuts paperwork time for the SLPs instead prioritizing the most important thing—therapy.",
-    "highlight": "Ma-Talk AAC leverages AI to revolutionize how individuals with complex communication needs engage with the world.",
+    "quote": "...Ma-Talk Augmentative and Alternative Communication (AAC) has revolutionized how individuals with complex communication needs (CCNs) engage with the world...",
     "avatar": "AP",
-    "featured": true,
+    "featured": false,
     "displayed": true
   },
   {
@@ -17,8 +16,7 @@
     "author": "Kate Falls",
     "role": "Director of Inclusion",
     "company": "Bender JCC of Greater Washington",
-    "quote": "My name is Kate Falls and I am the Director of Inclusion at the Bender JCC and a former special education teacher. I have known Shay's son Matan since he first became a part of the Bender JCC community. Matan is bright, expressive and truly a light in our community. I know he has so much to say but Matan's parents have not found the right AAC device for him. Shay Cohen approached me and asked me to learn more about his new AAC platform Ma-Talk. I will admit, at first, I was skeptical, how could we possibly invent a new type of AAC software? It is safe to say, I was wrong. Ma-Talk is a one-of-a-kind AAC software that makes implementation easy for parents, friends and community supports. Traditional AAC software requires extensive training to use and model. For friends, babysitters or parents this type of training simply does not exist. Ma-Talk is extremely intuitive and user friendly. Anyone, regardless of their training with AAC, can use Ma-Talk to communicate with Matan. This will open so many doors for children just like Matan to be a part of their community.",
-    "highlight": "Ma-Talk is intuitive and user-friendly, opening doors for children like Matan to be part of their community.",
+    "quote": "...This will open so many doors for children just like Matan to be a part of their community...",
     "avatar": "KF",
     "featured": false,
     "displayed": true
@@ -30,9 +28,20 @@
     "role": "Speech-Language Pathologist",
     "company": "",
     "website": "www.sherylstevens.com",
-    "quote": "As a certified pediatric SLP, I have seen the difficulties, limitations, and drawbacks to current AAC devices and how cumbersome they can be for little ones to carry around. Although AAC devices have extensive word banks, the vocabulary is still limited compared to natural speech. Users may not be able to express everything they want to say, particularly in spontaneous or complex conversations. Verbali has knocked down those barriers and allows for so much potential for more natural social interactions, streamlined data for progress of use, and a way for SLPs to identify the expressive and receptive needs of the user. And the fact that it is accessed from a tablet, phone, or even watch allows for access at any time. The potential for use in school, home, and across various environments in the community is limitless.",
-    "highlight": "Verbali breaks communication barriers, enabling natural social interactions and streamlined data tracking.",
+    "quote": "...Verbali has knocked down those barriers and allows for so much potential for more natural social interactions, streamlined data for progress of use, and a way for SLPs to identify the expressive and receptive needs of the user...",
     "avatar": "SS",
+    "featured": false,
+    "displayed": true
+  },
+  {
+    "id": "talia-waldstreicher",
+    "author": "Talia Waldstreicher",
+    "credentials": "M.S. BCBA LBA",
+    "role": "Licensed Behavior Analyst",
+    "company": "",
+    "website": "",
+    "quote": "...This is more than a techlological advancement-it's a chance to give a voice to childeren who've never had one...",
+    "avatar": "TW",
     "featured": false,
     "displayed": true
   },
@@ -42,8 +51,8 @@
     "credentials": "MA, CCC-SLP",
     "role": "Speech-Language Pathologist, Owner",
     "company": "Speech Therapy Solutions, LLC",
-    "quote": "I recently had the privilege of testing a new communication product, Ma-Talk, and I was truly impressed by its innovative approach. This technology is a major step forward in an industry that has seen limited advancements. This product offers individuals with access to cutting-edge technology while giving people with communication needs more fluid, effective, and timely interactions. By enhancing accessibility with the use of predictive language and simple access points, Ma-Talk has the potential to significantly improve the daily lives of its users, fostering greater independence and inclusion. Its impact will be profound, setting a new standard for assistive communication and revolutionizing the way people connect.",
-    "highlight": "Ma-Talk sets a new standard in assistive communication with predictive language and simple access points.",
+    "website": "https://www.speechtherapyllc.com/",
+    "quote": "...This technology is a major step forward in an industry that has seen limited advancements...",
     "avatar": "DG",
     "featured": false,
     "displayed": true
