@@ -8,7 +8,11 @@ const robotDog1 = "/images/verbiFlying.png";
 const robotDog2 = "/images/verbiFlyingRight.png";
 const playfulRobotDog = "/images/verbiBall.png";
 
-export function Demo() {
+interface DemoProps {
+  onNavigate?: (destination: string) => void;
+}
+
+export function Demo({ onNavigate }: DemoProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -192,7 +196,10 @@ export function Demo() {
   };
 
   return (
-    <section className="mobile-section-padding lg:py-28 bg-lavender-50 relative overflow-hidden mobile-no-overflow">
+    <section
+      id="demo-section"
+      className="mobile-section-padding lg:py-28 bg-lavender-50 relative overflow-hidden mobile-no-overflow"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/30 via-transparent to-blue-100/40"></div>
 
@@ -225,7 +232,22 @@ export function Demo() {
             className="lead text-slate-600 max-w-3xl mx-auto"
           >
             Watch our demo to see how Ma-Talk AI transforms AAC communication,
-            and listen to our product overview podcast
+            and listen to our product overview podcast.{" "}
+            <button
+              onClick={() => {
+                analytics.trackInteraction("Demo Playground Link Clicked", {
+                  source: "demo_section",
+                  destination: "playground",
+                });
+                // Navigate to playground using the same navigation system
+                if (onNavigate) {
+                  onNavigate("taste-of-matalk-ai");
+                }
+              }}
+              className="text-violet-600 hover:text-violet-700 font-semibold underline transition-colors cursor-pointer"
+            >
+              Or try out the Playground
+            </button>
           </motion.p>
         </div>
 

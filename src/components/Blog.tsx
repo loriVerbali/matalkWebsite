@@ -433,87 +433,6 @@ export function Blog({ onBack }: BlogProps) {
           </div>
         </div>
 
-        {/* Featured Posts */}
-        {!searchTerm && !Object.keys(filters).length && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6 mt-8">
-              Featured Articles
-            </h2>
-            <div className="grid lg:grid-cols-2 gap-8">
-              {posts
-                .filter((post) => post.featured)
-                .slice(0, 2)
-                .map((post) => (
-                  <Card
-                    key={post.id}
-                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-                    onClick={() => {
-                      setSelectedPost(post);
-                      analytics.trackInteraction("Blog Post Viewed", {
-                        post_id: post.id,
-                        post_title: post.title,
-                        post_author: post.author,
-                        post_tags: post.tags,
-                        post_category: "featured",
-                        read_time: post.readTime,
-                      });
-                    }}
-                  >
-                    {post.imageUrl && (
-                      <div className="relative h-48 overflow-hidden">
-                        <ImageWithFallback
-                          src={post.imageUrl}
-                          alt={post.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <Badge className="bg-violet-600 text-white">
-                            Featured
-                          </Badge>
-                        </div>
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.slice(0, 3).map((tag: string) => (
-                          <Badge
-                            key={tag}
-                            variant="secondary"
-                            className="bg-violet-100 text-violet-600 text-xs"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                      <h3 className="text-xl font-semibold text-slate-900 mb-2 line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-slate-600 mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between text-sm text-slate-500">
-                        <div className="flex items-center gap-2">
-                          <User className="w-3 h-3" />
-                          <span>{post.author}</span>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3" />
-                            <span>{formatDate(post.publishDate)}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            <span>{post.readTime} min</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-            </div>
-          </div>
-        )}
-
         {/* All Posts */}
         <div>
           <h2 className="text-2xl font-semibold text-slate-900 mb-6 mt-8">
@@ -560,13 +479,6 @@ export function Blog({ onBack }: BlogProps) {
                         alt={post.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
-                      {post.featured && (
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-violet-600 text-white text-xs">
-                            Featured
-                          </Badge>
-                        </div>
-                      )}
                     </div>
                   )}
                   <div className="p-4">

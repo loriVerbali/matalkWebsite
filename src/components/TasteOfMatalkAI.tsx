@@ -3,6 +3,7 @@ import { ArrowLeft, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import maTalkLogo from "/images/MatalkLogoWeb.png";
+import tasteOfMatalkData from "./TasteOfMatalk.json";
 
 interface PlaygroundProps {
   onBack: () => void;
@@ -21,619 +22,105 @@ interface AnswerOption {
   isMore?: boolean;
 }
 
-const questions: Question[] = [
-  {
-    id: "school-day",
-    text: "Hey sweetie, how was your day at school today? What was your favorite part?",
-    category: "School",
-  },
-  {
-    id: "bedtime-routine",
-    text: "What a cozy car ride! When we get home, what do you want to do before bed?",
-    category: "Bedtime",
-  },
-  {
-    id: "school-week",
-    text: "Hey sweetheart! It's a cozy evening. What fun things did you do at school this week?",
-    category: "School",
-  },
-  {
-    id: "art-projects",
-    text: "That sounds like a great time! What art project did you enjoy the most at school?",
-    category: "Art",
-  },
-  {
-    id: "dentist-feelings",
-    text: "Hey buddy! We're at the dentist today. How are you feeling about that?",
-    category: "Feelings",
-  },
-  {
-    id: "dentist-activities",
-    text: "It's okay to feel nervous! What do you think we'll do here at the dentist?",
-    category: "Healthcare",
-  },
-  {
-    id: "airport-trip",
-    text: "Hey sweetheart! We're at the airport, how exciting! What are you most looking forward to on our trip?",
-    category: "Travel",
-  },
-  {
-    id: "breakfast-choice",
-    text: "Hey! Good morning! What do you want to eat for breakfast?",
-    category: "Food",
-  },
-  {
-    id: "morning-activities",
-    text: "Hey! Good morning! It's so sunny today! What should we do after breakfast?",
-    category: "Outdoor",
-  },
-  {
-    id: "shade-games",
-    text: "Great idea! Let's sit under that tree. What game do you want to play in the shade?",
-    category: "Games",
-  },
-  {
-    id: "winter-activities",
-    text: "Hey there! It's so cold and snowy outside. What fun things have you been thinking about doing this winter?",
-    category: "Winter",
-  },
-  {
-    id: "dream-about",
-    text: "Alright! It's bedtime now, but before you sleep, what do you want to dream about? 🎈",
-    category: "Dreams",
-  },
-  {
-    id: "train-station-see",
-    text: "Hi sweetie! We're at the train station on a windy day. What do you think we're going to see here? 🌬️🚆",
-    category: "Travel",
-  },
-  {
-    id: "train-station-wait",
-    text: "Hi honey! It's warm and windy here at the train station. What do you think would be fun to do while we wait? 🌬️🚉",
-    category: "Activities",
-  },
-  {
-    id: "movie-night",
-    text: "Hey sweetie! It's the weekend, and the weather is so nice. What movie do you want to watch tonight? 🌟",
-    category: "Entertainment",
-  },
-  {
-    id: "dentist-feelings-2",
-    text: "Hey sweetie, how are you feeling about being at the dentist today?",
-    category: "Feelings",
-  },
-];
+interface TasteOfMatalkItem {
+  question: string;
+  answers: Array<{
+    answer: string;
+    image_details: {
+      file_id: string;
+      file_name: string;
+      image_link: string;
+    };
+  }>;
+}
 
-const answerOptions: Record<string, AnswerOption[]> = {
-  "school-day": [
-    {
-      id: "playing-outside",
-      label: "Playing outside",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "story-time",
-      label: "Story time",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "snack-time",
-      label: "Snack time",
-      imageUrl:
-        "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=300&h=200&fit=crop",
-    },
-    {
-      id: "singing-songs",
-      label: "Singing songs",
-      imageUrl:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "drawing-pictures",
-      label: "Drawing pictures",
-      imageUrl:
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
-    },
-    { id: "more-school", label: "Get more answers", isMore: true },
-  ],
-  "bedtime-routine": [
-    {
-      id: "drink-warm-milk",
-      label: "Drink warm milk",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
-    },
-    {
-      id: "play-with-toys",
-      label: "Play with toys",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    {
-      id: "take-a-bath",
-      label: "Take a bath",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&h=200&fit=crop",
-    },
-    {
-      id: "sing-a-song",
-      label: "Sing a song",
-      imageUrl:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "read-a-story",
-      label: "Read a story",
-      imageUrl:
-        "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=200&fit=crop",
-    },
-    { id: "more-bedtime", label: "Get more answers", isMore: true },
-  ],
-  "school-week": [
-    {
-      id: "painting",
-      label: "Painting",
-      imageUrl:
-        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
-    },
-    {
-      id: "singing",
-      label: "Singing",
-      imageUrl:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "drawing",
-      label: "Drawing",
-      imageUrl:
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
-    },
-    {
-      id: "storytime",
-      label: "Storytime",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "playing",
-      label: "Playing",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    { id: "more-school-week", label: "Get more answers", isMore: true },
-  ],
-  "art-projects": [
-    {
-      id: "drawing",
-      label: "Drawing",
-      imageUrl:
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
-    },
-    {
-      id: "clay",
-      label: "Clay",
-      imageUrl:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
-    },
-    {
-      id: "paper-craft",
-      label: "Paper craft",
-      imageUrl:
-        "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "collage",
-      label: "Collage",
-      imageUrl:
-        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
-    },
-    {
-      id: "painting",
-      label: "Painting",
-      imageUrl:
-        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
-    },
-    { id: "more-art", label: "Get more answers", isMore: true },
-  ],
-  "dentist-feelings": [
-    {
-      id: "scared",
-      label: "Scared",
-      imageUrl:
-        "https://images.unsplash.com/photo-1541647376583-8934aaf3448a?w=300&h=200&fit=crop",
-    },
-    {
-      id: "happy",
-      label: "Happy",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop",
-    },
-    {
-      id: "nervous",
-      label: "Nervous",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "excited",
-      label: "Excited",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    {
-      id: "okay",
-      label: "Okay",
-      imageUrl:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
-    },
-    { id: "more-feelings", label: "Get more answers", isMore: true },
-  ],
-  "dentist-activities": [
-    {
-      id: "brush",
-      label: "Brush",
-      imageUrl:
-        "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=300&h=200&fit=crop",
-    },
-    {
-      id: "clean",
-      label: "Clean",
-      imageUrl:
-        "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=300&h=200&fit=crop",
-    },
-    {
-      id: "fix",
-      label: "Fix",
-      imageUrl:
-        "https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=300&h=200&fit=crop",
-    },
-    {
-      id: "look",
-      label: "Look",
-      imageUrl:
-        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300&h=200&fit=crop",
-    },
-    {
-      id: "checkup",
-      label: "Checkup",
-      imageUrl:
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=300&h=200&fit=crop",
-    },
-    { id: "more-dentist", label: "Get more answers", isMore: true },
-  ],
-  "airport-trip": [
-    {
-      id: "swimming",
-      label: "Swimming",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "beach",
-      label: "Beach",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop",
-    },
-    {
-      id: "animals",
-      label: "Animals",
-      imageUrl:
-        "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=300&h=200&fit=crop",
-    },
-    {
-      id: "toys",
-      label: "Toys",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    {
-      id: "ice-cream",
-      label: "Ice cream",
-      imageUrl:
-        "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=300&h=200&fit=crop",
-    },
-    { id: "more-trip", label: "Get more answers", isMore: true },
-  ],
-  "breakfast-choice": [
-    {
-      id: "cereal",
-      label: "Cereal",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    {
-      id: "eggs",
-      label: "Eggs",
-      imageUrl:
-        "https://images.unsplash.com/photo-1582169296194-9bcb03134c8a?w=300&h=200&fit=crop",
-    },
-    {
-      id: "toast",
-      label: "Toast",
-      imageUrl:
-        "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=200&fit=crop",
-    },
-    {
-      id: "banana",
-      label: "Banana",
-      imageUrl:
-        "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop",
-    },
-    {
-      id: "pancakes",
-      label: "Pancakes",
-      imageUrl:
-        "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=300&h=200&fit=crop",
-    },
-    { id: "more-breakfast", label: "Get more answers", isMore: true },
-  ],
-  "morning-activities": [
-    {
-      id: "ride-bikes",
-      label: "Ride bikes",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
-    },
-    {
-      id: "pick-flowers",
-      label: "Pick flowers",
-      imageUrl:
-        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
-    },
-    {
-      id: "feed-animals",
-      label: "Feed animals",
-      imageUrl:
-        "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=300&h=200&fit=crop",
-    },
-    {
-      id: "take-a-nap",
-      label: "Take a nap",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&h=200&fit=crop",
-    },
-    {
-      id: "play-outside",
-      label: "Play outside",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    { id: "more-morning", label: "Get more answers", isMore: true },
-  ],
-  "shade-games": [
-    {
-      id: "tag",
-      label: "Tag",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "simon-says",
-      label: "Simon says",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "duck-duck-goose",
-      label: "Duck duck goose",
-      imageUrl:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "hopscotch",
-      label: "Hopscotch",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "hide-and-seek",
-      label: "Hide and seek",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    { id: "more-games", label: "Get more answers", isMore: true },
-  ],
-  "winter-activities": [
-    {
-      id: "sledding",
-      label: "Sledding",
-      imageUrl:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
-    },
-    {
-      id: "hot-chocolate",
-      label: "Drinking hot chocolate",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
-    },
-    {
-      id: "snow-angels",
-      label: "Making snow angels",
-      imageUrl:
-        "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "playing-inside",
-      label: "Playing inside",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    {
-      id: "building-snowman",
-      label: "Building a snowman",
-      imageUrl:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=200&fit=crop",
-    },
-    { id: "more-winter", label: "Get more answers", isMore: true },
-  ],
-  "dream-about": [
-    {
-      id: "dinosaurs",
-      label: "Dinosaurs",
-      imageUrl:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
-    },
-    {
-      id: "space",
-      label: "Space",
-      imageUrl:
-        "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=300&h=200&fit=crop",
-    },
-    {
-      id: "butterflies",
-      label: "Butterflies",
-      imageUrl:
-        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
-    },
-    {
-      id: "puppies",
-      label: "Puppies",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    {
-      id: "unicorns",
-      label: "Unicorns",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    { id: "more-dreams", label: "Get more answers", isMore: true },
-  ],
-  "train-station-see": [
-    {
-      id: "people",
-      label: "People",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "bags",
-      label: "Bags",
-      imageUrl:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=200&fit=crop",
-    },
-    {
-      id: "tracks",
-      label: "Tracks",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
-    },
-    {
-      id: "birds",
-      label: "Birds",
-      imageUrl:
-        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
-    },
-    {
-      id: "train",
-      label: "Train",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
-    },
-    { id: "more-station", label: "Get more answers", isMore: true },
-  ],
-  "train-station-wait": [
-    {
-      id: "play-i-spy",
-      label: "Play I spy",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "draw-with-chalk",
-      label: "Draw with chalk",
-      imageUrl:
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
-    },
-    {
-      id: "play-tag",
-      label: "Play tag",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
-    },
-    {
-      id: "count-trains",
-      label: "Count trains",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
-    },
-    {
-      id: "blow-bubbles",
-      label: "Blow bubbles",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    { id: "more-wait", label: "Get more answers", isMore: true },
-  ],
-  "movie-night": [
-    {
-      id: "frozen",
-      label: "Frozen",
-      imageUrl:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=200&fit=crop",
-    },
-    {
-      id: "toy-story",
-      label: "Toy Story",
-      imageUrl:
-        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
-    },
-    {
-      id: "moana",
-      label: "Moana",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop",
-    },
-    {
-      id: "minions",
-      label: "Minions",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    {
-      id: "paw-patrol",
-      label: "Paw Patrol",
-      imageUrl:
-        "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=300&h=200&fit=crop",
-    },
-    { id: "more-movies", label: "Get more answers", isMore: true },
-  ],
-  "dentist-feelings-2": [
-    {
-      id: "okay",
-      label: "Okay",
-      imageUrl:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
-    },
-    {
-      id: "happy",
-      label: "Happy",
-      imageUrl:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop",
-    },
-    {
-      id: "nervous",
-      label: "Nervous",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
-    },
-    {
-      id: "excited",
-      label: "Excited",
-      imageUrl:
-        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
-    },
-    {
-      id: "scared",
-      label: "Scared",
-      imageUrl:
-        "https://images.unsplash.com/photo-1541647376583-8934aaf3448a?w=300&h=200&fit=crop",
-    },
-    { id: "more-feelings-2", label: "Get more answers", isMore: true },
-  ],
-};
+// Transform the JSON data into the format we need
+const questions: Question[] = tasteOfMatalkData.map(
+  (item: TasteOfMatalkItem, index) => ({
+    id: `question-${index}`,
+    text: item.question,
+    category: getCategoryFromQuestion(item.question),
+  })
+);
+
+const answerOptions: Record<string, AnswerOption[]> = {};
+
+tasteOfMatalkData.forEach((item: TasteOfMatalkItem, questionIndex) => {
+  const questionId = `question-${questionIndex}`;
+  answerOptions[questionId] = item.answers.map((answer, answerIndex) => ({
+    id: `answer-${questionIndex}-${answerIndex}`,
+    label: answer.answer,
+    imageUrl: `/tabletImages/${answer.image_details.file_name}.png`,
+  }));
+
+  // Add "Get More Answers" option
+  answerOptions[questionId].push({
+    id: `more-${questionIndex}`,
+    label: "Get More Answers",
+    imageUrl: "/images/cantfindIt.png",
+    isMore: true,
+  });
+});
+
+// Helper function to categorize questions
+function getCategoryFromQuestion(question: string): string {
+  const lowerQuestion = question.toLowerCase();
+
+  if (
+    lowerQuestion.includes("bedtime") ||
+    lowerQuestion.includes("sleep") ||
+    lowerQuestion.includes("dream")
+  ) {
+    return "Bedtime";
+  } else if (
+    lowerQuestion.includes("school") ||
+    lowerQuestion.includes("class")
+  ) {
+    return "School";
+  } else if (
+    lowerQuestion.includes("dentist") ||
+    lowerQuestion.includes("doctor")
+  ) {
+    return "Health";
+  } else if (
+    lowerQuestion.includes("breakfast") ||
+    lowerQuestion.includes("eat") ||
+    lowerQuestion.includes("food")
+  ) {
+    return "Food";
+  } else if (
+    lowerQuestion.includes("movie") ||
+    lowerQuestion.includes("watch")
+  ) {
+    return "Entertainment";
+  } else if (
+    lowerQuestion.includes("train") ||
+    lowerQuestion.includes("station")
+  ) {
+    return "Travel";
+  } else if (
+    lowerQuestion.includes("winter") ||
+    lowerQuestion.includes("snow") ||
+    lowerQuestion.includes("cold")
+  ) {
+    return "Weather";
+  } else if (
+    lowerQuestion.includes("morning") ||
+    lowerQuestion.includes("breakfast")
+  ) {
+    return "Morning";
+  } else if (
+    lowerQuestion.includes("art") ||
+    lowerQuestion.includes("draw") ||
+    lowerQuestion.includes("paint")
+  ) {
+    return "Art";
+  } else if (lowerQuestion.includes("home") || lowerQuestion.includes("bed")) {
+    return "Home";
+  } else {
+    return "General";
+  }
+}
 
 export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
@@ -642,11 +129,23 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState<string>("All");
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+  const [answerClickCount, setAnswerClickCount] = useState(() => {
+    // Initialize from localStorage
+    const stored = localStorage.getItem("matalk_answer_clicks");
+    return stored ? parseInt(stored, 10) : 0;
+  });
 
   // Get unique categories for filter
   const categories = [
     "All",
-    ...Array.from(new Set(questions.map((q) => q.category))),
+    ...Array.from(new Set(questions.map((q: Question) => q.category))),
   ];
 
   const handleQuestionSelect = (question: Question) => {
@@ -655,15 +154,41 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
     setShowSuccess(false);
   };
 
-  const handleAnswerSelect = (answerId: string, isMore?: boolean) => {
+  const handleAnswerSelect = (
+    answerId: string,
+    isMore?: boolean,
+    word?: string
+  ) => {
     if (isMore) {
       // Simulate "more answers" functionality
       setShowSuccess(false);
       return;
     }
 
+    // Speak the word if provided
+    if (word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.rate = 0.8;
+      utterance.pitch = 1.1;
+      speechSynthesis.speak(utterance);
+    }
+
     setSelectedAnswer(answerId);
     setShowSuccess(true);
+
+    // Increment click count and store in localStorage
+    const newCount = answerClickCount + 1;
+    setAnswerClickCount(newCount);
+    localStorage.setItem("matalk_answer_clicks", newCount.toString());
+
+    // Only show email form after 2 clicks and if not already shown in this session
+    const hasShownForm = sessionStorage.getItem("matalk_form_shown");
+    if (newCount >= 2 && !hasShownForm) {
+      setShowEmailForm(true);
+      sessionStorage.setItem("matalk_form_shown", "true");
+    }
+
+    setSubmitStatus({ type: null, message: "" });
 
     // Auto-hide success message after 2 seconds
     setTimeout(() => {
@@ -675,13 +200,93 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
     setSelectedQuestion(null);
     setSelectedAnswer(null);
     setShowSuccess(false);
+    setShowEmailForm(false);
+    setEmail("");
+    setSubmitStatus({ type: null, message: "" });
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const requestBody = {
+        email: email.trim(),
+        source: "website",
+      };
+
+      console.log("Sending request to API:", requestBody);
+
+      const response = await fetch(
+        "https://matalkwebsitebe-production.up.railway.app/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      console.log("Response status:", response.status);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+
+      const data = await response.json();
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: "success",
+          message: "Thank you! We'll be in touch soon.",
+        });
+        setEmail("");
+
+        setTimeout(() => {
+          setShowEmailForm(false);
+          setSelectedQuestion(null);
+          setSubmitStatus({ type: null, message: "" });
+        }, 3000);
+      } else {
+        let errorMessage = "Something went wrong. Please try again.";
+
+        if (response.status === 409) {
+          errorMessage = "This email is already registered.";
+        } else if (response.status === 429) {
+          errorMessage = "Too many requests. Please try again later.";
+        } else if (response.status === 400) {
+          console.log("API Error Response:", data);
+          errorMessage =
+            data.message || data.error || "Please enter a valid email address.";
+        }
+
+        setSubmitStatus({
+          type: "error",
+          message: errorMessage,
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Network error. Please check your connection and try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Filter questions based on selected category
   const filteredQuestions =
     selectedFilter === "All"
       ? questions
-      : questions.filter((question) => question.category === selectedFilter);
+      : questions.filter(
+          (question: Question) => question.category === selectedFilter
+        );
 
   return (
     <div className="min-h-screen bg-lavender-50">
@@ -748,7 +353,7 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
               {/* Topic Filter */}
               <div className="mb-8">
                 <div className="flex flex-wrap justify-center gap-3 mb-6">
-                  {categories.map((category) => (
+                  {categories.map((category: string) => (
                     <button
                       key={category}
                       onClick={() => setSelectedFilter(category)}
@@ -771,7 +376,7 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredQuestions.map((question, index) => (
+              {filteredQuestions.map((question: Question, index: number) => (
                 <motion.button
                   key={question.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -826,143 +431,204 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
               </button>
             </div>
 
-            {/* Tablet Mockup and Info Panel Side by Side */}
+            {/* Email Form or Tablet Mockup */}
             <div className="grid lg:grid-cols-3 gap-8">
-              {/* Tablet Mockup */}
-              <div className="lg:col-span-2 flex justify-center">
-                <div className="relative max-w-4xl w-full">
-                  {/* Tablet Frame */}
-                  <div className="bg-slate-800 rounded-[3rem] p-4 shadow-2xl">
-                    <div className="bg-slate-900 rounded-[2.5rem] p-3">
-                      <div
-                        className="rounded-[2rem] p-6 min-h-[500px] relative overflow-hidden"
-                        style={{ backgroundColor: "#FFF8E7" }}
-                      >
-                        {/* Status Bar */}
-                        <div className="flex justify-between items-center mb-6 text-sm text-slate-600">
-                          <span>2:34 PM Fri Jul 11</span>
-                          <div className="flex items-center space-x-2">
-                            <span>📶</span>
-                            <span>97%</span>
-                            <span>🔋</span>
-                          </div>
-                        </div>
+              {showEmailForm ? (
+                <div className="lg:col-span-2 flex justify-center">
+                  <div className="max-w-md w-full">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="bg-white rounded-2xl p-8 shadow-xl border border-violet-600/10"
+                    >
+                      <div className="text-center mb-8">
+                        <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                          Want to learn more?
+                        </h3>
+                        <p className="text-slate-600">
+                          Reach out to Ma-Talk AI to learn more
+                        </p>
+                      </div>
 
-                        {/* App Header */}
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="w-12 h-12 flex items-center justify-center">
-                            <img
-                              src="/images/michrophone.gif"
-                              alt="Microphone"
-                              className="w-full h-full object-contain"
-                            />
-                          </div>
-                          <div className="flex-1 mx-4 bg-white rounded-2xl p-4 shadow-sm">
-                            <p className="text-slate-800 font-medium text-center text-xs sm:text-sm md:text-base">
-                              {selectedQuestion.text}
-                            </p>
-                          </div>
-                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
-                            <span className="text-slate-700">🏠</span>
-                          </div>
-                        </div>
-
-                        {/* Answer Grid */}
-                        <div className="grid grid-cols-3 gap-4 mb-6">
-                          {answerOptions[selectedQuestion.id]?.map(
-                            (option, index) => (
-                              <motion.button
-                                key={option.id}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{
-                                  duration: 0.4,
-                                  delay: index * 0.1,
-                                }}
-                                onClick={() =>
-                                  handleAnswerSelect(option.id, option.isMore)
-                                }
-                                className={`relative bg-white rounded-2xl p-3 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-105 ${
-                                  selectedAnswer === option.id
-                                    ? "ring-4 ring-violet-400 shadow-xl"
-                                    : ""
-                                }`}
-                              >
-                                {option.isMore ? (
-                                  <>
-                                    <div className="aspect-square rounded-xl overflow-hidden mb-2 bg-white">
-                                      <img
-                                        src="/images/cantfindIt.png"
-                                        alt="Can't find it"
-                                        className="w-full h-full object-cover"
-                                      />
-                                    </div>
-                                    <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
-                                      <span className="sm:hidden">More</span>
-                                      <span className="hidden sm:inline">
-                                        Get More Answers
-                                      </span>
-                                    </p>
-                                  </>
-                                ) : (
-                                  <>
-                                    <div className="aspect-square rounded-xl overflow-hidden mb-2">
-                                      <ImageWithFallback
-                                        src={option.imageUrl || ""}
-                                        alt={option.label}
-                                        className="w-full h-full object-cover"
-                                      />
-                                    </div>
-                                    <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
-                                      {option.label}
-                                    </p>
-                                  </>
-                                )}
-                              </motion.button>
-                            )
-                          )}
-                        </div>
-
-                        {/* Bottom Navigation */}
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                          <div className="w-32 h-1.5 bg-slate-800 rounded-full"></div>
-                        </div>
-
-                        {/* Welcome Icon in Bottom Left */}
-                        <div className="absolute bottom-4 left-4">
-                          <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-lg">
-                            <img
-                              src="/images/welcome.png"
-                              alt="Welcome"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Success Message */}
-                        {showSuccess && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ duration: 0.4 }}
-                            className="absolute inset-x-6 top-24 bg-green-500 text-white rounded-2xl p-6 shadow-2xl z-10"
+                      <form onSubmit={handleEmailSubmit} className="space-y-6">
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-slate-700 mb-2"
                           >
-                            <div className="text-center">
-                              <div className="text-3xl mb-3">🎉</div>
-                              <p className="font-semibold text-lg">
-                                Great choice!
-                              </p>
-                              <p className="text-sm opacity-90 mt-1">
-                                Ma-Talk AI is learning
+                            Email Address
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200"
+                            required
+                          />
+                        </div>
+
+                        {submitStatus.type && (
+                          <div
+                            className={`p-4 rounded-xl text-sm ${
+                              submitStatus.type === "success"
+                                ? "bg-green-50 text-green-700 border border-green-200"
+                                : "bg-red-50 text-red-700 border border-red-200"
+                            }`}
+                          >
+                            {submitStatus.message}
+                          </div>
+                        )}
+
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full bg-gradient-to-r from-violet-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {isSubmitting ? "Submitting..." : "Submit"}
+                        </button>
+                      </form>
+
+                      <div className="mt-8 text-center">
+                        <p className="text-slate-500 text-sm mb-4">OR</p>
+                        <a
+                          href="https://apps.apple.com/us/app/ma-talk-ai/id6747360381"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group transition-transform duration-200 hover:scale-105 inline-block"
+                        >
+                          <img
+                            src="/images/black.svg"
+                            alt="Download on the App Store"
+                            className="h-12 w-auto transition-all duration-200"
+                          />
+                        </a>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              ) : (
+                <div className="lg:col-span-2 flex justify-center">
+                  <div className="relative max-w-4xl w-full">
+                    {/* Tablet Frame */}
+                    <div className="bg-slate-800 rounded-[3rem] p-4 shadow-2xl">
+                      <div className="bg-slate-900 rounded-[2.5rem] p-3">
+                        <div
+                          className="rounded-[2rem] p-6 min-h-[500px] relative overflow-hidden"
+                          style={{ backgroundColor: "#FFF8E7" }}
+                        >
+                          {/* Status Bar */}
+                          <div className="flex justify-between items-center mb-6 text-sm text-slate-600">
+                            <span>2:34 PM Fri Jul 11</span>
+                            <div className="flex items-center space-x-2">
+                              <span>📶</span>
+                              <span>97%</span>
+                              <span>🔋</span>
+                            </div>
+                          </div>
+
+                          {/* App Header */}
+                          <div className="flex items-center justify-between mb-6">
+                            <div className="w-12 h-12 flex items-center justify-center">
+                              <img
+                                src="/images/michrophone.gif"
+                                alt="Microphone"
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                            <div className="flex-1 mx-4 bg-white rounded-2xl p-4 shadow-sm">
+                              <p className="text-slate-800 font-medium text-center text-xs sm:text-sm md:text-base">
+                                {selectedQuestion.text}
                               </p>
                             </div>
-                          </motion.div>
-                        )}
+                            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+                              <span className="text-slate-700">🏠</span>
+                            </div>
+                          </div>
+
+                          {/* Answer Grid */}
+                          <div className="grid grid-cols-3 gap-4 mb-6">
+                            {answerOptions[selectedQuestion.id]?.map(
+                              (option: AnswerOption, index: number) => (
+                                <motion.button
+                                  key={option.id}
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{
+                                    duration: 0.4,
+                                    delay: index * 0.1,
+                                  }}
+                                  onClick={() =>
+                                    handleAnswerSelect(
+                                      option.id,
+                                      option.isMore,
+                                      option.label
+                                    )
+                                  }
+                                  className={`relative bg-white rounded-2xl p-3 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-105 ${
+                                    selectedAnswer === option.id
+                                      ? "ring-4 ring-violet-400 shadow-xl"
+                                      : ""
+                                  }`}
+                                >
+                                  {option.isMore ? (
+                                    <>
+                                      <div className="aspect-square rounded-xl overflow-hidden mb-2 bg-white">
+                                        <img
+                                          src="/images/cantfindIt.png"
+                                          alt="Can't find it"
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                      <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
+                                        <span className="sm:hidden">More</span>
+                                        <span className="hidden sm:inline">
+                                          Get More Answers
+                                        </span>
+                                      </p>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <div className="aspect-square rounded-xl overflow-hidden mb-2">
+                                        <ImageWithFallback
+                                          src={option.imageUrl || ""}
+                                          alt={option.label}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                      <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
+                                        {option.label}
+                                      </p>
+                                    </>
+                                  )}
+                                </motion.button>
+                              )
+                            )}
+                          </div>
+
+                          {/* Bottom Navigation */}
+                          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                            <div className="w-32 h-1.5 bg-slate-800 rounded-full"></div>
+                          </div>
+
+                          {/* Welcome Icon in Bottom Left */}
+                          <div className="absolute bottom-4 left-4">
+                            <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-lg">
+                              <img
+                                src="/images/welcome.png"
+                                alt="Welcome"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Information Panel */}
               <div className="lg:col-span-1">
@@ -974,20 +640,6 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
                 >
                   <h3 className="h3 mb-6">Behind the Scenes</h3>
                   <div className="space-y-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span className="text-purple-600 text-lg">🧠</span>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-slate-900 mb-2">
-                          AI Learning
-                        </h4>
-                        <p className="text-slate-600 text-sm">
-                          Analyzes choices to personalize future options and
-                          improve speed.
-                        </p>
-                      </div>
-                    </div>
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                         <span className="text-blue-600 text-lg">🎯</span>
@@ -1021,7 +673,7 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
                       </div>
                       <div>
                         <h4 className="font-semibold text-slate-900 mb-2">
-                          Continuous Learning
+                          AI Continuous Learning
                         </h4>
                         <p className="text-slate-600 text-sm">
                           Each interaction improves future suggestions.

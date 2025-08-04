@@ -217,7 +217,7 @@ export default function App() {
               <Features />
             </div>
             <div className="mb-8 sm:mb-0">
-              <Demo />
+              <Demo onNavigate={handleNavigation} />
             </div>
             {/* <div className="mb-8 sm:mb-0">
               <TasteOfMatalkAI />
