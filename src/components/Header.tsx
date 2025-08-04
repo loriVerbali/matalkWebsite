@@ -294,7 +294,7 @@ export function Header({ onNavigate }: HeaderProps) {
                 onClick={() => setIsRequestOpen(!isRequestOpen)}
                 className="flex items-center space-x-1 text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
               >
-                <span>I want to...</span>
+                <span>Suggest a feature</span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${
                     isRequestOpen ? "rotate-180" : ""
