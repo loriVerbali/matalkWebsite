@@ -55,6 +55,13 @@ export function TasteOfMatalkAI() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
+      const requestBody = {
+        email: email.trim(),
+        source: "website",
+      };
+
+      console.log("Sending request to API:", requestBody);
+
       const response = await fetch(
         "https://matalkwebsitebe-production.up.railway.app/api/contact",
         {
@@ -62,14 +69,18 @@ export function TasteOfMatalkAI() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email: email.trim(),
-            source: "website",
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
 
+      console.log("Response status:", response.status);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+
       const data = await response.json();
+      console.log("Response data:", data);
 
       if (response.ok) {
         setSubmitStatus({
@@ -90,7 +101,10 @@ export function TasteOfMatalkAI() {
         } else if (response.status === 429) {
           errorMessage = "Too many requests. Please try again later.";
         } else if (response.status === 400) {
-          errorMessage = data.message || "Please enter a valid email address.";
+          // Log the actual error response for debugging
+          console.log("API Error Response:", data);
+          errorMessage =
+            data.message || data.error || "Please enter a valid email address.";
         }
 
         setSubmitStatus({
