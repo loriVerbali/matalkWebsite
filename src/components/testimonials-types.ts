@@ -7,7 +7,6 @@ export interface Testimonial {
   email?: string;
   website?: string;
   quote: string;
-  highlight: string;
   avatar: string;
   featured: boolean;
   displayed: boolean;
