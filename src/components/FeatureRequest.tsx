@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Send, CheckCircle, X } from "lucide-react";
+import { analytics } from "../utils/analytics";
 // Placeholder image - replace with actual image when available
 const matalkLogo = "/images/MatalkLogoWeb.png";
 import { Button } from "./ui/button";
@@ -113,9 +114,22 @@ export function FeatureRequest({ onBack, isOpen }: FeatureRequestProps) {
 
       const result = await response.json();
       console.log("Feature request submitted:", result);
+
+      // Track successful feature request submission
+      analytics.trackFormSubmission("Feature Request", true, {
+        role: formData.role,
+        feature_description_length: formData.featureDescription.length,
+      });
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting feature request:", error);
+
+      // Track failed feature request submission
+      analytics.trackFormSubmission("Feature Request", false, {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+
       // You might want to show an error message to the user here
     } finally {
       setIsSubmitting(false);

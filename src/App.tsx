@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { analytics } from "./utils/analytics";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { Struggle } from "./components/Struggle";
@@ -67,6 +68,14 @@ export default function App() {
     });
   }, [currentPage]);
 
+  // Track page views
+  useEffect(() => {
+    analytics.trackPageView(currentPage, {
+      page_type: currentPage,
+      timestamp: new Date().toISOString(),
+    });
+  }, [currentPage]);
+
   // Handle demo section scrolling with proper timing
   const scrollToDemoSection = () => {
     // Small delay to ensure page transition is complete
@@ -91,6 +100,13 @@ export default function App() {
 
   // Navigation handler for both pages and modals
   const handleNavigation = (destination: string) => {
+    // Track navigation events
+    analytics.trackInteraction("Navigation", {
+      from_page: currentPage,
+      to_destination: destination,
+      navigation_type: "user_click",
+    });
+
     switch (destination) {
       case "waitlist":
         setShowWaitlist(true);

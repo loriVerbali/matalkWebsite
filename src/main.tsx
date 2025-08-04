@@ -8,6 +8,9 @@ import PrivacyPolicyStandalone from "./pages/PrivacyPolicyStandalone.tsx";
 import MaTalkPrivacyPolicyStandalone from "./pages/MaTalkPrivacyPolicyStandalone.tsx";
 import "./styles/globals.css";
 
+// Import analytics to ensure Mixpanel is initialized
+import "./utils/analytics";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Router>

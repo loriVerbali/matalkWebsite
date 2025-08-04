@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, RotateCcw } from "lucide-react";
+import { analytics } from "../utils/analytics";
 import { Button } from "./ui/button";
 // Placeholder images - replace with actual images when available
 const robotDog1 = "/images/verbiFlying.png";
@@ -27,8 +28,20 @@ export function Demo() {
     if (videoRef.current) {
       if (isVideoPlaying) {
         videoRef.current.pause();
+        analytics.trackInteraction("Video Paused", {
+          media_type: "video",
+          current_time: videoCurrentTime,
+          duration: videoDuration,
+          progress_percentage: videoProgress,
+        });
       } else {
         videoRef.current.play();
+        analytics.trackInteraction("Video Played", {
+          media_type: "video",
+          current_time: videoCurrentTime,
+          duration: videoDuration,
+          progress_percentage: videoProgress,
+        });
       }
       setIsVideoPlaying(!isVideoPlaying);
     }
@@ -38,6 +51,12 @@ export function Demo() {
     if (videoRef.current) {
       videoRef.current.muted = !isVideoMuted;
       setIsVideoMuted(!isVideoMuted);
+
+      analytics.trackInteraction("Video Mute Toggled", {
+        media_type: "video",
+        is_muted: !isVideoMuted,
+        current_time: videoCurrentTime,
+      });
     }
   };
 
@@ -50,6 +69,12 @@ export function Demo() {
         setIsVideoPlaying(false);
         videoRef.current.pause();
       }
+
+      analytics.trackInteraction("Video Reset", {
+        media_type: "video",
+        previous_time: videoCurrentTime,
+        duration: videoDuration,
+      });
     }
   };
 
@@ -58,8 +83,20 @@ export function Demo() {
     if (audioRef.current) {
       if (isAudioPlaying) {
         audioRef.current.pause();
+        analytics.trackInteraction("Audio Paused", {
+          media_type: "audio",
+          current_time: audioCurrentTime,
+          duration: audioDuration,
+          progress_percentage: audioProgress,
+        });
       } else {
         audioRef.current.play();
+        analytics.trackInteraction("Audio Played", {
+          media_type: "audio",
+          current_time: audioCurrentTime,
+          duration: audioDuration,
+          progress_percentage: audioProgress,
+        });
       }
       setIsAudioPlaying(!isAudioPlaying);
     }
@@ -69,6 +106,12 @@ export function Demo() {
     if (audioRef.current) {
       audioRef.current.muted = !isAudioMuted;
       setIsAudioMuted(!isAudioMuted);
+
+      analytics.trackInteraction("Audio Mute Toggled", {
+        media_type: "audio",
+        is_muted: !isAudioMuted,
+        current_time: audioCurrentTime,
+      });
     }
   };
 
@@ -81,6 +124,12 @@ export function Demo() {
         setIsAudioPlaying(false);
         audioRef.current.pause();
       }
+
+      analytics.trackInteraction("Audio Reset", {
+        media_type: "audio",
+        previous_time: audioCurrentTime,
+        duration: audioDuration,
+      });
     }
   };
 

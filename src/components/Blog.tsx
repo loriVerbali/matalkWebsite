@@ -8,6 +8,7 @@ import {
   Search,
   Tag,
 } from "lucide-react";
+import { analytics } from "../utils/analytics";
 import {
   BlogPost,
   BlogFilters,
@@ -79,6 +80,11 @@ export function Blog({ onBack }: BlogProps) {
   const clearFilters = () => {
     setFilters({});
     setSearchTerm("");
+
+    analytics.trackInteraction("Blog Filters Cleared", {
+      previous_filters: filters,
+      search_term: searchTerm,
+    });
   };
 
   if (selectedPost) {
@@ -187,7 +193,16 @@ export function Blog({ onBack }: BlogProps) {
                 <Input
                   placeholder="Search articles..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => {
+                    const newSearchTerm = e.target.value;
+                    setSearchTerm(newSearchTerm);
+                    if (newSearchTerm.length > 2) {
+                      analytics.trackInteraction("Blog Search", {
+                        search_term: newSearchTerm,
+                        results_count: filteredPosts.length,
+                      });
+                    }
+                  }}
                   className="pl-10"
                 />
               </div>
@@ -234,12 +249,19 @@ export function Blog({ onBack }: BlogProps) {
               <div className="space-y-3 pt-3 border-t border-violet-600/10">
                 <Select
                   value={filters.tag || "all-tags"}
-                  onValueChange={(value) =>
-                    setFilters((prev: BlogFilters) => ({
-                      ...prev,
+                  onValueChange={(value) => {
+                    const newFilters = {
+                      ...filters,
                       tag: value === "all-tags" ? undefined : value,
-                    }))
-                  }
+                    };
+                    setFilters(newFilters);
+
+                    analytics.trackInteraction("Blog Filter Applied", {
+                      filter_type: "tag",
+                      filter_value: value === "all-tags" ? "all" : value,
+                      previous_filters: filters,
+                    });
+                  }}
                 >
                   <SelectTrigger className="w-full">
                     <Tag className="w-4 h-4 mr-2" />
@@ -257,12 +279,19 @@ export function Blog({ onBack }: BlogProps) {
 
                 <Select
                   value={filters.author || "all-authors"}
-                  onValueChange={(value) =>
-                    setFilters((prev: BlogFilters) => ({
-                      ...prev,
+                  onValueChange={(value) => {
+                    const newFilters = {
+                      ...filters,
                       author: value === "all-authors" ? undefined : value,
-                    }))
-                  }
+                    };
+                    setFilters(newFilters);
+
+                    analytics.trackInteraction("Blog Filter Applied", {
+                      filter_type: "author",
+                      filter_value: value === "all-authors" ? "all" : value,
+                      previous_filters: filters,
+                    });
+                  }}
                 >
                   <SelectTrigger className="w-full">
                     <User className="w-4 h-4 mr-2" />
@@ -418,7 +447,17 @@ export function Blog({ onBack }: BlogProps) {
                   <Card
                     key={post.id}
                     className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-                    onClick={() => setSelectedPost(post)}
+                    onClick={() => {
+                      setSelectedPost(post);
+                      analytics.trackInteraction("Blog Post Viewed", {
+                        post_id: post.id,
+                        post_title: post.title,
+                        post_author: post.author,
+                        post_tags: post.tags,
+                        post_category: "featured",
+                        read_time: post.readTime,
+                      });
+                    }}
                   >
                     {post.imageUrl && (
                       <div className="relative h-48 overflow-hidden">
@@ -502,7 +541,17 @@ export function Blog({ onBack }: BlogProps) {
                 <Card
                   key={post.id}
                   className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-                  onClick={() => setSelectedPost(post)}
+                  onClick={() => {
+                    setSelectedPost(post);
+                    analytics.trackInteraction("Blog Post Viewed", {
+                      post_id: post.id,
+                      post_title: post.title,
+                      post_author: post.author,
+                      post_tags: post.tags,
+                      post_category: "regular",
+                      read_time: post.readTime,
+                    });
+                  }}
                 >
                   {post.imageUrl && (
                     <div className="relative h-40 overflow-hidden">

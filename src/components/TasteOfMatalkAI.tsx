@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Image as ImageIcon, Mail } from "lucide-react";
+import mixpanel from "mixpanel-browser";
 import tasteOfMatalkData from "./TasteOfMatalk.json";
 
 interface Answer {
@@ -33,6 +34,12 @@ export function TasteOfMatalkAI() {
     setShowEmailForm(false);
     setImagesLoaded(0);
     setSubmitStatus({ type: null, message: "" });
+
+    // Track question selection
+    mixpanel.track("Taste of Matalk - Question Selected", {
+      question: questionData.question,
+      source: "taste-of-matalk-ai",
+    });
   };
 
   const handleImageClick = (word: string) => {
@@ -45,6 +52,12 @@ export function TasteOfMatalkAI() {
     // Show email form
     setShowEmailForm(true);
     setSubmitStatus({ type: null, message: "" });
+
+    // Track image click
+    mixpanel.track("Taste of Matalk - Image Clicked", {
+      word: word,
+      source: "taste-of-matalk-ai",
+    });
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -88,6 +101,14 @@ export function TasteOfMatalkAI() {
           message: "Thank you! We'll be in touch soon.",
         });
         setEmail("");
+
+        // Track successful contact submission
+        mixpanel.track("Taste of Matalk - Contact Submitted", {
+          email: email.trim(),
+          source: "taste-of-matalk-ai",
+          status: "success",
+        });
+
         setTimeout(() => {
           setShowEmailForm(false);
           setSelectedQuestion(null);
@@ -111,11 +132,27 @@ export function TasteOfMatalkAI() {
           type: "error",
           message: errorMessage,
         });
+
+        // Track failed contact submission
+        mixpanel.track("Taste of Matalk - Contact Failed", {
+          email: email.trim(),
+          source: "taste-of-matalk-ai",
+          status: "error",
+          error_code: response.status,
+          error_message: errorMessage,
+        });
       }
     } catch (error) {
       setSubmitStatus({
         type: "error",
         message: "Network error. Please check your connection and try again.",
+      });
+
+      // Track network error
+      mixpanel.track("Taste of Matalk - Contact Network Error", {
+        email: email.trim(),
+        source: "taste-of-matalk-ai",
+        status: "network_error",
       });
     } finally {
       setIsSubmitting(false);
@@ -379,6 +416,12 @@ export function TasteOfMatalkAI() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group transition-transform duration-200 hover:scale-105"
+                    onClick={() => {
+                      mixpanel.track("Taste of Matalk - App Store Click", {
+                        source: "taste-of-matalk-ai",
+                        location: "email-form",
+                      });
+                    }}
                   >
                     <img
                       src="/images/black.svg"
