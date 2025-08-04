@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { analytics } from "../utils/analytics";
 // Placeholder image - replace with actual image when available
 const logoImage = "/images/verbiPose.png";
 
@@ -61,6 +62,10 @@ export function Header({ onNavigate }: HeaderProps) {
 
   // Handle mobile navigation
   const handleMobileNavigation = (destination: string) => {
+    analytics.trackInteraction("Mobile Navigation", {
+      destination: destination,
+      navigation_type: "mobile_menu",
+    });
     onNavigate(destination);
     setIsMobileMenuOpen(false);
     setIsMobileProductOpen(false);
@@ -91,7 +96,13 @@ export function Header({ onNavigate }: HeaderProps) {
           {/* Center: Logo */}
           <div className="flex justify-center">
             <button
-              onClick={() => onNavigate("home")}
+              onClick={() => {
+                analytics.trackInteraction("Logo Click", {
+                  navigation_type: "logo",
+                  device: "mobile",
+                });
+                onNavigate("home");
+              }}
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer touch-target"
             >
               <span className="text-xl font-bold text-gradient tracking-wide relative">
@@ -114,7 +125,13 @@ export function Header({ onNavigate }: HeaderProps) {
         <div className="hidden md:flex items-center justify-between">
           {/* Logo */}
           <button
-            onClick={() => onNavigate("home")}
+            onClick={() => {
+              analytics.trackInteraction("Logo Click", {
+                navigation_type: "logo",
+                device: "desktop",
+              });
+              onNavigate("home");
+            }}
             className="flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-opacity cursor-pointer touch-target"
           >
             <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient tracking-wide relative">
@@ -148,6 +165,11 @@ export function Header({ onNavigate }: HeaderProps) {
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
                   <button
                     onClick={() => {
+                      analytics.trackInteraction("Navigation Click", {
+                        destination: "demo",
+                        navigation_type: "dropdown_menu",
+                        menu: "product",
+                      });
                       onNavigate("demo");
                       setIsHomeOpen(false);
                     }}
@@ -157,6 +179,11 @@ export function Header({ onNavigate }: HeaderProps) {
                   </button>
                   <button
                     onClick={() => {
+                      analytics.trackInteraction("Navigation Click", {
+                        destination: "blog",
+                        navigation_type: "dropdown_menu",
+                        menu: "product",
+                      });
                       onNavigate("blog");
                       setIsHomeOpen(false);
                     }}
@@ -166,6 +193,11 @@ export function Header({ onNavigate }: HeaderProps) {
                   </button>
                   <button
                     onClick={() => {
+                      analytics.trackInteraction("Navigation Click", {
+                        destination: "faq",
+                        navigation_type: "dropdown_menu",
+                        menu: "product",
+                      });
                       onNavigate("faq");
                       setIsHomeOpen(false);
                     }}
@@ -178,7 +210,13 @@ export function Header({ onNavigate }: HeaderProps) {
             </div>
 
             <button
-              onClick={() => onNavigate("pricing")}
+              onClick={() => {
+                analytics.trackInteraction("Navigation Click", {
+                  destination: "pricing",
+                  navigation_type: "desktop_menu",
+                });
+                onNavigate("pricing");
+              }}
               className="text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
             >
               Pricing

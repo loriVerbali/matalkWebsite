@@ -10,7 +10,21 @@ interface MissionProps {
 
 export function Mission({ onBack }: MissionProps) {
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-lavender-50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 via-transparent to-indigo-100/40"></div>
+
+      {/* Subtle geometric patterns */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-20">
+        <div
+          style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(99, 102, 241, 0.1) 0%, transparent 50%)`,
+          }}
+          className="w-full h-full"
+        ></div>
+      </div>
+
       {/* Background Parachuting Dogs */}
       <FloatingWatermark />
 

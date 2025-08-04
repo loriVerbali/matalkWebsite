@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Send, CheckCircle, X } from "lucide-react";
+import { analytics } from "../utils/analytics";
 // Placeholder image - replace with actual image when available
 const matalkLogo = "/images/MatalkLogoWeb.png";
 import { Button } from "./ui/button";
@@ -251,9 +252,28 @@ export function LanguageRequest({ onBack, isOpen }: LanguageRequestProps) {
 
       const result = await response.json();
       console.log("Language request submitted successfully:", result);
+
+      // Track successful language request submission
+      analytics.trackFormSubmission("Language Request", true, {
+        role: formData.role,
+        language:
+          formData.language === "other"
+            ? formData.customLanguage
+            : formData.language,
+        region:
+          formData.region === "other" ? formData.customRegion : formData.region,
+        has_additional_info: !!formData.additionalInfo.trim(),
+      });
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting language request:", error);
+
+      // Track failed language request submission
+      analytics.trackFormSubmission("Language Request", false, {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+
       // You might want to show an error message to the user here
       alert("Failed to submit language request. Please try again later.");
     } finally {

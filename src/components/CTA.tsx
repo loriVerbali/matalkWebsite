@@ -1,4 +1,13 @@
+import mixpanel from "mixpanel-browser";
+
 export function CTA() {
+  const handleAppStoreClick = () => {
+    mixpanel.track("CTA - App Store Click", {
+      source: "main-cta",
+      location: "homepage",
+    });
+  };
+
   return (
     <section className="py-20 bg-gradient-primary text-white">
       <div className="max-w-7xl mx-auto px-4">
@@ -16,6 +25,7 @@ export function CTA() {
               target="_blank"
               rel="noopener noreferrer"
               className="group transition-transform duration-200 hover:scale-105"
+              onClick={handleAppStoreClick}
             >
               <img
                 src="/images/black.svg"

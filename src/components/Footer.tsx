@@ -1,3 +1,5 @@
+import { analytics } from "../utils/analytics";
+
 // Placeholder image - replace with actual image when available
 const logoImage = "/images/verbiPose.png";
 
@@ -8,6 +10,10 @@ interface FooterProps {
 export function Footer({ onNavigate }: FooterProps) {
   // Handle Contact Us - opens email client
   const handleContactUs = () => {
+    analytics.trackInteraction("Contact Email Click", {
+      email_type: "info",
+      destination: "mailto:info@verbail.io",
+    });
     window.location.href =
       "mailto:info@verbail.io?subject=Contact%20Verbali&body=Hello%20Verbali%20team,%0A%0A";
   };
@@ -19,7 +25,12 @@ export function Footer({ onNavigate }: FooterProps) {
           {/* Company Info - More compact on mobile */}
           <div className="col-span-2 md:col-span-1 mb-4 sm:mb-0">
             <button
-              onClick={() => onNavigate("home")}
+              onClick={() => {
+                analytics.trackInteraction("Footer Logo Click", {
+                  navigation_type: "footer_logo",
+                });
+                onNavigate("home");
+              }}
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer mb-2 sm:mb-4 touch-target"
             >
               <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient tracking-wide relative">
@@ -49,7 +60,13 @@ export function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-1 sm:space-y-2 text-slate-700">
               <li>
                 <button
-                  onClick={() => onNavigate("demo")}
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
+                      destination: "demo",
+                      section: "product",
+                    });
+                    onNavigate("demo");
+                  }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Demo
@@ -57,7 +74,13 @@ export function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate("blog")}
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
+                      destination: "blog",
+                      section: "product",
+                    });
+                    onNavigate("blog");
+                  }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Blog
@@ -65,7 +88,13 @@ export function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate("faq")}
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
+                      destination: "faq",
+                      section: "product",
+                    });
+                    onNavigate("faq");
+                  }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   FAQ
@@ -73,7 +102,13 @@ export function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate("pricing")}
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
+                      destination: "pricing",
+                      section: "product",
+                    });
+                    onNavigate("pricing");
+                  }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Pricing

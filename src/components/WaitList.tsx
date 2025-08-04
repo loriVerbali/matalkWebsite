@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Send, CheckCircle, Users, X } from "lucide-react";
+import { analytics } from "../utils/analytics";
 // Placeholder image - replace with actual image when available
 const matalkLogo = "/images/MatalkLogoWeb.png";
 import { Button } from "./ui/button";
@@ -125,9 +126,24 @@ export function WaitList({ onBack, isOpen }: WaitListProps) {
       // 4. Send notification to team
 
       console.log("Waitlist signup submitted:", formData);
+
+      // Track successful waitlist submission
+      analytics.trackFormSubmission("Waitlist", true, {
+        role: formData.role,
+        organization: formData.organization,
+        interests_count: formData.interests.length,
+        has_communication_needs: !!formData.communicationNeeds.trim(),
+      });
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting waitlist signup:", error);
+
+      // Track failed waitlist submission
+      analytics.trackFormSubmission("Waitlist", false, {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+
       // Handle error (show toast notification, etc.)
     } finally {
       setIsSubmitting(false);

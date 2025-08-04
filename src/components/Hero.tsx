@@ -1,3 +1,5 @@
+import { analytics } from "../utils/analytics";
+
 // App Store button
 const appStoreButton = "/images/black.svg";
 const runningRobotDog = "/images/chasingBall.png";
@@ -63,6 +65,10 @@ export function Hero() {
             {/* Official App Store Download Button */}
             <button
               onClick={() => {
+                analytics.trackInteraction("Hero App Store Click", {
+                  location: "hero_section",
+                  destination: "app_store",
+                });
                 // Open Ma-Talk AI App Store link
                 window.open(
                   "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
