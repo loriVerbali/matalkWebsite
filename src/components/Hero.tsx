@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <section className="py-24 sm:mobile-section-padding bg-lavender-50 relative overflow-hidden mobile-no-overflow">
+    <section className="py-24 sm:mobile-section-padding bg-gradient-to-b from-purple-100/50 to-blue-100/50 relative overflow-hidden mobile-no-overflow">
       {/* Static Robot Dog on Section Border - Hidden on mobile for cleaner design */}
       <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 z-30 mobile-hide">
         <motion.img

@@ -47,7 +47,7 @@ export function Testimonials() {
   // Loading state
   if (isLoading) {
     return (
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-blue-50/30 relative overflow-hidden">
+      <section className="py-20 lg:py-28 bg-[#f7f5ff] relative overflow-hidden">
         {/* Floating Testimonial Watermarks */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Floating Thumbs Up Icons */}
@@ -275,7 +275,7 @@ export function Testimonials() {
   // No testimonials state
   if (displayTestimonials.length === 0) {
     return (
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-blue-50/30 relative overflow-hidden">
+      <section className="py-20 lg:py-28 bg-[#f7f5ff] relative overflow-hidden">
         {/* Floating Testimonial Watermarks */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Floating Thumbs Up Icons */}
@@ -505,7 +505,7 @@ export function Testimonials() {
   const currentTestimonial = displayTestimonials[currentIndex];
 
   return (
-    <section className="py-20 lg:py-28 bg-lavender-50 relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#f7f5ff] relative overflow-hidden">
       {/* Floating Testimonial Watermarks */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Floating Thumbs Up Icons */}

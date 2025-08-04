@@ -173,7 +173,7 @@ export function CoreValues() {
   };
 
   return (
-    <section className="py-12 lg:py-16 bg-lavender-50 relative overflow-hidden min-h-screen flex items-center">
+    <section className="py-12 lg:py-16 bg-[#f6f5ff] relative overflow-hidden min-h-screen flex items-center">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {/* Floating speech bubbles */}

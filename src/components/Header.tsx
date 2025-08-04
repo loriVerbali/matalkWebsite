@@ -208,7 +208,18 @@ export function Header({ onNavigate }: HeaderProps) {
                 </div>
               )}
             </div>
-
+            <button
+              onClick={() => {
+                analytics.trackInteraction("Navigation Click", {
+                  destination: "taste-of-matalk-ai",
+                  navigation_type: "desktop_menu",
+                });
+                onNavigate("taste-of-matalk-ai");
+              }}
+              className="text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
+            >
+              Playground
+            </button>
             <button
               onClick={() => {
                 analytics.trackInteraction("Navigation Click", {
@@ -356,6 +367,14 @@ export function Header({ onNavigate }: HeaderProps) {
                 className="mobile-nav-item w-full text-left border-b border-gray-100"
               >
                 Pricing
+              </button>
+
+              {/* Taste of Ma-Talk AI */}
+              <button
+                onClick={() => handleMobileNavigation("taste-of-matalk-ai")}
+                className="mobile-nav-item w-full text-left border-b border-gray-100"
+              >
+                Taste of Ma-Talk AI
               </button>
 
               {/* Company Section */}

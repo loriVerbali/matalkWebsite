@@ -1,454 +1,1040 @@
-"use client";
-
 import { useState } from "react";
+import { ArrowLeft, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
-import { Sparkles, Image as ImageIcon, Mail } from "lucide-react";
-import mixpanel from "mixpanel-browser";
-import tasteOfMatalkData from "./TasteOfMatalk.json";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+import maTalkLogo from "/images/MatalkLogoWeb.png";
 
-interface Answer {
-  word: string;
-  image: string;
+interface PlaygroundProps {
+  onBack: () => void;
 }
 
-interface QuestionData {
-  question: string;
-  answers: Answer[];
+interface Question {
+  id: string;
+  text: string;
+  category: string;
 }
 
-export function TasteOfMatalkAI() {
-  const [selectedQuestion, setSelectedQuestion] = useState<QuestionData | null>(
+interface AnswerOption {
+  id: string;
+  label: string;
+  imageUrl?: string;
+  isMore?: boolean;
+}
+
+const questions: Question[] = [
+  {
+    id: "school-day",
+    text: "Hey sweetie, how was your day at school today? What was your favorite part?",
+    category: "School",
+  },
+  {
+    id: "bedtime-routine",
+    text: "What a cozy car ride! When we get home, what do you want to do before bed?",
+    category: "Bedtime",
+  },
+  {
+    id: "school-week",
+    text: "Hey sweetheart! It's a cozy evening. What fun things did you do at school this week?",
+    category: "School",
+  },
+  {
+    id: "art-projects",
+    text: "That sounds like a great time! What art project did you enjoy the most at school?",
+    category: "Art",
+  },
+  {
+    id: "dentist-feelings",
+    text: "Hey buddy! We're at the dentist today. How are you feeling about that?",
+    category: "Feelings",
+  },
+  {
+    id: "dentist-activities",
+    text: "It's okay to feel nervous! What do you think we'll do here at the dentist?",
+    category: "Healthcare",
+  },
+  {
+    id: "airport-trip",
+    text: "Hey sweetheart! We're at the airport, how exciting! What are you most looking forward to on our trip?",
+    category: "Travel",
+  },
+  {
+    id: "breakfast-choice",
+    text: "Hey! Good morning! What do you want to eat for breakfast?",
+    category: "Food",
+  },
+  {
+    id: "morning-activities",
+    text: "Hey! Good morning! It's so sunny today! What should we do after breakfast?",
+    category: "Outdoor",
+  },
+  {
+    id: "shade-games",
+    text: "Great idea! Let's sit under that tree. What game do you want to play in the shade?",
+    category: "Games",
+  },
+  {
+    id: "winter-activities",
+    text: "Hey there! It's so cold and snowy outside. What fun things have you been thinking about doing this winter?",
+    category: "Winter",
+  },
+  {
+    id: "dream-about",
+    text: "Alright! It's bedtime now, but before you sleep, what do you want to dream about? 🎈",
+    category: "Dreams",
+  },
+  {
+    id: "train-station-see",
+    text: "Hi sweetie! We're at the train station on a windy day. What do you think we're going to see here? 🌬️🚆",
+    category: "Travel",
+  },
+  {
+    id: "train-station-wait",
+    text: "Hi honey! It's warm and windy here at the train station. What do you think would be fun to do while we wait? 🌬️🚉",
+    category: "Activities",
+  },
+  {
+    id: "movie-night",
+    text: "Hey sweetie! It's the weekend, and the weather is so nice. What movie do you want to watch tonight? 🌟",
+    category: "Entertainment",
+  },
+  {
+    id: "dentist-feelings-2",
+    text: "Hey sweetie, how are you feeling about being at the dentist today?",
+    category: "Feelings",
+  },
+];
+
+const answerOptions: Record<string, AnswerOption[]> = {
+  "school-day": [
+    {
+      id: "playing-outside",
+      label: "Playing outside",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "story-time",
+      label: "Story time",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "snack-time",
+      label: "Snack time",
+      imageUrl:
+        "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=300&h=200&fit=crop",
+    },
+    {
+      id: "singing-songs",
+      label: "Singing songs",
+      imageUrl:
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "drawing-pictures",
+      label: "Drawing pictures",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
+    },
+    { id: "more-school", label: "Get more answers", isMore: true },
+  ],
+  "bedtime-routine": [
+    {
+      id: "drink-warm-milk",
+      label: "Drink warm milk",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+    },
+    {
+      id: "play-with-toys",
+      label: "Play with toys",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    {
+      id: "take-a-bath",
+      label: "Take a bath",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&h=200&fit=crop",
+    },
+    {
+      id: "sing-a-song",
+      label: "Sing a song",
+      imageUrl:
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "read-a-story",
+      label: "Read a story",
+      imageUrl:
+        "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=200&fit=crop",
+    },
+    { id: "more-bedtime", label: "Get more answers", isMore: true },
+  ],
+  "school-week": [
+    {
+      id: "painting",
+      label: "Painting",
+      imageUrl:
+        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
+    },
+    {
+      id: "singing",
+      label: "Singing",
+      imageUrl:
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "drawing",
+      label: "Drawing",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
+    },
+    {
+      id: "storytime",
+      label: "Storytime",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "playing",
+      label: "Playing",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    { id: "more-school-week", label: "Get more answers", isMore: true },
+  ],
+  "art-projects": [
+    {
+      id: "drawing",
+      label: "Drawing",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
+    },
+    {
+      id: "clay",
+      label: "Clay",
+      imageUrl:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
+    },
+    {
+      id: "paper-craft",
+      label: "Paper craft",
+      imageUrl:
+        "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "collage",
+      label: "Collage",
+      imageUrl:
+        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
+    },
+    {
+      id: "painting",
+      label: "Painting",
+      imageUrl:
+        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=200&fit=crop",
+    },
+    { id: "more-art", label: "Get more answers", isMore: true },
+  ],
+  "dentist-feelings": [
+    {
+      id: "scared",
+      label: "Scared",
+      imageUrl:
+        "https://images.unsplash.com/photo-1541647376583-8934aaf3448a?w=300&h=200&fit=crop",
+    },
+    {
+      id: "happy",
+      label: "Happy",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop",
+    },
+    {
+      id: "nervous",
+      label: "Nervous",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "excited",
+      label: "Excited",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    {
+      id: "okay",
+      label: "Okay",
+      imageUrl:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
+    },
+    { id: "more-feelings", label: "Get more answers", isMore: true },
+  ],
+  "dentist-activities": [
+    {
+      id: "brush",
+      label: "Brush",
+      imageUrl:
+        "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=300&h=200&fit=crop",
+    },
+    {
+      id: "clean",
+      label: "Clean",
+      imageUrl:
+        "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=300&h=200&fit=crop",
+    },
+    {
+      id: "fix",
+      label: "Fix",
+      imageUrl:
+        "https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=300&h=200&fit=crop",
+    },
+    {
+      id: "look",
+      label: "Look",
+      imageUrl:
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300&h=200&fit=crop",
+    },
+    {
+      id: "checkup",
+      label: "Checkup",
+      imageUrl:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=300&h=200&fit=crop",
+    },
+    { id: "more-dentist", label: "Get more answers", isMore: true },
+  ],
+  "airport-trip": [
+    {
+      id: "swimming",
+      label: "Swimming",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "beach",
+      label: "Beach",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop",
+    },
+    {
+      id: "animals",
+      label: "Animals",
+      imageUrl:
+        "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=300&h=200&fit=crop",
+    },
+    {
+      id: "toys",
+      label: "Toys",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    {
+      id: "ice-cream",
+      label: "Ice cream",
+      imageUrl:
+        "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=300&h=200&fit=crop",
+    },
+    { id: "more-trip", label: "Get more answers", isMore: true },
+  ],
+  "breakfast-choice": [
+    {
+      id: "cereal",
+      label: "Cereal",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    {
+      id: "eggs",
+      label: "Eggs",
+      imageUrl:
+        "https://images.unsplash.com/photo-1582169296194-9bcb03134c8a?w=300&h=200&fit=crop",
+    },
+    {
+      id: "toast",
+      label: "Toast",
+      imageUrl:
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=200&fit=crop",
+    },
+    {
+      id: "banana",
+      label: "Banana",
+      imageUrl:
+        "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=200&fit=crop",
+    },
+    {
+      id: "pancakes",
+      label: "Pancakes",
+      imageUrl:
+        "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=300&h=200&fit=crop",
+    },
+    { id: "more-breakfast", label: "Get more answers", isMore: true },
+  ],
+  "morning-activities": [
+    {
+      id: "ride-bikes",
+      label: "Ride bikes",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+    },
+    {
+      id: "pick-flowers",
+      label: "Pick flowers",
+      imageUrl:
+        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
+    },
+    {
+      id: "feed-animals",
+      label: "Feed animals",
+      imageUrl:
+        "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=300&h=200&fit=crop",
+    },
+    {
+      id: "take-a-nap",
+      label: "Take a nap",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&h=200&fit=crop",
+    },
+    {
+      id: "play-outside",
+      label: "Play outside",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    { id: "more-morning", label: "Get more answers", isMore: true },
+  ],
+  "shade-games": [
+    {
+      id: "tag",
+      label: "Tag",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "simon-says",
+      label: "Simon says",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "duck-duck-goose",
+      label: "Duck duck goose",
+      imageUrl:
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "hopscotch",
+      label: "Hopscotch",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "hide-and-seek",
+      label: "Hide and seek",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    { id: "more-games", label: "Get more answers", isMore: true },
+  ],
+  "winter-activities": [
+    {
+      id: "sledding",
+      label: "Sledding",
+      imageUrl:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
+    },
+    {
+      id: "hot-chocolate",
+      label: "Drinking hot chocolate",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+    },
+    {
+      id: "snow-angels",
+      label: "Making snow angels",
+      imageUrl:
+        "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "playing-inside",
+      label: "Playing inside",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    {
+      id: "building-snowman",
+      label: "Building a snowman",
+      imageUrl:
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=200&fit=crop",
+    },
+    { id: "more-winter", label: "Get more answers", isMore: true },
+  ],
+  "dream-about": [
+    {
+      id: "dinosaurs",
+      label: "Dinosaurs",
+      imageUrl:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop",
+    },
+    {
+      id: "space",
+      label: "Space",
+      imageUrl:
+        "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=300&h=200&fit=crop",
+    },
+    {
+      id: "butterflies",
+      label: "Butterflies",
+      imageUrl:
+        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
+    },
+    {
+      id: "puppies",
+      label: "Puppies",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    {
+      id: "unicorns",
+      label: "Unicorns",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    { id: "more-dreams", label: "Get more answers", isMore: true },
+  ],
+  "train-station-see": [
+    {
+      id: "people",
+      label: "People",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "bags",
+      label: "Bags",
+      imageUrl:
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=200&fit=crop",
+    },
+    {
+      id: "tracks",
+      label: "Tracks",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
+    },
+    {
+      id: "birds",
+      label: "Birds",
+      imageUrl:
+        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=300&h=200&fit=crop",
+    },
+    {
+      id: "train",
+      label: "Train",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
+    },
+    { id: "more-station", label: "Get more answers", isMore: true },
+  ],
+  "train-station-wait": [
+    {
+      id: "play-i-spy",
+      label: "Play I spy",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "draw-with-chalk",
+      label: "Draw with chalk",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
+    },
+    {
+      id: "play-tag",
+      label: "Play tag",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=200&fit=crop",
+    },
+    {
+      id: "count-trains",
+      label: "Count trains",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=200&fit=crop",
+    },
+    {
+      id: "blow-bubbles",
+      label: "Blow bubbles",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    { id: "more-wait", label: "Get more answers", isMore: true },
+  ],
+  "movie-night": [
+    {
+      id: "frozen",
+      label: "Frozen",
+      imageUrl:
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=200&fit=crop",
+    },
+    {
+      id: "toy-story",
+      label: "Toy Story",
+      imageUrl:
+        "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=300&h=200&fit=crop",
+    },
+    {
+      id: "moana",
+      label: "Moana",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop",
+    },
+    {
+      id: "minions",
+      label: "Minions",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    {
+      id: "paw-patrol",
+      label: "Paw Patrol",
+      imageUrl:
+        "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=300&h=200&fit=crop",
+    },
+    { id: "more-movies", label: "Get more answers", isMore: true },
+  ],
+  "dentist-feelings-2": [
+    {
+      id: "okay",
+      label: "Okay",
+      imageUrl:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
+    },
+    {
+      id: "happy",
+      label: "Happy",
+      imageUrl:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop",
+    },
+    {
+      id: "nervous",
+      label: "Nervous",
+      imageUrl:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+    },
+    {
+      id: "excited",
+      label: "Excited",
+      imageUrl:
+        "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=300&h=200&fit=crop",
+    },
+    {
+      id: "scared",
+      label: "Scared",
+      imageUrl:
+        "https://images.unsplash.com/photo-1541647376583-8934aaf3448a?w=300&h=200&fit=crop",
+    },
+    { id: "more-feelings-2", label: "Get more answers", isMore: true },
+  ],
+};
+
+export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
+  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
     null
   );
-  const [showEmailForm, setShowEmailForm] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>("All");
 
-  const handleQuestionSelect = (questionData: QuestionData) => {
-    setSelectedQuestion(questionData);
-    setShowEmailForm(false);
-    setImagesLoaded(0);
-    setSubmitStatus({ type: null, message: "" });
+  // Get unique categories for filter
+  const categories = [
+    "All",
+    ...Array.from(new Set(questions.map((q) => q.category))),
+  ];
 
-    // Track question selection
-    mixpanel.track("Taste of Matalk - Question Selected", {
-      question: questionData.question,
-      source: "taste-of-matalk-ai",
-    });
+  const handleQuestionSelect = (question: Question) => {
+    setSelectedQuestion(question);
+    setSelectedAnswer(null);
+    setShowSuccess(false);
   };
 
-  const handleImageClick = (word: string) => {
-    // Speak the word
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.rate = 0.8;
-    utterance.pitch = 1.1;
-    speechSynthesis.speak(utterance);
-
-    // Show email form
-    setShowEmailForm(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    // Track image click
-    mixpanel.track("Taste of Matalk - Image Clicked", {
-      word: word,
-      source: "taste-of-matalk-ai",
-    });
-  };
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
-    try {
-      const requestBody = {
-        email: email.trim(),
-        source: "website",
-      };
-
-      console.log("Sending request to API:", requestBody);
-
-      const response = await fetch(
-        "https://matalkwebsitebe-production.up.railway.app/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      console.log("Response status:", response.status);
-      console.log(
-        "Response headers:",
-        Object.fromEntries(response.headers.entries())
-      );
-
-      const data = await response.json();
-      console.log("Response data:", data);
-
-      if (response.ok) {
-        setSubmitStatus({
-          type: "success",
-          message: "Thank you! We'll be in touch soon.",
-        });
-        setEmail("");
-
-        // Track successful contact submission
-        mixpanel.track("Taste of Matalk - Contact Submitted", {
-          email: email.trim(),
-          source: "taste-of-matalk-ai",
-          status: "success",
-        });
-
-        setTimeout(() => {
-          setShowEmailForm(false);
-          setSelectedQuestion(null);
-          setSubmitStatus({ type: null, message: "" });
-        }, 3000);
-      } else {
-        let errorMessage = "Something went wrong. Please try again.";
-
-        if (response.status === 409) {
-          errorMessage = "This email is already registered.";
-        } else if (response.status === 429) {
-          errorMessage = "Too many requests. Please try again later.";
-        } else if (response.status === 400) {
-          // Log the actual error response for debugging
-          console.log("API Error Response:", data);
-          errorMessage =
-            data.message || data.error || "Please enter a valid email address.";
-        }
-
-        setSubmitStatus({
-          type: "error",
-          message: errorMessage,
-        });
-
-        // Track failed contact submission
-        mixpanel.track("Taste of Matalk - Contact Failed", {
-          email: email.trim(),
-          source: "taste-of-matalk-ai",
-          status: "error",
-          error_code: response.status,
-          error_message: errorMessage,
-        });
-      }
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message: "Network error. Please check your connection and try again.",
-      });
-
-      // Track network error
-      mixpanel.track("Taste of Matalk - Contact Network Error", {
-        email: email.trim(),
-        source: "taste-of-matalk-ai",
-        status: "network_error",
-      });
-    } finally {
-      setIsSubmitting(false);
+  const handleAnswerSelect = (answerId: string, isMore?: boolean) => {
+    if (isMore) {
+      // Simulate "more answers" functionality
+      setShowSuccess(false);
+      return;
     }
+
+    setSelectedAnswer(answerId);
+    setShowSuccess(true);
+
+    // Auto-hide success message after 2 seconds
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 2000);
   };
+
+  const resetPlayground = () => {
+    setSelectedQuestion(null);
+    setSelectedAnswer(null);
+    setShowSuccess(false);
+  };
+
+  // Filter questions based on selected category
+  const filteredQuestions =
+    selectedFilter === "All"
+      ? questions
+      : questions.filter((question) => question.category === selectedFilter);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-16 left-12"
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-            rotate: [0, 5, 0, -3, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <svg className="w-24 h-20 opacity-15" viewBox="0 0 96 80" fill="none">
-            <path
-              d="M8 8C8 3.582 11.582 0 16 0H80C84.418 0 88 3.582 88 8V48C88 52.418 84.418 56 80 56H24L8 80V8Z"
-              fill="url(#bubbleGrad1)"
-            />
-            <defs>
-              <linearGradient
-                id="bubbleGrad1"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
-                <stop offset="0%" stopColor="#a855f7" />
-                <stop offset="100%" stopColor="#3b82f6" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </motion.div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.div
-            className="flex items-center justify-center mb-4"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
+    <div className="min-h-screen bg-lavender-50">
+      {/* Hero Header */}
+      <div className="bg-gradient-to-br from-white via-lavender-50 to-purple-50 border-b border-violet-600/10">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <button
+            onClick={onBack}
+            className="flex items-center space-x-3 text-slate-700 hover:text-violet-600 transition-colors mb-8 group"
           >
-            <Sparkles className="w-8 h-8 text-purple-600 mr-3" />
-            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              A Taste of Matalk AI
-            </h2>
-          </motion.div>
-
-          <motion.p
-            className="text-xl text-slate-700 max-w-3xl mx-auto"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Experience the power of AI-generated visual responses. Tap a
-            question and watch as Matalk AI shows 5 unique images with
-            associated words.{" "}
-            <span className="font-semibold text-purple-600 italic">
-              This is just a taste - Matalk-AI can do much more!
-            </span>
-          </motion.p>
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            <span className="font-medium">Back to Site</span>
+          </button>
 
           <motion.div
-            className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg max-w-2xl mx-auto"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-4xl mx-auto"
           >
-            <p className="text-sm text-amber-800 text-center">
-              ⚠️ Demo only: Tap on any image to hear the word spoken aloud.
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-12 h-12">
+                <img
+                  src={maTalkLogo}
+                  alt="Ma-Talk AI App"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <h1 className="h1 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                Ma-Talk AI Playground
+              </h1>
+            </div>
+            <p className="lead text-slate-600 mb-8 max-w-2xl mx-auto">
+              Try it out! Select a question below to see how{" "}
+              <span className="font-bold text-violet-600">Ma-Talk AI</span>{" "}
+              creates personalized, visual communication boards that help
+              children express themselves naturally.
             </p>
           </motion.div>
         </div>
+      </div>
 
-        {/* Question Cards */}
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Question Selection */}
         {!selectedQuestion && (
           <motion.div
-            className="max-w-6xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tasteOfMatalkData.map((questionData, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer border-2 border-transparent hover:border-purple-200"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() => handleQuestionSelect(questionData)}
-                >
-                  <div className="p-6 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <ImageIcon className="w-8 h-8 text-purple-600" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-800 mb-2">
-                      {questionData.question}
-                    </h3>
-                    <p className="text-slate-600 text-sm">
-                      Tap to see 5 AI-generated responses
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Results Display */}
-        {selectedQuestion && !showEmailForm && (
-          <motion.div
-            className="max-w-6xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="text-center mb-8">
-              <button
-                onClick={() => {
-                  setSelectedQuestion(null);
-                  setSubmitStatus({ type: null, message: "" });
-                }}
-                className="text-purple-600 hover:text-purple-700 font-medium mb-4"
-              >
-                ← Back to questions
-              </button>
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">
-                {selectedQuestion.question}
-              </h3>
-              <p className="text-slate-600">
-                Tap on any image to hear the word spoken
-              </p>
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <img
+                  src="/images/verbiPose.png"
+                  alt="Verbipose"
+                  className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 object-contain"
+                />
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+                  Choose a Question
+                </h2>
+              </div>
+
+              {/* Topic Filter */}
+              <div className="mb-8">
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedFilter(category)}
+                      className={`px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
+                        selectedFilter === category
+                          ? "bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg transform scale-105"
+                          : "bg-white text-slate-600 border border-violet-600/20 hover:bg-violet-50 hover:text-violet-600 hover:border-violet-300 shadow-sm"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-slate-500 text-sm">
+                  Showing {filteredQuestions.length} question
+                  {filteredQuestions.length !== 1 ? "s" : ""}
+                  {selectedFilter !== "All" && ` in ${selectedFilter}`}
+                </p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-              {selectedQuestion.answers.map((answer, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  onClick={() => handleImageClick(answer.word)}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredQuestions.map((question, index) => (
+                <motion.button
+                  key={question.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
+                  onClick={() => handleQuestionSelect(question)}
+                  className="bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 text-left group border border-violet-600/10 hover:border-violet-300"
                 >
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={answer.image}
-                      alt={`AI generated response ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      onLoad={() => {
-                        setImagesLoaded((prev) => prev + 1);
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src =
-                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='%236b7280'%3EImage not available%3C/text%3E%3C/svg%3E";
-                        setImagesLoaded((prev) => prev + 1);
-                      }}
-                    />
-                  </div>
-                  <div className="p-3 text-center">
-                    <span className="text-slate-800 font-medium text-sm">
-                      {answer.word}
+                  <div className="mb-4">
+                    <span className="bg-gradient-to-r from-violet-100 to-purple-100 text-violet-700 px-3 py-1.5 rounded-full text-sm font-medium">
+                      {question.category}
                     </span>
                   </div>
-                </motion.div>
+                  <h3 className="font-semibold mb-3 group-hover:text-violet-600 transition-colors text-slate-900 line-clamp-3 text-sm sm:text-base">
+                    {question.text}
+                  </h3>
+                  <p className="text-slate-600 text-sm">
+                    Tap to explore visual answers
+                  </p>
+                </motion.button>
               ))}
             </div>
           </motion.div>
         )}
 
-        {/* Email Form */}
-        {showEmailForm && (
+        {/* Ma-Talk AI Interface */}
+        {selectedQuestion && (
           <motion.div
-            className="max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <div className="text-center mb-6">
-                <Mail className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">
-                  Want to learn more?
-                </h3>
-                <p className="text-slate-600">
-                  Contact us to discover how Matalk AI can help with
-                  communication.
-                </p>
+            {/* Controls */}
+            <div className="flex items-center justify-between">
+              <button
+                onClick={resetPlayground}
+                className="flex items-center space-x-3 text-slate-600 hover:text-violet-600 transition-colors group"
+              >
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                <span className="font-medium">Choose Different Question</span>
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedAnswer(null);
+                  setShowSuccess(false);
+                }}
+                className="flex items-center space-x-3 text-slate-600 hover:text-violet-600 transition-colors group"
+              >
+                <RefreshCw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
+                <span className="font-medium">Reset</span>
+              </button>
+            </div>
+
+            {/* Tablet Mockup and Info Panel Side by Side */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Tablet Mockup */}
+              <div className="lg:col-span-2 flex justify-center">
+                <div className="relative max-w-4xl w-full">
+                  {/* Tablet Frame */}
+                  <div className="bg-slate-800 rounded-[3rem] p-4 shadow-2xl">
+                    <div className="bg-slate-900 rounded-[2.5rem] p-3">
+                      <div
+                        className="rounded-[2rem] p-6 min-h-[500px] relative overflow-hidden"
+                        style={{ backgroundColor: "#FFF8E7" }}
+                      >
+                        {/* Status Bar */}
+                        <div className="flex justify-between items-center mb-6 text-sm text-slate-600">
+                          <span>2:34 PM Fri Jul 11</span>
+                          <div className="flex items-center space-x-2">
+                            <span>📶</span>
+                            <span>97%</span>
+                            <span>🔋</span>
+                          </div>
+                        </div>
+
+                        {/* App Header */}
+                        <div className="flex items-center justify-between mb-6">
+                          <div className="w-12 h-12 flex items-center justify-center">
+                            <img
+                              src="/images/michrophone.gif"
+                              alt="Microphone"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div className="flex-1 mx-4 bg-white rounded-2xl p-4 shadow-sm">
+                            <p className="text-slate-800 font-medium text-center text-xs sm:text-sm md:text-base">
+                              {selectedQuestion.text}
+                            </p>
+                          </div>
+                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+                            <span className="text-slate-700">🏠</span>
+                          </div>
+                        </div>
+
+                        {/* Answer Grid */}
+                        <div className="grid grid-cols-3 gap-4 mb-6">
+                          {answerOptions[selectedQuestion.id]?.map(
+                            (option, index) => (
+                              <motion.button
+                                key={option.id}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{
+                                  duration: 0.4,
+                                  delay: index * 0.1,
+                                }}
+                                onClick={() =>
+                                  handleAnswerSelect(option.id, option.isMore)
+                                }
+                                className={`relative bg-white rounded-2xl p-3 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-105 ${
+                                  selectedAnswer === option.id
+                                    ? "ring-4 ring-violet-400 shadow-xl"
+                                    : ""
+                                }`}
+                              >
+                                {option.isMore ? (
+                                  <>
+                                    <div className="aspect-square rounded-xl overflow-hidden mb-2 bg-white">
+                                      <img
+                                        src="/images/cantfindIt.png"
+                                        alt="Can't find it"
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                    <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
+                                      <span className="sm:hidden">More</span>
+                                      <span className="hidden sm:inline">
+                                        Get More Answers
+                                      </span>
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="aspect-square rounded-xl overflow-hidden mb-2">
+                                      <ImageWithFallback
+                                        src={option.imageUrl || ""}
+                                        alt={option.label}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                    <p className="text-slate-800 text-xs sm:text-sm font-medium text-center">
+                                      {option.label}
+                                    </p>
+                                  </>
+                                )}
+                              </motion.button>
+                            )
+                          )}
+                        </div>
+
+                        {/* Bottom Navigation */}
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                          <div className="w-32 h-1.5 bg-slate-800 rounded-full"></div>
+                        </div>
+
+                        {/* Welcome Icon in Bottom Left */}
+                        <div className="absolute bottom-4 left-4">
+                          <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-lg">
+                            <img
+                              src="/images/welcome.png"
+                              alt="Welcome"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Success Message */}
+                        {showSuccess && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.4 }}
+                            className="absolute inset-x-6 top-24 bg-green-500 text-white rounded-2xl p-6 shadow-2xl z-10"
+                          >
+                            <div className="text-center">
+                              <div className="text-3xl mb-3">🎉</div>
+                              <p className="font-semibold text-lg">
+                                Great choice!
+                              </p>
+                              <p className="text-sm opacity-90 mt-1">
+                                Ma-Talk AI is learning
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <form onSubmit={handleEmailSubmit} className="space-y-4">
-                <div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 focus:ring-4 focus:ring-purple-200 transition-all duration-200"
-                    required
-                  />
-                </div>
-
-                {/* Status Messages */}
-                {submitStatus.type && (
-                  <motion.div
-                    className={`p-3 rounded-lg text-sm font-medium ${
-                      submitStatus.type === "success"
-                        ? "bg-green-50 text-green-800 border border-green-200"
-                        : "bg-red-50 text-red-800 border border-red-200"
-                    }`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {submitStatus.message}
-                  </motion.div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !email.trim()}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+              {/* Information Panel */}
+              <div className="lg:col-span-1">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-violet-600/10"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Sending...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Mail className="w-5 h-5" />
-                      <span>Contact Us</span>
-                    </>
-                  )}
-                </button>
-              </form>
-
-              <div className="mt-6 pt-6 border-t border-slate-200">
-                <div className="text-center mb-4">
-                  <p className="text-slate-600 font-medium">
-                    OR Download the app
-                  </p>
-                </div>
-                <div className="flex justify-center items-center">
-                  <a
-                    href="https://apps.apple.com/us/app/ma-talk-ai/id6747360381"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group transition-transform duration-200 hover:scale-105"
-                    onClick={() => {
-                      mixpanel.track("Taste of Matalk - App Store Click", {
-                        source: "taste-of-matalk-ai",
-                        location: "email-form",
-                      });
-                    }}
-                  >
-                    <img
-                      src="/images/black.svg"
-                      alt="Download on the App Store"
-                      className="h-14 w-auto transition-all duration-200"
-                    />
-                  </a>
-                </div>
+                  <h3 className="h3 mb-6">Behind the Scenes</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-purple-600 text-lg">🧠</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-2">
+                          AI Learning
+                        </h4>
+                        <p className="text-slate-600 text-sm">
+                          Analyzes choices to personalize future options and
+                          improve speed.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-blue-600 text-lg">🎯</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-2">
+                          Smart Suggestions
+                        </h4>
+                        <p className="text-slate-600 text-sm">
+                          Images selected based on context and communication
+                          patterns.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-green-600 text-lg">⚡</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-2">
+                          Fast Response
+                        </h4>
+                        <p className="text-slate-600 text-sm">
+                          Quick response times for seamless communication flow.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-orange-600 text-lg">🔄</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-2">
+                          Continuous Learning
+                        </h4>
+                        <p className="text-slate-600 text-sm">
+                          Each interaction improves future suggestions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </motion.div>
-        )}
-
-        {/* Empty State */}
-        {!selectedQuestion && !showEmailForm && (
-          <motion.div
-            className="text-center py-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <ImageIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-500 text-lg">
-              Select a question above to see AI-generated visual responses
-            </p>
           </motion.div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

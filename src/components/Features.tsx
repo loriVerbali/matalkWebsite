@@ -588,7 +588,7 @@ export function Features() {
               </motion.p>
             </div>
 
-            {/* Verbali Logo positioned above and to the right - mobile only */}
+            {/* Verbali Logo positioned above and to the right - all screen sizes */}
             <motion.div
               initial={{ opacity: 0, scale: 0.3, rotate: -15 }}
               whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
@@ -608,12 +608,12 @@ export function Features() {
                 stiffness: 120,
                 damping: 12,
               }}
-              className="absolute top-4 right-4 cursor-pointer z-20 md:hidden"
+              className="absolute top-4 right-4 cursor-pointer z-20"
             >
               <img
                 src={maTalkLogo}
                 alt="Verbali Logo"
-                className="w-12 h-12 object-contain opacity-90 rounded-[16px]"
+                className="w-12 h-12 md:w-16 md:h-16 object-contain opacity-90 rounded-[16px]"
                 style={{
                   filter: "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15))",
                 }}
