@@ -15,7 +15,7 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
   const handleAction = useFAQActions(onNavigate);
 
   return (
-    <section className="py-20 lg:py-28 bg-lavender-50 relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#eff3fd] relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/30 via-transparent to-indigo-100/40"></div>
 

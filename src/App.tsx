@@ -41,6 +41,7 @@ export default function App() {
     | "terms-of-use"
     | "blog"
     | "attribution"
+    | "taste-of-matalk-ai"
   >("home");
 
   // Clean up any old data formats on app start
@@ -140,6 +141,7 @@ export default function App() {
       case "terms-of-use":
       case "blog":
       case "attribution":
+      case "taste-of-matalk-ai":
         setCurrentPage(
           destination as
             | "pricing"
@@ -152,6 +154,7 @@ export default function App() {
             | "terms-of-use"
             | "blog"
             | "attribution"
+            | "taste-of-matalk-ai"
         );
         break;
       default:
@@ -199,6 +202,9 @@ export default function App() {
       case "attribution":
         return <Attribution onBack={handleBackToHome} />;
 
+      case "taste-of-matalk-ai":
+        return <TasteOfMatalkAI onBack={handleBackToHome} />;
+
       case "home":
       default:
         return (
@@ -211,11 +217,11 @@ export default function App() {
               <Features />
             </div>
             <div className="mb-8 sm:mb-0">
-              <Demo />
+              <Demo onNavigate={handleNavigation} />
             </div>
-            <div className="mb-8 sm:mb-0">
+            {/* <div className="mb-8 sm:mb-0">
               <TasteOfMatalkAI />
-            </div>
+            </div> */}
             <div className="mb-8 sm:mb-0">
               <CoreValues />
             </div>

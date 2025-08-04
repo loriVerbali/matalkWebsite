@@ -170,7 +170,15 @@ export function Header({ onNavigate }: HeaderProps) {
                         navigation_type: "dropdown_menu",
                         menu: "product",
                       });
-                      onNavigate("demo");
+                      onNavigate("home");
+                      // Scroll to demo section after navigation
+                      setTimeout(() => {
+                        const demoSection =
+                          document.getElementById("demo-section");
+                        if (demoSection) {
+                          demoSection.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }, 100);
                       setIsHomeOpen(false);
                     }}
                     className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
@@ -208,7 +216,18 @@ export function Header({ onNavigate }: HeaderProps) {
                 </div>
               )}
             </div>
-
+            <button
+              onClick={() => {
+                analytics.trackInteraction("Navigation Click", {
+                  destination: "taste-of-matalk-ai",
+                  navigation_type: "desktop_menu",
+                });
+                onNavigate("taste-of-matalk-ai");
+              }}
+              className="text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
+            >
+              Playground
+            </button>
             <button
               onClick={() => {
                 analytics.trackInteraction("Navigation Click", {
@@ -275,7 +294,7 @@ export function Header({ onNavigate }: HeaderProps) {
                 onClick={() => setIsRequestOpen(!isRequestOpen)}
                 className="flex items-center space-x-1 text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
               >
-                <span>Future features</span>
+                <span>I want to...</span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${
                     isRequestOpen ? "rotate-180" : ""
@@ -329,7 +348,24 @@ export function Header({ onNavigate }: HeaderProps) {
                 {isMobileProductOpen && (
                   <div className="mobile-nav-submenu">
                     <button
-                      onClick={() => handleMobileNavigation("demo")}
+                      onClick={() => {
+                        analytics.trackInteraction("Navigation Click", {
+                          destination: "demo",
+                          navigation_type: "mobile_menu",
+                          menu: "product",
+                        });
+                        onNavigate("home");
+                        // Scroll to demo section after navigation
+                        setTimeout(() => {
+                          const demoSection =
+                            document.getElementById("demo-section");
+                          if (demoSection) {
+                            demoSection.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }, 100);
+                        setIsMobileMenuOpen(false);
+                        setIsMobileProductOpen(false);
+                      }}
                       className="mobile-nav-item w-full text-left"
                     >
                       Demo
@@ -356,6 +392,14 @@ export function Header({ onNavigate }: HeaderProps) {
                 className="mobile-nav-item w-full text-left border-b border-gray-100"
               >
                 Pricing
+              </button>
+
+              {/* Taste of Ma-Talk AI */}
+              <button
+                onClick={() => handleMobileNavigation("taste-of-matalk-ai")}
+                className="mobile-nav-item w-full text-left border-b border-gray-100"
+              >
+                Taste of Ma-Talk AI
               </button>
 
               {/* Company Section */}
