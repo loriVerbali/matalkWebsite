@@ -22,6 +22,7 @@ import { MaTalkPrivacyPolicy } from "./components/MaTalkPrivacyPolicy";
 import { TermsOfUse } from "./components/TermsOfUse";
 import { Pricing } from "./components/Pricing";
 import { Blog } from "./components/Blog";
+import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 
 export default function App() {
   const [showWaitlist, setShowWaitlist] = useState(false);
@@ -196,6 +197,9 @@ export default function App() {
             <div className="mb-8 sm:mb-0">
               <Demo />
             </div>
+            {/* <div className="mb-8 sm:mb-0">
+              <TasteOfMatalkAI />
+            </div> */}
             <div className="mb-8 sm:mb-0">
               <CoreValues />
             </div>
