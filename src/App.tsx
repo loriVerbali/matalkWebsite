@@ -197,9 +197,9 @@ export default function App() {
             <div className="mb-8 sm:mb-0">
               <Demo />
             </div>
-            {/* <div className="mb-8 sm:mb-0">
+            <div className="mb-8 sm:mb-0">
               <TasteOfMatalkAI />
-            </div> */}
+            </div>
             <div className="mb-8 sm:mb-0">
               <CoreValues />
             </div>

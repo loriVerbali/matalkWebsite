@@ -18,7 +18,7 @@ export function CTA() {
               className="group transition-transform duration-200 hover:scale-105"
             >
               <img
-                src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
+                src="/images/black.svg"
                 alt="Download on the App Store"
                 className="h-14 w-auto transition-all duration-200"
               />
