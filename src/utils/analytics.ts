@@ -9,7 +9,8 @@ if (token) {
     persistence: "localStorage",
   });
 } else {
-  console.warn("Mixpanel token not found in environment variables");
+  // Silently skip Mixpanel initialization if token is not available
+  // console.warn("Mixpanel token not found in environment variables");
 }
 
 // Check if Mixpanel is initialized
