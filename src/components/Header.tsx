@@ -399,7 +399,7 @@ export function Header({ onNavigate }: HeaderProps) {
                 onClick={() => handleMobileNavigation("taste-of-matalk-ai")}
                 className="mobile-nav-item w-full text-left border-b border-gray-100"
               >
-                Taste of Ma-Talk AI
+                Playground
               </button>
 
               {/* Company Section */}
