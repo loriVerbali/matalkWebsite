@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import maTalkLogo from "/images/MatalkLogoWeb.png";
 import tasteOfMatalkData from "./TasteOfMatalk.json";
+import analytics from "../utils/analytics";
 
 interface PlaygroundProps {
   onBack: () => void;
@@ -149,6 +150,14 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
   ];
 
   const handleQuestionSelect = (question: Question) => {
+    // Track question selection
+    analytics.trackInteraction("TasteOfMatalk Question Selected", {
+      question_id: question.id,
+      question_text: question.text,
+      question_category: question.category,
+      component: "Playground",
+    });
+
     setSelectedQuestion(question);
     setSelectedAnswer(null);
     setShowSuccess(false);
@@ -209,6 +218,16 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
     e.preventDefault();
     if (!email.trim()) return;
 
+    // Track form submission attempt
+    analytics.trackFormSubmission("TasteOfMatalk Lead Form", true, {
+      email: email.trim(),
+      question_id: selectedQuestion?.id,
+      question_text: selectedQuestion?.text,
+      question_category: selectedQuestion?.category,
+      component: "Playground",
+      source: "website",
+    });
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
@@ -218,7 +237,11 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
         source: "website",
       };
 
-      console.log("Sending request to API:", requestBody);
+      analytics.trackFormSubmission("TasteOfMatalk Lead Form", true, {
+        email: email.trim(),
+        component: "TasteOfMatalkAI",
+        source: "website",
+      });
 
       const response = await fetch(
         "https://matalkwebsitebe-production.up.railway.app/api/contact",
@@ -271,6 +294,15 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
         });
       }
     } catch (error) {
+      // Track network error
+      analytics.trackFormSubmission("TasteOfMatalk Lead Form", false, {
+        email: email.trim(),
+        component: "Playground",
+        source: "website",
+        status: "network_error",
+        error_message: "Network error",
+      });
+
       setSubmitStatus({
         type: "error",
         message: "Network error. Please check your connection and try again.",
@@ -497,6 +529,15 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
                           href="https://apps.apple.com/us/app/ma-talk-ai/id6747360381"
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => {
+                            analytics.trackInteraction(
+                              "App Store Button Clicked",
+                              {
+                                component: "Playground",
+                                source: "website",
+                              }
+                            );
+                          }}
                           className="group transition-transform duration-200 hover:scale-105 inline-block"
                         >
                           <img
