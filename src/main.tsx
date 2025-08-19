@@ -6,6 +6,7 @@ import EULAStandalone from "./pages/EULAStandalone.tsx";
 import TermsOfUseStandalone from "./pages/TermsOfUseStandalone.tsx";
 import PrivacyPolicyStandalone from "./pages/PrivacyPolicyStandalone.tsx";
 import MaTalkPrivacyPolicyStandalone from "./pages/MaTalkPrivacyPolicyStandalone.tsx";
+import DataDeletionStandalone from "./pages/DataDeletionStandalone.tsx";
 import "./styles/globals.css";
 
 // Import analytics to ensure Mixpanel is initialized
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           path="/matalk-ai-privacy-policy"
           element={<MaTalkPrivacyPolicyStandalone />}
         />
+        <Route path="/data-deletion" element={<DataDeletionStandalone />} />
       </Routes>
     </Router>
   </React.StrictMode>
