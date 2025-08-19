@@ -24,6 +24,7 @@ import { TermsOfUse } from "./components/TermsOfUse";
 import { Pricing } from "./components/Pricing";
 import { Blog } from "./components/Blog";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
+import { DataDeletion } from "./components/DataDeletion";
 
 export default function App() {
   const [showWaitlist, setShowWaitlist] = useState(false);
@@ -42,6 +43,7 @@ export default function App() {
     | "blog"
     | "attribution"
     | "taste-of-matalk-ai"
+    | "data-deletion"
   >("home");
 
   // Clean up any old data formats on app start
@@ -142,6 +144,7 @@ export default function App() {
       case "blog":
       case "attribution":
       case "taste-of-matalk-ai":
+      case "data-deletion":
         setCurrentPage(
           destination as
             | "pricing"
@@ -155,6 +158,7 @@ export default function App() {
             | "blog"
             | "attribution"
             | "taste-of-matalk-ai"
+            | "data-deletion"
         );
         break;
       default:
@@ -204,6 +208,9 @@ export default function App() {
 
       case "taste-of-matalk-ai":
         return <TasteOfMatalkAI onBack={handleBackToHome} />;
+
+      case "data-deletion":
+        return <DataDeletion onBack={handleBackToHome} />;
 
       case "home":
       default:

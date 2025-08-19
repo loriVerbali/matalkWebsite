@@ -180,6 +180,20 @@ export function Footer({ onNavigate }: FooterProps) {
                   Attribution
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
+                      destination: "data-deletion",
+                      section: "resources",
+                    });
+                    onNavigate("data-deletion");
+                  }}
+                  className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
+                >
+                  Delete My Data
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -206,6 +220,18 @@ export function Footer({ onNavigate }: FooterProps) {
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
               Terms of Use
+            </button>
+            <button
+              onClick={() => {
+                analytics.trackInteraction("Footer Navigation", {
+                  destination: "data-deletion",
+                  section: "legal_footer",
+                });
+                onNavigate("data-deletion");
+              }}
+              className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
+            >
+              Delete My Data
             </button>
           </div>
         </div>
