@@ -119,24 +119,25 @@ export default function DataDeletionStandalone() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-gray-400 mr-2">●</span>
-                  <span>Child's personal information (name, age group)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>All uploaded images and custom content</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>AAC cards and personalized phrases</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-400 mr-2">●</span>
-                  <span>Usage history and preferences</span>
+                  <span>
+                    Local personalized phrases and images - these are stored on
+                    your device and are not uploaded to our servers
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-gray-400 mr-2">●</span>
                   <span>
-                    All other personal data associated with your account
+                    The AI assistant that was used to generate the personalized
+                    answers - the AI assistant does not store any data and does
+                    not use the information for training or improving the
+                    assistant.
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-gray-400 mr-2">●</span>
+                  <span>
+                    All other personal data associated with your account - this
+                    includes your name, email.
                   </span>
                 </li>
               </ul>
@@ -153,15 +154,6 @@ export default function DataDeletionStandalone() {
                     <span>
                       <strong>This action is permanent:</strong> Once you delete
                       your account, your data cannot be recovered.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-400 mr-2">●</span>
-                    <span>
-                      <strong>Subscription cancellation:</strong> Deleting your
-                      account will also cancel any active subscriptions. Refunds
-                      follow the policies of your app store (Apple App Store,
-                      Google Play Store, etc.).
                     </span>
                   </li>
                   <li className="flex items-start">

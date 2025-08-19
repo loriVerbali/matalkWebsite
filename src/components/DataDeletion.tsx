@@ -123,12 +123,20 @@ export function DataDeletion({ onBack }: DataDeletionProps) {
               </p>
               <ul className="list-disc pl-6 text-slate-700 mb-6 space-y-2">
                 <li>Your account information (name, email, password)</li>
-                <li>Child's personal information (name, age group)</li>
                 <li>
                   Local personalized phrases and images - these are stored on
                   your device and are not uploaded to our servers
                 </li>
-                <li>All other personal data associated with your account</li>
+                <li>
+                  The AI assistant that was used to generate the personalized
+                  answers - the AI assistant does not store any data and does
+                  not use the information for training or improving the
+                  assistant.
+                </li>
+                <li>
+                  All other personal data associated with your account - this
+                  includes your name, email.
+                </li>
               </ul>
             </section>
 
@@ -139,12 +147,6 @@ export function DataDeletion({ onBack }: DataDeletionProps) {
                   <li>
                     <strong>This action is permanent:</strong> Once you delete
                     your account, your data cannot be recovered.
-                  </li>
-                  <li>
-                    <strong>Subscription cancellation:</strong> Deleting your
-                    account will also cancel any active subscriptions. Refunds
-                    follow the policies of your app store (Apple App Store,
-                    Google Play Store, etc.).
                   </li>
                   <li>
                     <strong>Processing time:</strong> Your data will be
