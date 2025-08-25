@@ -50,6 +50,64 @@ export function Footer({ onNavigate }: FooterProps) {
             <p className="text-slate-700 text-xs sm:hidden mb-2">
               AI-powered AAC system.
             </p>
+
+            {/* Social Media Links */}
+            <div className="flex space-x-3 mb-4">
+              <a
+                href="https://www.linkedin.com/company/verbali-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  analytics.trackInteraction("Social Media Click", {
+                    platform: "linkedin",
+                    destination: "company_page",
+                  });
+                }}
+                className="hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/images/linkedin.png"
+                  alt="LinkedIn"
+                  className="w-6 h-6 sm:w-8 sm:h-8"
+                />
+              </a>
+              <a
+                href="https://www.facebook.com/verbaliAI"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  analytics.trackInteraction("Social Media Click", {
+                    platform: "facebook",
+                    destination: "company_page",
+                  });
+                }}
+                className="hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/images/facebook.png"
+                  alt="Facebook"
+                  className="w-6 h-6 sm:w-8 sm:h-8"
+                />
+              </a>
+              <a
+                href="https://x.com/verbaliAI"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  analytics.trackInteraction("Social Media Click", {
+                    platform: "twitter",
+                    destination: "company_page",
+                  });
+                }}
+                className="hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/images/x.png"
+                  alt="Twitter/X"
+                  className="w-6 h-6 sm:w-8 sm:h-8"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Product Links */}
