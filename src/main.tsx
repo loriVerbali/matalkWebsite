@@ -17,14 +17,25 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/pricing" element={<App />} />
+        <Route path="/about-us" element={<App />} />
+        <Route path="/mission" element={<App />} />
+        <Route path="/leadership" element={<App />} />
+        <Route path="/faq" element={<App />} />
+        <Route path="/verbali-privacy" element={<App />} />
+        <Route path="/matalk-privacy" element={<App />} />
+        <Route path="/terms-of-use" element={<App />} />
+        <Route path="/blog" element={<App />} />
+        <Route path="/blog/:postId" element={<App />} />
+        <Route path="/attribution" element={<App />} />
+        <Route path="/taste-of-matalk-ai" element={<App />} />
+        <Route path="/data-deletion" element={<App />} />
         <Route path="/eula" element={<EULAStandalone />} />
-        <Route path="/terms-of-use" element={<TermsOfUseStandalone />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyStandalone />} />
         <Route
           path="/matalk-ai-privacy-policy"
           element={<MaTalkPrivacyPolicyStandalone />}
         />
-        <Route path="/data-deletion" element={<DataDeletionStandalone />} />
       </Routes>
     </Router>
   </React.StrictMode>

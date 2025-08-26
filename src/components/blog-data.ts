@@ -96,3 +96,8 @@ export function getAllAuthors(): string[] {
   });
   return Array.from(allAuthors);
 }
+
+export function getBlogPostById(id: string): BlogPost | undefined {
+  const posts = getBlogPosts();
+  return posts.find((post) => post.id === id);
+}

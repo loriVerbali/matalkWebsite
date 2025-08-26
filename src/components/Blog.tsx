@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   Calendar,
@@ -35,9 +36,9 @@ interface BlogProps {
 }
 
 export function Blog({ onBack }: BlogProps) {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [filters, setFilters] = useState<BlogFilters>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [availableTags, setAvailableTags] = useState<string[]>([]);
@@ -87,75 +88,7 @@ export function Blog({ onBack }: BlogProps) {
     });
   };
 
-  if (selectedPost) {
-    return (
-      <div className="min-h-screen bg-violet-50">
-        <div className="max-w-4xl mx-auto px-6 py-12">
-          <Button
-            onClick={() => setSelectedPost(null)}
-            variant="ghost"
-            className="mb-8 hover:bg-violet-100"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Blog
-          </Button>
 
-          <article className="card">
-            {selectedPost.imageUrl && (
-              <div className="mb-8 rounded-xl overflow-hidden">
-                <ImageWithFallback
-                  src={selectedPost.imageUrl}
-                  alt={selectedPost.title}
-                  className="w-full h-64 object-cover"
-                />
-              </div>
-            )}
-
-            <div className="mb-6">
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedPost.tags.map((tag: string) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="bg-violet-100 text-violet-600"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-
-              <h1 className="text-4xl font-bold text-slate-900 mb-4">
-                {selectedPost.title}
-              </h1>
-
-              <div className="flex items-center gap-6 text-slate-600 mb-6">
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  <span>{selectedPost.author}</span>
-                  <span className="text-slate-400">•</span>
-                  <span className="text-sm">{selectedPost.authorRole}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{formatDate(selectedPost.publishDate)}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{selectedPost.readTime} min read</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="prose prose-lg max-w-none">
-              <div className="whitespace-pre-wrap text-slate-700 leading-relaxed">
-                {selectedPost.content}
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-violet-50">
@@ -461,7 +394,7 @@ export function Blog({ onBack }: BlogProps) {
                   key={post.id}
                   className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden"
                   onClick={() => {
-                    setSelectedPost(post);
+                    navigate(`/blog/${post.id}`);
                     analytics.trackInteraction("Blog Post Viewed", {
                       post_id: post.id,
                       post_title: post.title,

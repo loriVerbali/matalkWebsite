@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { analytics } from "./utils/analytics";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
@@ -23,13 +24,55 @@ import { MaTalkPrivacyPolicy } from "./components/MaTalkPrivacyPolicy";
 import { TermsOfUse } from "./components/TermsOfUse";
 import { Pricing } from "./components/Pricing";
 import { Blog } from "./components/Blog";
+import { BlogPost } from "./components/BlogPost";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 import { DataDeletion } from "./components/DataDeletion";
 
 export default function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [showFeatureRequest, setShowFeatureRequest] = useState(false);
   const [showLanguageRequest, setShowLanguageRequest] = useState(false);
+
+  // Determine current page from URL path
+  const getCurrentPageFromPath = (pathname: string) => {
+    switch (pathname) {
+      case "/":
+        return "home";
+      case "/pricing":
+        return "pricing";
+      case "/about-us":
+        return "about-us";
+      case "/mission":
+        return "mission";
+      case "/leadership":
+        return "leadership";
+      case "/faq":
+        return "faq";
+      case "/verbali-privacy":
+        return "verbali-privacy";
+      case "/matalk-privacy":
+        return "matalk-privacy";
+      case "/terms-of-use":
+        return "terms-of-use";
+      case "/blog":
+        return "blog";
+      case "/attribution":
+        return "attribution";
+      case "/taste-of-matalk-ai":
+        return "taste-of-matalk-ai";
+      case "/data-deletion":
+        return "data-deletion";
+      default:
+        // Check if it's a blog post URL
+        if (pathname.startsWith("/blog/")) {
+          return "blog-post";
+        }
+        return "home";
+    }
+  };
+
   const [currentPage, setCurrentPage] = useState<
     | "home"
     | "pricing"
@@ -41,10 +84,11 @@ export default function App() {
     | "matalk-privacy"
     | "terms-of-use"
     | "blog"
+    | "blog-post"
     | "attribution"
     | "taste-of-matalk-ai"
     | "data-deletion"
-  >("home");
+  >(getCurrentPageFromPath(location.pathname));
 
   // Clean up any old data formats on app start
   useEffect(() => {
@@ -70,6 +114,12 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }, [currentPage]);
+
+  // Update current page when URL changes
+  useEffect(() => {
+    const newPage = getCurrentPageFromPath(location.pathname);
+    setCurrentPage(newPage);
+  }, [location.pathname]);
 
   // Track page views
   useEffect(() => {
@@ -122,7 +172,7 @@ export default function App() {
         break;
       case "demo":
         // Navigate to home and scroll to demo section
-        setCurrentPage("home");
+        navigate("/");
         if (currentPage === "home") {
           // Already on home page, just scroll
           scrollToDemoSection();
@@ -130,45 +180,53 @@ export default function App() {
         break;
       case "careers":
         // Navigate to leadership and scroll to careers section
-        setCurrentPage("leadership");
+        navigate("/leadership");
         scrollToCareersSection();
         break;
       case "pricing":
+        navigate("/pricing");
+        break;
       case "about-us":
+        navigate("/about-us");
+        break;
       case "mission":
+        navigate("/mission");
+        break;
       case "leadership":
+        navigate("/leadership");
+        break;
       case "faq":
+        navigate("/faq");
+        break;
       case "verbali-privacy":
+        navigate("/verbali-privacy");
+        break;
       case "matalk-privacy":
+        navigate("/matalk-privacy");
+        break;
       case "terms-of-use":
+        navigate("/terms-of-use");
+        break;
       case "blog":
+        navigate("/blog");
+        break;
       case "attribution":
+        navigate("/attribution");
+        break;
       case "taste-of-matalk-ai":
+        navigate("/taste-of-matalk-ai");
+        break;
       case "data-deletion":
-        setCurrentPage(
-          destination as
-            | "pricing"
-            | "about-us"
-            | "mission"
-            | "leadership"
-            | "faq"
-            | "verbali-privacy"
-            | "matalk-privacy"
-            | "terms-of-use"
-            | "blog"
-            | "attribution"
-            | "taste-of-matalk-ai"
-            | "data-deletion"
-        );
+        navigate("/data-deletion");
         break;
       default:
-        setCurrentPage("home");
+        navigate("/");
     }
   };
 
   // Handle back navigation from pages
   const handleBackToHome = () => {
-    setCurrentPage("home");
+    navigate("/");
   };
 
   // Render main content based on current page
@@ -202,6 +260,9 @@ export default function App() {
 
       case "blog":
         return <Blog onBack={handleBackToHome} />;
+
+      case "blog-post":
+        return <BlogPost onBack={handleBackToHome} />;
 
       case "attribution":
         return <Attribution onBack={handleBackToHome} />;
