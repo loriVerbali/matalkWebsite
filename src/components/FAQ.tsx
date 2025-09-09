@@ -87,12 +87,51 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
                       </p>
                     ))}
                     {faq.hasAction && faq.actionType && (
-                      <button
-                        onClick={() => handleAction(faq.actionType!)}
-                        className="inline-flex items-center text-violet-600 hover:text-violet-700 font-medium transition-colors mt-2"
-                      >
-                        → {faq.actionText}
-                      </button>
+                      <>
+                        {faq.actionType === "mobile-platforms" ? (
+                          <div className="flex flex-col sm:flex-row justify-start items-center gap-4 mt-4">
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                                  "_blank"
+                                );
+                              }}
+                              className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                              aria-label="Download Ma-Talk AI on the App Store"
+                            >
+                              <img
+                                src="/images/black.svg"
+                                alt="Download on the App Store"
+                                className="h-10 w-auto transition-all duration-200"
+                              />
+                            </button>
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
+                                  "_blank"
+                                );
+                              }}
+                              className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                              aria-label="Download Ma-Talk AI on Google Play"
+                            >
+                              <img
+                                src="/images/Google_Play_Store_badge_EN.svg"
+                                alt="Get it on Google Play"
+                                className="h-10 w-auto transition-all duration-200"
+                              />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleAction(faq.actionType!)}
+                            className="inline-flex items-center text-violet-600 hover:text-violet-700 font-medium transition-colors mt-2"
+                          >
+                            → {faq.actionText}
+                          </button>
+                        )}
+                      </>
                     )}
                   </div>
                 </AccordionContent>

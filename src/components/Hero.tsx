@@ -55,46 +55,67 @@ export function Hero() {
             "Because the most meaningful conversation is a natural one"
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Trial Card */}
           <motion.div
-            className="flex flex-col items-center gap-4 justify-center mb-6 sm:mb-0"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
+            className="glass-card max-w-6xl mx-auto mb-8 sm:mb-10 py-8 sm:py-12 bg-gradient-to-br from-white/90 to-blue-50/80"
           >
-            {/* Official App Store Download Button */}
-            <button
-              onClick={() => {
-                analytics.trackInteraction("Hero App Store Click", {
-                  location: "hero_section",
-                  destination: "app_store",
-                });
-                // Open Ma-Talk AI App Store link
-                window.open(
-                  "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                  "_blank"
-                );
-              }}
-              className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-              aria-label="Download Ma-Talk AI on the App Store"
-            >
-              <img
-                src={appStoreButton}
-                alt="Download on the App Store"
-                className="h-12 sm:h-14 w-auto transition-all duration-200"
-              />
-            </button>
-          </motion.div>
+            {/* Card Header */}
+            <h3 className="h3 text-gradient mb-6 text-center">
+              Start your free trial today
+            </h3>
 
-          {/* Launch Date Subtitle */}
-          <motion.p
-            className="caption text-slate-500 mt-6 sm:mt-6 px-4"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Launching in 2025 • Early access • Priority support
-          </motion.p>
+            {/* Download Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
+              {/* Official App Store Download Button */}
+              <button
+                onClick={() => {
+                  analytics.trackInteraction("Hero App Store Click", {
+                    location: "hero_section",
+                    destination: "app_store",
+                  });
+                  // Open Ma-Talk AI App Store link
+                  window.open(
+                    "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                    "_blank"
+                  );
+                }}
+                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                aria-label="Download Ma-Talk AI on the App Store"
+              >
+                <img
+                  src={appStoreButton}
+                  alt="Download on the App Store"
+                  className="h-12 sm:h-14 w-auto transition-all duration-200"
+                />
+              </button>
+
+              {/* Google Play Store Download Button */}
+              <button
+                onClick={() => {
+                  analytics.trackInteraction("Hero Google Play Click", {
+                    location: "hero_section",
+                    destination: "google_play",
+                  });
+                  // Open Ma-Talk AI Google Play Store link
+                  window.open(
+                    "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
+                    "_blank"
+                  );
+                }}
+                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                aria-label="Download Ma-Talk AI on Google Play"
+              >
+                <img
+                  src="/images/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play"
+                  className="h-12 sm:h-14 w-auto transition-all duration-200"
+                />
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
 

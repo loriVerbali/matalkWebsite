@@ -455,18 +455,39 @@ export function Demo({ onNavigate }: DemoProps) {
               Join thousands of families already using Verbali to unlock natural
               communication.
             </p>
-            <div className="flex justify-center">
-              <Button
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <button
                 onClick={() => {
                   window.open(
                     "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
                     "_blank"
                   );
                 }}
-                className="bg-violet-600 text-white hover:bg-violet-700 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium rounded-full touch-target"
+                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                aria-label="Download Ma-Talk AI on the App Store"
               >
-                Join the Revolution
-              </Button>
+                <img
+                  src="/images/black.svg"
+                  alt="Download on the App Store"
+                  className="h-12 sm:h-14 w-auto transition-all duration-200"
+                />
+              </button>
+              <button
+                onClick={() => {
+                  window.open(
+                    "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
+                    "_blank"
+                  );
+                }}
+                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                aria-label="Download Ma-Talk AI on Google Play"
+              >
+                <img
+                  src="/images/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play"
+                  className="h-12 sm:h-14 w-auto transition-all duration-200"
+                />
+              </button>
             </div>
           </div>
         </motion.div>

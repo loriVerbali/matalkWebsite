@@ -68,7 +68,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 <img
                   src="/images/linkedin.png"
                   alt="LinkedIn"
-                  className="w-6 h-6 sm:w-8 sm:h-8"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
               </a>
               <a
@@ -86,7 +86,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 <img
                   src="/images/facebook.png"
                   alt="Facebook"
-                  className="w-6 h-6 sm:w-8 sm:h-8"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
               </a>
               <a
@@ -104,7 +104,25 @@ export function Footer({ onNavigate }: FooterProps) {
                 <img
                   src="/images/x.png"
                   alt="Twitter/X"
-                  className="w-6 h-6 sm:w-8 sm:h-8"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
+                />
+              </a>
+              <a
+                href="https://www.youtube.com/@Verbali-AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  analytics.trackInteraction("Social Media Click", {
+                    platform: "youtube",
+                    destination: "company_channel",
+                  });
+                }}
+                className="hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src="/images/youtube.svg"
+                  alt="YouTube"
+                  className="w-12 h-12 sm:w-16 sm:h-16"
                 />
               </a>
             </div>

@@ -29,6 +29,9 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
         // Could open a modal or redirect to Android signup
         console.log("Android updates requested");
         break;
+      case "mobile-platforms":
+        // This will be handled by the store badges in the render
+        break;
       case "request-language":
         if (onNavigate) {
           onNavigate("language-request");
@@ -60,22 +63,10 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
         "Verbali is the company; Ma-Talk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges.",
     },
     {
-      question: "Why is it invite-only right now?",
-      answer:
-        "We're running a closed pilot so we can partner closely with families and speech-language pathologists (SLPs), gather feedback, and refine every detail before the public launch.",
-    },
-    {
-      question: "How can I get an invite?",
-      answer:
-        "Join the wait-list through this link - we review new testers every week and email invite codes as slots open.",
-    },
-    {
       question: "What mobile platforms are supported?",
-      answer:
-        "iPhone / iPad: available today.\n\nAndroid: in development, launching later this year - join the wait-list and we'll alert you first.",
+      answer: "iPhone & iPad: Available\nAndroid Phones & Tablets: Available",
       hasAction: true,
-      actionText: "Get Android updates",
-      actionType: "android-updates",
+      actionType: "mobile-platforms",
     },
     {
       question: "How much does it cost?",
@@ -193,12 +184,51 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
                       </p>
                     ))}
                     {faq.hasAction && faq.actionType && (
-                      <button
-                        onClick={() => handleAction(faq.actionType!)}
-                        className="inline-flex items-center text-violet-600 hover:text-violet-700 font-medium transition-colors mt-2"
-                      >
-                        → {faq.actionText}
-                      </button>
+                      <>
+                        {faq.actionType === "mobile-platforms" ? (
+                          <div className="flex flex-col sm:flex-row justify-start items-center gap-4 mt-4">
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+                                  "_blank"
+                                );
+                              }}
+                              className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                              aria-label="Download Ma-Talk AI on the App Store"
+                            >
+                              <img
+                                src="/images/black.svg"
+                                alt="Download on the App Store"
+                                className="h-10 w-auto transition-all duration-200"
+                              />
+                            </button>
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
+                                  "_blank"
+                                );
+                              }}
+                              className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
+                              aria-label="Download Ma-Talk AI on Google Play"
+                            >
+                              <img
+                                src="/images/Google_Play_Store_badge_EN.svg"
+                                alt="Get it on Google Play"
+                                className="h-10 w-auto transition-all duration-200"
+                              />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleAction(faq.actionType!)}
+                            className="inline-flex items-center text-violet-600 hover:text-violet-700 font-medium transition-colors mt-2"
+                          >
+                            → {faq.actionText}
+                          </button>
+                        )}
+                      </>
                     )}
                   </div>
                 </AccordionContent>
