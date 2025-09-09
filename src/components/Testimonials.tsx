@@ -888,7 +888,9 @@ export function Testimonials() {
               Experience the future of AAC communication and see why families
               and professionals are choosing Ma-Talk AI.
             </p>
-            <button className="btn-primary">Get Early Access</button>
+            <div className="text-slate-700 font-medium text-sm">
+              Download Ma-Talk AI now
+            </div>
 
             {/* Download Badges */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
