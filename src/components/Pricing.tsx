@@ -134,13 +134,10 @@ export function Pricing({ onBack }: PricingProps) {
           {/* Monthly Plan */}
           <div className="relative">
             {/* Cancel Anytime Badge */}
-            <div className="absolute -top-2 -right-2 z-10">
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 text-white p-3 rounded-2xl shadow-lg transform rotate-12">
-                <div className="text-center">
-                  <div className="font-bold text-sm">Cancel</div>
-                  <div className="font-bold text-sm">anytime</div>
-                </div>
-              </div>
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+              <span className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg">
+                CANCEL ANYTIME
+              </span>
             </div>
 
             <div className="bg-white rounded-3xl shadow-lg p-8 pt-12 border border-slate-200 relative overflow-hidden">
