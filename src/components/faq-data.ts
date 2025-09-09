@@ -14,11 +14,9 @@ export const homeFaqs: FAQItem[] = [
   },
   {
     question: "What mobile platforms are supported?",
-    answer:
-      "iPhone / iPad: available today.\n\nAndroid: in development, launching later this year - join the wait-list and we'll alert you first.",
+    answer: "iPhone & iPad: Available\nAndroid Phones & Tablets: Available",
     hasAction: true,
-    actionText: "Get Android updates",
-    actionType: "android-updates",
+    actionType: "mobile-platforms",
   },
   {
     question: "How much does it cost?",

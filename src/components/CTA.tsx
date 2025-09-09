@@ -8,6 +8,13 @@ export function CTA() {
     });
   };
 
+  const handleGooglePlayClick = () => {
+    mixpanel.track("CTA - Google Play Click", {
+      source: "main-cta",
+      location: "homepage",
+    });
+  };
+
   return (
     <section className="py-20 bg-gradient-primary text-white">
       <div className="max-w-7xl mx-auto px-4">
@@ -19,7 +26,7 @@ export function CTA() {
             Join the waitlist for early access to Verbali and be part of the
             revolution in augmentative and alternative communication.
           </p>
-          <div className="flex justify-center items-center">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               href="https://apps.apple.com/us/app/ma-talk-ai/id6747360381"
               target="_blank"
@@ -30,6 +37,19 @@ export function CTA() {
               <img
                 src="/images/black.svg"
                 alt="Download on the App Store"
+                className="h-14 w-auto transition-all duration-200"
+              />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group transition-transform duration-200 hover:scale-105"
+              onClick={handleGooglePlayClick}
+            >
+              <img
+                src="/images/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
                 className="h-14 w-auto transition-all duration-200"
               />
             </a>
