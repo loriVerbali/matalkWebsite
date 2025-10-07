@@ -58,9 +58,9 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
 
   const faqs: FAQItem[] = [
     {
-      question: "What is Verbali and Ma-Talk AI?",
+      question: "What is Verbali and Matalk AI?",
       answer:
-        "Verbali is the company; Ma-Talk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges.",
+        "Verbali is the company; Matalk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges.",
     },
     {
       question: "What mobile platforms are supported?",
@@ -76,7 +76,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
       actionType: "pricing",
     },
     {
-      question: "Who can benefit from Ma-Talk AI?",
+      question: "Who can benefit from Matalk AI?",
       answer:
         "Any communicator who already uses, or could benefit from, Augmentative & Alternative Communication (AAC).",
     },
@@ -91,7 +91,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
         "We look only at aggregated usage patterns - never your child's personal content - to fine-tune suggestions, boost conversation quality, and shape new features. All information stays within Verbali and is protected by encryption at rest and in transit.",
     },
     {
-      question: "What languages does Ma-Talk AI support?",
+      question: "What languages does Matalk AI support?",
       answer:
         "English today, with more languages coming soon. Need a particular language?",
       hasAction: true,
@@ -153,7 +153,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lead text-slate-600 max-w-2xl mx-auto"
           >
-            Everything you need to know about Verbali and Ma-Talk AI
+            Everything you need to know about Verbali and Matalk AI
           </motion.p>
         </div>
 
@@ -195,7 +195,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
                                 );
                               }}
                               className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                              aria-label="Download Ma-Talk AI on the App Store"
+                              aria-label="Download Matalk AI on the App Store"
                             >
                               <img
                                 src="/images/black.svg"
@@ -211,7 +211,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
                                 );
                               }}
                               className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                              aria-label="Download Ma-Talk AI on Google Play"
+                              aria-label="Download Matalk AI on Google Play"
                             >
                               <img
                                 src="/images/Google_Play_Store_badge_EN.svg"

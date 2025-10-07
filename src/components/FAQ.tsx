@@ -62,7 +62,7 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
           <div className="absolute -top-20 right-8 z-10">
             <img
               src={graduationRobotDog}
-              alt="Ma-Talk AI graduation companion"
+              alt="Matalk AI graduation companion"
               className="w-24 h-24 object-contain drop-shadow-xl"
             />
           </div>
@@ -98,7 +98,7 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
                                 );
                               }}
                               className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                              aria-label="Download Ma-Talk AI on the App Store"
+                              aria-label="Download Matalk AI on the App Store"
                             >
                               <img
                                 src="/images/black.svg"
@@ -114,7 +114,7 @@ export function FAQ({ onNavigate }: FAQProps = {}) {
                                 );
                               }}
                               className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                              aria-label="Download Ma-Talk AI on Google Play"
+                              aria-label="Download Matalk AI on Google Play"
                             >
                               <img
                                 src="/images/Google_Play_Store_badge_EN.svg"

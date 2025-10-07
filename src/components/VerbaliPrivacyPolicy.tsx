@@ -110,7 +110,7 @@ export function VerbaliPrivacyPolicy({ onBack }: VerbaliPrivacyPolicyProps) {
 
               <p className="text-slate-700 mb-4">
                 The Site is informative and does not collect payment
-                information. If you purchase a Ma-Talk AI subscription, see the
+                information. If you purchase a Matalk AI subscription, see the
                 in-app policy.
               </p>
             </section>

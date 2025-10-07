@@ -100,7 +100,7 @@ export default function PrivacyPolicyStandalone() {
 
               <p className="text-gray-700">
                 The Site is informative and does not collect payment
-                information. If you purchase a Ma-Talk AI subscription, see the
+                information. If you purchase a Matalk AI subscription, see the
                 in-app policy.
               </p>
             </section>

@@ -3,9 +3,9 @@ import { FAQItem } from "./faq-types";
 // Only show 5 specific questions on home page
 export const homeFaqs: FAQItem[] = [
   {
-    question: "What is Verbali and Ma-Talk AI?",
+    question: "What is Verbali and Matalk AI?",
     answer:
-      "Verbali is the company; Ma-Talk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges.",
+      "Verbali is the company; Matalk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges.",
   },
   {
     question: "How can I get an invite?",

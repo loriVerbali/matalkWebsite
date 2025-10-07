@@ -21,7 +21,7 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
               Back to Home
             </Button>
             <h1 className="h1 text-slate-900 mb-4">
-              Ma-Talk AI – Privacy Policy v1.0
+              Matalk AI – Privacy Policy v1.0
             </h1>
             <p className="text-slate-600">Effective Date: July 9, 2025</p>
           </div>
@@ -30,14 +30,14 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
           <div className="prose prose-lg max-w-none space-y-8">
             <section>
               <p className="text-slate-700 mb-4">
-                Thank you for using Ma-Talk AI, an app by Verbali Inc.
+                Thank you for using Matalk AI, an app by Verbali Inc.
                 ("Verbali," "we," "our," or "us"). This Privacy Policy describes
                 how we collect, use, and protect your personal information when
-                you use the Ma-Talk AI mobile application ("App") and related
+                you use the Matalk AI mobile application ("App") and related
                 services.
               </p>
               <p className="text-slate-700 mb-4">
-                By using Ma-Talk AI, you agree to this policy. If you do not
+                By using Matalk AI, you agree to this policy. If you do not
                 agree, please do not use the App.
               </p>
             </section>
@@ -53,7 +53,7 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
               </p>
               <p className="text-slate-700 mb-4">
                 We collect only the minimum data needed to provide and improve
-                the Ma-Talk AI experience.
+                the Matalk AI experience.
               </p>
 
               <h3 className="h3 text-slate-900 mb-3">
@@ -145,7 +145,7 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
                 4. Subscriptions & Payments
               </h2>
               <p className="text-slate-700 mb-4">
-                Ma-Talk AI is a subscription-based app. Payment is processed by
+                Matalk AI is a subscription-based app. Payment is processed by
                 Apple, Google, or Amazon; we never store your credit card data.
                 Refunds follow the policies of the store where you purchased
                 your subscription.
@@ -157,7 +157,7 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
                 5. Children's Privacy – COPPA Compliance
               </h2>
               <p className="text-slate-700 mb-4">
-                Ma-Talk AI is designed to support communication for children
+                Matalk AI is designed to support communication for children
                 under 13, but it is intended to be used under adult supervision.
               </p>
               <ul className="list-disc pl-6 text-slate-700 mb-4 space-y-2">
@@ -342,7 +342,7 @@ export function MaTalkPrivacyPolicy({ onBack }: MaTalkPrivacyPolicyProps) {
             <section>
               <h2 className="h2 text-slate-900 mb-4">10. International Use</h2>
               <p className="text-slate-700 mb-4">
-                Ma-Talk AI is operated from the United States. If you access the
+                Matalk AI is operated from the United States. If you access the
                 app from outside the U.S. or Canada, your data may be
                 transferred to servers in the U.S., where it is subject to U.S.
                 law.

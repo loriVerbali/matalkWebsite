@@ -57,10 +57,10 @@ export function DataDeletion({ onBack }: DataDeletionProps) {
                   </div>
                   <div className="flex-1">
                     <h3 className="h3 text-slate-900 mb-2">
-                      Open the Ma-Talk AI App
+                      Open the Matalk AI App
                     </h3>
                     <p className="text-slate-700">
-                      Launch the Ma-Talk AI application on your mobile device.
+                      Launch the Matalk AI application on your mobile device.
                     </p>
                   </div>
                 </div>

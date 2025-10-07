@@ -21,7 +21,7 @@ export function Pricing({ onBack }: PricingProps) {
           </Button>
 
           <h1 className="h1 text-slate-900 mb-6">
-            Choose Your <span className="text-gradient">Ma-Talk AI</span> Plan
+            Choose Your <span className="text-gradient">Matalk AI</span> Plan
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Unlock the power of AI-driven AAC communication. Start your journey
@@ -102,7 +102,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-emerald-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on the App Store"
+                    aria-label="Download Matalk AI on the App Store"
                   >
                     <img
                       src="/images/black.svg"
@@ -118,7 +118,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-emerald-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on Google Play"
+                    aria-label="Download Matalk AI on Google Play"
                   >
                     <img
                       src="/images/Google_Play_Store_badge_EN.svg"
@@ -149,10 +149,7 @@ export function Pricing({ onBack }: PricingProps) {
                   <h3 className="h2 text-slate-900 mb-4">Monthly Plan</h3>
                   <div className="mb-4">
                     <div className="text-2xl font-bold text-indigo-600 mb-1">
-                      $6.99/month for 3 months
-                    </div>
-                    <div className="text-orange-500 font-medium">
-                      after 3 months: $29.99/month
+                      $4.99/month
                     </div>
                   </div>
                 </div>
@@ -196,7 +193,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on the App Store"
+                    aria-label="Download Matalk AI on the App Store"
                   >
                     <img
                       src="/images/black.svg"
@@ -212,7 +209,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on Google Play"
+                    aria-label="Download Matalk AI on Google Play"
                   >
                     <img
                       src="/images/Google_Play_Store_badge_EN.svg"
@@ -239,7 +236,6 @@ export function Pricing({ onBack }: PricingProps) {
               <div className="bg-gradient-to-br from-orange-500 to-red-500 text-white p-3 rounded-2xl shadow-lg transform rotate-12 scale-90 sm:scale-100">
                 <div className="text-center">
                   <div className="font-bold text-sm">SAVE</div>
-                  <div className="font-bold text-lg">$60!</div>
                   <div className="text-xs">2 MONTHS FREE</div>
                 </div>
               </div>
@@ -254,9 +250,8 @@ export function Pricing({ onBack }: PricingProps) {
                   <h3 className="h2 text-slate-900 mb-2">Annual Plan</h3>
                   <div className="flex items-baseline justify-center mb-2">
                     <span className="text-5xl font-bold text-violet-600">
-                      $300
+                      $49.99
                     </span>
-                    <span className="text-slate-500 ml-2">.00</span>
                   </div>
                   <p className="text-slate-600">per year</p>
                   <p className="text-sm text-violet-600 font-medium mt-2">
@@ -303,7 +298,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on the App Store"
+                    aria-label="Download Matalk AI on the App Store"
                   >
                     <img
                       src="/images/black.svg"
@@ -319,7 +314,7 @@ export function Pricing({ onBack }: PricingProps) {
                       );
                     }}
                     className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Ma-Talk AI on Google Play"
+                    aria-label="Download Matalk AI on Google Play"
                   >
                     <img
                       src="/images/Google_Play_Store_badge_EN.svg"
@@ -408,7 +403,7 @@ export function Pricing({ onBack }: PricingProps) {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on the App Store"
+                aria-label="Download Matalk AI on the App Store"
               >
                 <img
                   src="/images/black.svg"
@@ -424,7 +419,7 @@ export function Pricing({ onBack }: PricingProps) {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on Google Play"
+                aria-label="Download Matalk AI on Google Play"
               >
                 <img
                   src="/images/Google_Play_Store_badge_EN.svg"

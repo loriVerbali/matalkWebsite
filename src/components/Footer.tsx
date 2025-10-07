@@ -289,7 +289,7 @@ export function Footer({ onNavigate }: FooterProps) {
               onClick={() => onNavigate("matalk-privacy")}
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
-              Ma-Talk AI Privacy Policy
+              Matalk AI Privacy Policy
             </button>
             <button
               onClick={() => onNavigate("terms-of-use")}

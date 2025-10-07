@@ -8,9 +8,11 @@ export default function EULAStandalone() {
               End-User License Agreement (EULA) for MaTalk AI
             </h1>
             <p className="mt-4 text-lg text-gray-600">
-              Effective Date: [Insert Date]
+              Effective Date: October 3, 2025
             </p>
-            <p className="text-lg text-gray-600">Last Updated: [Insert Date]</p>
+            <p className="text-lg text-gray-600">
+              Last Updated: October 7, 2025
+            </p>
           </div>
 
           <div className="text-gray-700 space-y-6">
@@ -67,27 +69,23 @@ export default function EULAStandalone() {
                   <ul className="space-y-1 text-gray-700 ml-6">
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$29.99/month</span>
+                      <span>$4.99/month</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$300.00/year</span>
+                      <span>$49.99/year</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-gray-700 font-semibold">
-                    Introductory Offer (Monthly Plan Only):
+                    Monthly Plan Only
                   </p>
                   <ul className="space-y-1 text-gray-700 ml-6">
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$6.99/month for the first 3 months</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-gray-400 mr-2">●</span>
-                      <span>Then automatically renews at $29.99/month</span>
+                      <span>$4.99/month</span>
                     </li>
                   </ul>
                 </div>

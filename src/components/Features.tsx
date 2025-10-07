@@ -541,7 +541,7 @@ export function Features() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="text-2xl md:text-4xl font-bold text-gray-800 font-sans"
                 >
-                  Re-imagining AAC with Ma-Talk AI App
+                  Re-imagining AAC with Matalk AI App
                 </motion.h2>
 
                 <motion.div
@@ -580,11 +580,11 @@ export function Features() {
                 className="lead text-gray-600 max-w-3xl font-sans"
               >
                 At Verbali, we believe every child deserves a voice.{" "}
-                <strong>The Ma-Talk AI mobile app</strong> pairs
-                state-of-the-art language models with thoughtful AAC design to
-                deliver an experience that is intuitive, responsive, and feels
-                like a real conversation partner. empowering users to speak up
-                faster and more naturally than ever before.
+                <strong>The Matalk AI mobile app</strong> pairs state-of-the-art
+                language models with thoughtful AAC design to deliver an
+                experience that is intuitive, responsive, and feels like a real
+                conversation partner. empowering users to speak up faster and
+                more naturally than ever before.
               </motion.p>
             </div>
 

@@ -69,11 +69,11 @@ export default function EULAPage() {
                   <ul className="space-y-1 text-gray-700 ml-6">
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$29.99/month</span>
+                      <span>$4.99/month</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$300.00/year</span>
+                      <span>$49.99/year</span>
                     </li>
                   </ul>
                 </div>
@@ -85,11 +85,7 @@ export default function EULAPage() {
                   <ul className="space-y-1 text-gray-700 ml-6">
                     <li className="flex items-start">
                       <span className="text-gray-400 mr-2">●</span>
-                      <span>$6.99/month for the first 3 months</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-gray-400 mr-2">●</span>
-                      <span>Then automatically renews at $29.99/month</span>
+                      <span>$4.99/month</span>
                     </li>
                   </ul>
                 </div>
