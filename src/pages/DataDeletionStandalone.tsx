@@ -44,10 +44,10 @@ export default function DataDeletionStandalone() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      Open the Ma-Talk AI App
+                      Open the Matalk AI App
                     </h3>
                     <p className="text-gray-700">
-                      Launch the Ma-Talk AI application on your mobile device.
+                      Launch the Matalk AI application on your mobile device.
                     </p>
                   </div>
                 </div>

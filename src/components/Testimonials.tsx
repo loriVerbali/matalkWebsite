@@ -882,14 +882,14 @@ export function Testimonials() {
         >
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto shadow-lg border border-white/20">
             <h3 className="text-xl font-semibold text-slate-900 mb-4">
-              Join the Ma-Talk AI Community
+              Join the Matalk AI Community
             </h3>
             <p className="text-slate-600 mb-6">
               Experience the future of AAC communication and see why families
-              and professionals are choosing Ma-Talk AI.
+              and professionals are choosing Matalk AI.
             </p>
             <div className="text-slate-700 font-medium text-sm">
-              Download Ma-Talk AI now
+              Download Matalk AI now
             </div>
 
             {/* Download Badges */}
@@ -902,7 +902,7 @@ export function Testimonials() {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on the App Store"
+                aria-label="Download Matalk AI on the App Store"
               >
                 <img
                   src="/images/black.svg"
@@ -918,7 +918,7 @@ export function Testimonials() {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on Google Play"
+                aria-label="Download Matalk AI on Google Play"
               >
                 <img
                   src="/images/Google_Play_Store_badge_EN.svg"

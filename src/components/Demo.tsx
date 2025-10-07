@@ -223,7 +223,7 @@ export function Demo({ onNavigate }: DemoProps) {
             transition={{ duration: 0.6 }}
             className="h2 mb-4 text-slate-900"
           >
-            See Ma-Talk AI in Action
+            See Matalk AI in Action
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -231,7 +231,7 @@ export function Demo({ onNavigate }: DemoProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lead text-slate-600 max-w-3xl mx-auto"
           >
-            Watch our demo to see how Ma-Talk AI transforms AAC communication,
+            Watch our demo to see how Matalk AI transforms AAC communication,
             and listen to our product overview podcast.{" "}
             <button
               onClick={() => {
@@ -262,7 +262,7 @@ export function Demo({ onNavigate }: DemoProps) {
             <div className="glass-card bg-white/90 backdrop-blur-lg border border-purple-100/50 shadow-xl flex-1 flex flex-col">
               <h3 className="h3 mb-3 sm:mb-4 text-slate-900">Watch the Demo</h3>
               <p className="text-slate-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                See how Ma-Talk AI makes AAC communication natural and intuitive
+                See how Matalk AI makes AAC communication natural and intuitive
                 for children with speech challenges.
               </p>
 
@@ -464,7 +464,7 @@ export function Demo({ onNavigate }: DemoProps) {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on the App Store"
+                aria-label="Download Matalk AI on the App Store"
               >
                 <img
                   src="/images/black.svg"
@@ -480,7 +480,7 @@ export function Demo({ onNavigate }: DemoProps) {
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on Google Play"
+                aria-label="Download Matalk AI on Google Play"
               >
                 <img
                   src="/images/Google_Play_Store_badge_EN.svg"
@@ -501,7 +501,7 @@ export function Demo({ onNavigate }: DemoProps) {
         >
           <img
             src={playfulRobotDog}
-            alt="Ma-Talk AI companion"
+            alt="Matalk AI companion"
             className="w-16 h-16 object-contain drop-shadow-lg opacity-80"
           />
         </motion.div>
@@ -524,7 +524,7 @@ export function Demo({ onNavigate }: DemoProps) {
       >
         <img
           src={robotDog2}
-          alt="Ma-Talk AI companion"
+          alt="Matalk AI companion"
           className="w-20 h-20 lg:w-24 lg:h-24 object-contain drop-shadow-xl hover:scale-110 transition-all duration-300 opacity-90 hover:opacity-100"
         />
       </motion.div>
@@ -546,7 +546,7 @@ export function Demo({ onNavigate }: DemoProps) {
       >
         <img
           src={robotDog1}
-          alt="Ma-Talk AI companion"
+          alt="Matalk AI companion"
           className="w-20 h-20 lg:w-24 lg:h-24 object-contain drop-shadow-xl hover:scale-110 transition-all duration-300 opacity-90 hover:opacity-100"
         />
       </motion.div>
@@ -555,7 +555,7 @@ export function Demo({ onNavigate }: DemoProps) {
       <div className="hidden lg:block absolute -bottom-2 left-8 z-30">
         <img
           src={playfulRobotDog}
-          alt="Ma-Talk AI companion playing"
+          alt="Matalk AI companion playing"
           className="w-24 h-24 lg:w-28 lg:h-28 object-contain drop-shadow-2xl transition-all duration-300 opacity-95 hover:opacity-100"
         />
       </div>

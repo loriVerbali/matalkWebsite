@@ -27,6 +27,7 @@ import { Blog } from "./components/Blog";
 import { BlogPost } from "./components/BlogPost";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 import { DataDeletion } from "./components/DataDeletion";
+import Playground from "./components/Playground";
 
 export default function App() {
   const navigate = useNavigate();
@@ -64,6 +65,12 @@ export default function App() {
         return "taste-of-matalk-ai";
       case "/data-deletion":
         return "data-deletion";
+      case "/playground":
+        return "playground";
+      case "/playground/hero-me":
+        return "hero-me";
+      case "/playground/board":
+        return "playground-board";
       default:
         // Check if it's a blog post URL
         if (pathname.startsWith("/blog/")) {
@@ -88,6 +95,9 @@ export default function App() {
     | "attribution"
     | "taste-of-matalk-ai"
     | "data-deletion"
+    | "playground"
+    | "hero-me"
+    | "playground-board"
   >(getCurrentPageFromPath(location.pathname));
 
   // Clean up any old data formats on app start
@@ -219,6 +229,9 @@ export default function App() {
       case "data-deletion":
         navigate("/data-deletion");
         break;
+      case "playground":
+        navigate("/playground");
+        break;
       default:
         navigate("/");
     }
@@ -227,6 +240,11 @@ export default function App() {
   // Handle back navigation from pages
   const handleBackToHome = () => {
     navigate("/");
+  };
+
+  // Handle back navigation to playground
+  const handleBackToPlayground = () => {
+    navigate("/playground");
   };
 
   // Render main content based on current page
@@ -272,6 +290,15 @@ export default function App() {
 
       case "data-deletion":
         return <DataDeletion onBack={handleBackToHome} />;
+
+      case "playground":
+        return <TasteOfMatalkAI onBack={handleBackToHome} />;
+
+      case "hero-me":
+        return <Playground onBack={handleBackToPlayground} />;
+
+      case "playground-board":
+        return <Playground onBack={handleBackToPlayground} />;
 
       case "home":
       default:

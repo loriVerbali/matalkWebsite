@@ -76,7 +76,7 @@ export function Struggle() {
             <div className="hidden sm:block absolute -bottom-3 sm:-bottom-4 right-6 sm:right-8 z-10">
               <img
                 src={sleepingRobotDog}
-                alt="Ma-Talk AI sleeping companion"
+                alt="Matalk AI sleeping companion"
                 className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-xl"
               />
             </div>
@@ -98,7 +98,7 @@ export function Struggle() {
       <div className="sm:hidden absolute -bottom-2 right-4 z-30">
         <motion.img
           src={sleepingRobotDog}
-          alt="Ma-Talk AI companion"
+          alt="Matalk AI companion"
           className="w-16 h-16 object-contain drop-shadow-lg opacity-85"
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 0.85, x: 0 }}

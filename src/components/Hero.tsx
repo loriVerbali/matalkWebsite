@@ -12,7 +12,7 @@ export function Hero() {
       <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 z-30 mobile-hide">
         <motion.img
           src={runningRobotDog}
-          alt="Ma-Talk AI companion running"
+          alt="Matalk AI companion running"
           className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 opacity-95 hover:opacity-100"
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 0.95 }}
@@ -76,14 +76,14 @@ export function Hero() {
                     location: "hero_section",
                     destination: "app_store",
                   });
-                  // Open Ma-Talk AI App Store link
+                  // Open Matalk AI App Store link
                   window.open(
                     "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
                     "_blank"
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on the App Store"
+                aria-label="Download Matalk AI on the App Store"
               >
                 <img
                   src={appStoreButton}
@@ -99,14 +99,14 @@ export function Hero() {
                     location: "hero_section",
                     destination: "google_play",
                   });
-                  // Open Ma-Talk AI Google Play Store link
+                  // Open Matalk AI Google Play Store link
                   window.open(
                     "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
                     "_blank"
                   );
                 }}
                 className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Ma-Talk AI on Google Play"
+                aria-label="Download Matalk AI on Google Play"
               >
                 <img
                   src="/images/Google_Play_Store_badge_EN.svg"
@@ -123,7 +123,7 @@ export function Hero() {
       <div className="sm:hidden absolute -bottom-3 left-4 z-30">
         <img
           src={runningRobotDog}
-          alt="Ma-Talk AI companion running on border"
+          alt="Matalk AI companion running on border"
           className="w-20 h-20 object-contain drop-shadow-lg opacity-85"
         />
       </div>

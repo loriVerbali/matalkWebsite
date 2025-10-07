@@ -30,8 +30,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/attribution" element={<App />} />
         <Route path="/taste-of-matalk-ai" element={<App />} />
         <Route path="/data-deletion" element={<App />} />
+        <Route path="/playground" element={<App />} />
+        <Route path="/playground/hero-me" element={<App />} />
+        <Route path="/playground/board" element={<App />} />
         <Route path="/eula" element={<EULAStandalone />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyStandalone />} />
+        <Route
+          path="/terms-of-use-standalone"
+          element={<TermsOfUseStandalone />}
+        />
         <Route
           path="/matalk-ai-privacy-policy"
           element={<MaTalkPrivacyPolicyStandalone />}
