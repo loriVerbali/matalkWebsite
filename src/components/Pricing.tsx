@@ -254,9 +254,6 @@ export function Pricing({ onBack }: PricingProps) {
                     </span>
                   </div>
                   <p className="text-slate-600">per year</p>
-                  <p className="text-sm text-violet-600 font-medium mt-2">
-                    ($25/month when paid annually)
-                  </p>
                 </div>
 
                 {/* Features */}
@@ -338,13 +335,7 @@ export function Pricing({ onBack }: PricingProps) {
               <h3 className="h3 text-slate-900 mb-3">Is there a free trial?</h3>
               <p className="text-slate-700">
                 Yes! We offer a <strong>7-day free trial</strong> so you can
-                explore all features with no commitment. After the trial, you'll
-                enjoy an
-                <strong>
-                  {" "}
-                  introductory offer of $6.99/month for the first 3 months
-                </strong>
-                . You can cancel anytime during this period.
+                explore all features with no commitment.
               </p>
             </div>
 
