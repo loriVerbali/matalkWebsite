@@ -11,7 +11,7 @@ interface PrintButtonProps {
 
 const PrintButton: React.FC<PrintButtonProps> = ({
   categories = [],
-  composedTiles,
+  composedTiles: _composedTiles, // Prefix with underscore to indicate intentionally unused
   composedUrls,
   disabled = false,
 }) => {
@@ -27,7 +27,7 @@ const PrintButton: React.FC<PrintButtonProps> = ({
     <>
       {/* Print content - always rendered */}
       <div ref={printRef} className="print-content">
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <div key={category.key} className="print-page">
             <div className="print-header">
               <h1>MaTalk Feelings Reference</h1>
