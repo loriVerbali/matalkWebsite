@@ -13,15 +13,8 @@ import Toast from "./playground/Toast";
 import FileDrop from "./playground/FileDrop";
 import DisclaimerBanner from "./playground/DisclaimerBanner";
 
-// Stripe types
-declare global {
-  interface Window {
-    Stripe: any;
-  }
-}
-
-// Debug mode: Set to 1 for testing, 24 for production
-const DEBUG_TILE_COUNT = 24; // Change to 24 for production
+// Debug mode: Set to 1 for testing, 6 for limited generation, 24 for production
+const DEBUG_TILE_COUNT = 6; // Change to 24 for production
 
 const PHRASES = [
   "Grabbing a fresh notebook",
@@ -494,11 +487,6 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
   const [showPreview, setShowPreview] = useState(false);
   const [shouldStartGeneration, setShouldStartGeneration] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
-  const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
-  const [checkoutInstance, setCheckoutInstance] = useState<any>(null);
-  const [sessionId, setSessionId] = useState<string | null>(null);
-  const pollingRef = useRef<NodeJS.Timeout | null>(null);
 
   const handlePrint = useReactToPrint({
     documentTitle: "MaTalk Feelings Reference",
@@ -584,129 +572,34 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
   const handlePaymentClick = async () => {
     if (!uploadedImage) return;
 
-    // Clean up any existing checkout instance
-    if (checkoutInstance) {
-      try {
-        checkoutInstance.destroy();
-      } catch (e) {
-        console.log("No existing checkout to destroy");
-      }
-      setCheckoutInstance(null);
-    }
+    // Skip payment and directly start generation
+    console.log("Skipping payment - starting generation directly");
+    setShouldStartGeneration(true);
 
-    // Clear the checkout container
-    const checkoutContainer = document.getElementById("checkout");
-    if (checkoutContainer) {
-      checkoutContainer.innerHTML = "";
-    }
+    // Show success message
+    setToast({
+      message: "Generating your personalized feelings board...",
+      type: "success",
+    });
 
-    setIsLoadingCheckout(true);
-    setShowCheckoutModal(true);
-
-    // Small delay to ensure DOM is cleared
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    try {
-      // Initialize Stripe
-      const stripe = window.Stripe(
-        "pk_test_51S7yMeB7gxt64D3ltZtxb1CpI3KAbVhePoa8cHcc6BdnL4xz7AYNXD7XAu4wM0dEzivYbka4LRm8RrB2Yx63HhOI000LgJ3fCl"
-      );
-
-      // Ask backend for a client_secret
-      const resp = await fetch(
-        "https://matalkwebsitebe-production.up.railway.app/api/checkout/embedded-session",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            // optional:
-            // clientReferenceId: userId,
-            // metadata: { deviceId },
-            // customerEmail: userEmail,
-          }),
-        }
-      );
-
-      console.log("Backend response status:", resp.status);
-      const responseData = await resp.json();
-      console.log("Backend response data:", responseData);
-
-      const { client_secret } = responseData;
-
-      // Mount in your modal container
-      const checkout = await stripe.initEmbeddedCheckout({
-        clientSecret: client_secret,
-      });
-
-      // Store the checkout instance
-      setCheckoutInstance(checkout);
-
-      // Mount the checkout
-      checkout.mount("#checkout");
-
-      // Store session ID for polling
-      setSessionId(responseData.session_id);
-
-      // Poll for payment completion
-      const pollForCompletion = async () => {
-        try {
-          const response = await fetch(
-            `https://matalkwebsitebe-production.up.railway.app/api/checkout/session?session_id=${responseData.session_id}`
-          );
-          const session = await response.json();
-
-          if (session.payment_status === "paid") {
-            console.log("Payment completed successfully");
-            setShowCheckoutModal(false);
-            setShouldStartGeneration(true);
-
-            // Show success message
-            setToast({
-              message:
-                "Payment successful! Generating your personalized feelings board...",
-              type: "success",
-            });
-
-            // Scroll to board section
-            setTimeout(() => {
-              const boardSection = document.getElementById("board-section");
-              boardSection?.scrollIntoView({ behavior: "smooth" });
-            }, 100);
-
-            // Clear polling interval
-            if (pollingRef.current) {
-              clearTimeout(pollingRef.current);
-              pollingRef.current = null;
-            }
-          } else {
-            // Continue polling every 2 seconds
-            pollingRef.current = setTimeout(pollForCompletion, 2000);
-          }
-        } catch (error) {
-          console.error("Error checking payment status:", error);
-          // Continue polling even if there's an error
-          pollingRef.current = setTimeout(pollForCompletion, 2000);
-        }
-      };
-
-      // Start polling after a short delay
-      pollingRef.current = setTimeout(pollForCompletion, 2000);
-      console.log("Checkout mounted successfully, polling for completion...");
-    } catch (error) {
-      console.error("Error initializing checkout:", error);
-      setToast({
-        message: "Failed to initialize payment. Please try again.",
-        type: "error",
-      });
-      setShowCheckoutModal(false);
-    } finally {
-      setIsLoadingCheckout(false);
-    }
+    // Scroll to board section
+    setTimeout(() => {
+      const boardSection = document.getElementById("board-section");
+      boardSection?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   };
 
   // Generate feeling images directly from uploaded photo
   useEffect(() => {
+    console.log("Generation useEffect triggered:", {
+      hasAvatar: !!avatar,
+      hasOriginalFile: !!avatar?.originalFile,
+      shouldStartGeneration,
+      avatarFile: avatar?.originalFile?.name,
+    });
+
     if (!avatar?.originalFile || !shouldStartGeneration) {
+      console.log("Generation useEffect: conditions not met, returning early");
       return;
     }
 
@@ -786,56 +679,14 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
     };
 
     composeAllTiles();
-  }, [avatar]);
-
-  // Handle payment success from URL parameters
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paymentStatus = urlParams.get("payment");
-
-    if (paymentStatus === "success") {
-      console.log("Payment successful from URL parameter");
-      setShowCheckoutModal(false);
-      setShouldStartGeneration(true);
-
-      setToast({
-        message:
-          "Payment successful! Generating your personalized feelings board...",
-        type: "success",
-      });
-
-      // Scroll to board section
-      setTimeout(() => {
-        const boardSection = document.getElementById("board-section");
-        boardSection?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-
-      // Clean up URL
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, []);
+  }, [avatar, shouldStartGeneration]);
 
   // Cleanup URLs when component unmounts
   useEffect(() => {
     return () => {
       composedUrls.forEach((url) => URL.revokeObjectURL(url));
-
-      // Clean up checkout instance
-      if (checkoutInstance) {
-        try {
-          checkoutInstance.destroy();
-        } catch (e) {
-          // Ignore errors if checkout is already destroyed
-          console.log("Checkout already destroyed or error:", e);
-        }
-      }
-
-      // Clean up polling interval
-      if (pollingRef.current) {
-        clearTimeout(pollingRef.current);
-      }
     };
-  }, [composedUrls, checkoutInstance]);
+  }, [composedUrls]);
 
   const currentCategoryData = feelingsData.find(
     (cat) => cat.key === currentCategory
@@ -1057,9 +908,8 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
                     />
                   </div>
                   <p className="text-sm text-gray-600 mb-4">
-                    Photo uploaded successfully! Pay $2 to unlock AI-powered
-                    personalization and generate your personalized feelings
-                    board.
+                    Photo uploaded successfully! Create your personalized Hero
+                    Me feelings board with AI-powered personalization.
                   </p>
                   <div className="space-y-4">
                     <button
@@ -1072,13 +922,15 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
                         : "Continue (Free Preview)"}
                     </button>
 
-                    {/* Payment Button */}
+                    {/* Generate Hero Me Button */}
                     <button
                       onClick={handlePaymentClick}
-                      disabled={isLoadingCheckout || isComposing}
+                      disabled={isComposing}
                       className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isLoadingCheckout ? "Loading..." : "Pay $2.00"}
+                      {isComposing
+                        ? "Generating..."
+                        : "Create Hero Me Feelings"}
                     </button>
                   </div>
                 </div>
@@ -1279,7 +1131,8 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
                     2
                   </div>
                   <p className="text-gray-700">
-                    Click "Pay $2.00" to open secure payment modal
+                    Click "Create Hero Me Feelings" to generate your
+                    personalized feelings board
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -1314,54 +1167,6 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
                 >
                   Got it!
                 </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Embedded Checkout Modal */}
-        {showCheckoutModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
-              <div className="flex justify-between items-center p-6 border-b">
-                <h2 className="text-xl font-bold text-gray-900">
-                  Complete Payment
-                </h2>
-                <button
-                  onClick={() => {
-                    // Clean up checkout instance when closing modal
-                    if (checkoutInstance) {
-                      try {
-                        checkoutInstance.destroy();
-                      } catch (e) {
-                        // Ignore errors if checkout is already destroyed
-                        console.log("Checkout already destroyed or error:", e);
-                      }
-                      setCheckoutInstance(null);
-                    }
-
-                    // Clear polling interval
-                    if (pollingRef.current) {
-                      clearTimeout(pollingRef.current);
-                      pollingRef.current = null;
-                    }
-
-                    // Clear the checkout container
-                    const checkoutContainer =
-                      document.getElementById("checkout");
-                    if (checkoutContainer) {
-                      checkoutContainer.innerHTML = "";
-                    }
-
-                    setShowCheckoutModal(false);
-                  }}
-                  className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="p-6">
-                <div id="checkout" className="min-h-[400px]"></div>
               </div>
             </div>
           </div>
