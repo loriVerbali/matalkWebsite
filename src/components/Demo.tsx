@@ -1,6 +1,14 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Play, Pause, Volume2, VolumeX, RotateCcw } from "lucide-react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { analytics } from "../utils/analytics";
 import { Button } from "./ui/button";
 // Placeholder images - replace with actual images when available
@@ -23,9 +31,56 @@ export function Demo({ onNavigate }: DemoProps) {
   const [audioDuration, setAudioDuration] = useState(0);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Carousel images data
+  const carouselImages = [
+    {
+      src: "/images/grid.png",
+      alt: "Matalk AI Sentence Builder Grid View",
+      title: "Grid View",
+    },
+    {
+      src: "/images/editgrid.png",
+      alt: "Matalk AI Sentence Builder Edit View",
+      title: "Edit View",
+    },
+    {
+      src: "/images/homepage.png",
+      alt: "Matalk AI Homepage",
+      title: "Homepage",
+    },
+    {
+      src: "/images/feelings.png",
+      alt: "Matalk AI Feelings Interface",
+      title: "Feelings",
+    },
+    {
+      src: "/images/shortcuts.png",
+      alt: "Matalk AI Shortcuts",
+      title: "Shortcuts",
+    },
+    {
+      src: "/images/aiconvo.png",
+      alt: "Matalk AI Conversation Interface",
+      title: "AI Conversation",
+    },
+  ];
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Carousel controls
+  const nextImages = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % (carouselImages.length - 1));
+  };
+
+  const prevImages = () => {
+    setCurrentImageIndex(
+      (prev) =>
+        (prev - 1 + (carouselImages.length - 1)) % (carouselImages.length - 1)
+    );
+  };
 
   // Video controls
   const toggleVideoPlay = () => {
@@ -250,6 +305,91 @@ export function Demo({ onNavigate }: DemoProps) {
             </button>
           </motion.p>
         </div>
+
+        {/* Matalk AI Interface Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="mb-8 sm:mb-12 lg:mb-16"
+        >
+          <div className="max-w-5xl mx-auto">
+            {/* Carousel Container */}
+            <div className="relative">
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevImages}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white text-violet-600 hover:text-violet-700 rounded-full p-2 shadow-lg border border-violet-100/50 transition-all duration-200 hover:scale-110"
+                aria-label="Previous images"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              <button
+                onClick={nextImages}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white text-violet-600 hover:text-violet-700 rounded-full p-2 shadow-lg border border-violet-100/50 transition-all duration-200 hover:scale-110"
+                aria-label="Next images"
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              {/* Images Container */}
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 px-8">
+                <motion.div
+                  key={`${currentImageIndex}-0`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="glass-card bg-white/90 backdrop-blur-lg border border-violet-100/50 shadow-xl p-4 sm:p-6"
+                >
+                  <img
+                    src={carouselImages[currentImageIndex].src}
+                    alt={carouselImages[currentImageIndex].alt}
+                    className="w-full h-auto rounded-lg shadow-md"
+                  />
+                  <p className="text-center text-sm text-slate-600 mt-3 font-medium">
+                    {carouselImages[currentImageIndex].title}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  key={`${currentImageIndex}-1`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="glass-card bg-white/90 backdrop-blur-lg border border-violet-100/50 shadow-xl p-4 sm:p-6"
+                >
+                  <img
+                    src={carouselImages[currentImageIndex + 1].src}
+                    alt={carouselImages[currentImageIndex + 1].alt}
+                    className="w-full h-auto rounded-lg shadow-md"
+                  />
+                  <p className="text-center text-sm text-slate-600 mt-3 font-medium">
+                    {carouselImages[currentImageIndex + 1].title}
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Carousel Indicators */}
+            <div className="flex justify-center mt-6 gap-2">
+              {Array.from({ length: carouselImages.length - 1 }).map(
+                (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index === currentImageIndex
+                        ? "bg-violet-600 scale-125"
+                        : "bg-violet-300 hover:bg-violet-400"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                )
+              )}
+            </div>
+          </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 lg:items-stretch mb-8 sm:mb-12 lg:mb-16">
           {/* Video Demo */}
