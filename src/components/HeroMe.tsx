@@ -462,6 +462,9 @@ interface HeroMeProps {
 const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
   const navigate = useNavigate();
   const printRef = useRef<HTMLDivElement>(null);
+
+  // API base URL for backend calls
+  const API_BASE_URL = "https://matalkwebsitebe-production.up.railway.app";
   const [avatar, setAvatar] = useState<{ originalFile: File } | null>(null);
   const [language, setLanguage] = useState<"en" | "es" | "pt">("en");
   const [highContrast, setHighContrast] = useState(false);
@@ -510,7 +513,9 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       console.log("💳 Payment completed! Session ID from URL:", sessionId);
 
       // Retrieve session from backend to get imageId from metadata
-      fetch(`/api/checkout/session-status?session_id=${sessionId}`)
+      fetch(
+        `${API_BASE_URL}/api/checkout/session-status?session_id=${sessionId}`
+      )
         .then((res) => {
           if (!res.ok) throw new Error("Failed to retrieve session");
           return res.json();
@@ -534,7 +539,9 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
           console.log("📥 Fetching image from backend, ID:", imageId);
 
           // Fetch image from backend
-          return fetch(`/api/temp-image-retrieve?imageId=${imageId}`);
+          return fetch(
+            `${API_BASE_URL}/api/temp-image-retrieve?imageId=${imageId}`
+          );
         })
         .then((res) => {
           if (!res.ok) throw new Error("Failed to retrieve image");
@@ -657,10 +664,13 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
       console.log("📤 Uploading image to backend before payment...");
 
-      const uploadResponse = await fetch("/api/temp-image-upload", {
-        method: "POST",
-        body: formData,
-      });
+      const uploadResponse = await fetch(
+        `${API_BASE_URL}/api/temp-image-upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!uploadResponse.ok) {
         throw new Error("Failed to upload image");
@@ -670,11 +680,14 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       console.log("✅ Image uploaded, ID:", imageId);
 
       // Call backend to create checkout session with imageId in metadata
-      const response = await fetch("/api/checkout/embedded-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageId }), // Backend will store this in session metadata
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/api/checkout/embedded-session`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageId }), // Backend will store this in session metadata
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create checkout session");
