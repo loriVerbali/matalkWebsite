@@ -14,7 +14,7 @@ import FileDrop from "./playground/FileDrop";
 import DisclaimerBanner from "./playground/DisclaimerBanner";
 
 // Debug mode: Set to 1 for testing, 6 for limited generation, 24 for production
-const DEBUG_TILE_COUNT = 6; // Change to 24 for production
+const DEBUG_TILE_COUNT = 1; // Change to 24 for production
 
 const PHRASES = [
   "Grabbing a fresh notebook",
@@ -455,11 +455,11 @@ const PHRASE_COLORS = [
   "#EA8685", // Soft red
 ];
 
-interface PlaygroundProps {
+interface HeroMeProps {
   onBack: () => void;
 }
 
-const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
+const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
   const navigate = useNavigate();
   const printRef = useRef<HTMLDivElement>(null);
   const [avatar, setAvatar] = useState<{ originalFile: File } | null>(null);
@@ -487,6 +487,94 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
   const [showPreview, setShowPreview] = useState(false);
   const [shouldStartGeneration, setShouldStartGeneration] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [isImageSaved, setIsImageSaved] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
+  const [stripeCheckout, setStripeCheckout] = useState<any>(null);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const isMountingCheckout = useRef(false);
+  const hasProcessedPayment = useRef(false);
+  const hasStartedGeneration = useRef(false);
+  const stripeCheckoutRef = useRef<any>(null);
+
+  // Check for payment completion from URL (fallback if polling doesn't catch it)
+  useEffect(() => {
+    // Prevent double-execution in StrictMode
+    if (hasProcessedPayment.current) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get("session_id");
+
+    if (sessionId) {
+      hasProcessedPayment.current = true;
+      console.log("💳 Payment completed! Session ID from URL:", sessionId);
+
+      // Retrieve session from backend to get imageId from metadata
+      fetch(`/api/checkout/session-status?session_id=${sessionId}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to retrieve session");
+          return res.json();
+        })
+        .then((session) => {
+          console.log("📋 Session retrieved:", {
+            status: session.status,
+            hasMetadata: !!session.metadata,
+          });
+
+          if (session.status !== "complete") {
+            throw new Error("Payment not completed");
+          }
+
+          const imageId = session.metadata?.imageId;
+
+          if (!imageId) {
+            throw new Error("No imageId in session metadata");
+          }
+
+          console.log("📥 Fetching image from backend, ID:", imageId);
+
+          // Fetch image from backend
+          return fetch(`/api/temp-image-retrieve?imageId=${imageId}`);
+        })
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to retrieve image");
+          return res.blob();
+        })
+        .then((blob) => {
+          const filename = "uploaded-image.png";
+          const file = new File([blob], filename, { type: blob.type });
+
+          setAvatar({ originalFile: file });
+          setUploadedImage(file);
+          setShouldStartGeneration(true);
+
+          // Clean up URL
+          window.history.replaceState({}, "", window.location.pathname);
+
+          console.log("✅ Image retrieved from backend, starting generation");
+
+          setToast({
+            message:
+              "Payment successful! Generating your personalized feelings board...",
+            type: "success",
+          });
+
+          // Scroll to board section
+          setTimeout(() => {
+            const boardSection = document.getElementById("board-section");
+            boardSection?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        })
+        .catch((error) => {
+          console.error("Error after payment:", error);
+          setToast({
+            message:
+              "Payment successful but couldn't restore image. Please upload again.",
+            type: "error",
+          });
+        });
+    }
+  }, []);
 
   const handlePrint = useReactToPrint({
     documentTitle: "MaTalk Feelings Reference",
@@ -540,6 +628,7 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
       // Store the uploaded file (no generation yet)
       setAvatar({ originalFile: file });
       setUploadedImage(file);
+      setIsImageSaved(true); // Image is ready immediately
 
       // Show success message
       setToast({
@@ -556,37 +645,54 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
     }
   };
 
-  const handleStartGeneration = async () => {
-    if (!uploadedImage) return;
-
-    // For now, start generation directly (free preview)
-    setShouldStartGeneration(true);
-
-    // Scroll to board section
-    setTimeout(() => {
-      const boardSection = document.getElementById("board-section");
-      boardSection?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  };
-
   const handlePaymentClick = async () => {
     if (!uploadedImage) return;
 
-    // Skip payment and directly start generation
-    console.log("Skipping payment - starting generation directly");
-    setShouldStartGeneration(true);
+    setIsLoadingCheckout(true);
 
-    // Show success message
-    setToast({
-      message: "Generating your personalized feelings board...",
-      type: "success",
-    });
+    try {
+      // Upload image to backend first (so it survives page refresh)
+      const formData = new FormData();
+      formData.append("image", uploadedImage);
 
-    // Scroll to board section
-    setTimeout(() => {
-      const boardSection = document.getElementById("board-section");
-      boardSection?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+      console.log("📤 Uploading image to backend before payment...");
+
+      const uploadResponse = await fetch("/api/temp-image-upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const { imageId } = await uploadResponse.json();
+      console.log("✅ Image uploaded, ID:", imageId);
+
+      // Call backend to create checkout session with imageId in metadata
+      const response = await fetch("/api/checkout/embedded-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageId }), // Backend will store this in session metadata
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create checkout session");
+      }
+
+      const { client_secret } = await response.json();
+
+      // Set client secret and show modal - useEffect will handle mounting
+      setClientSecret(client_secret);
+      setShowCheckoutModal(true);
+    } catch (error) {
+      console.error("Payment error:", error);
+      setToast({
+        message: "Failed to initialize payment. Please try again.",
+        type: "error",
+      });
+      setIsLoadingCheckout(false);
+    }
   };
 
   // Generate feeling images directly from uploaded photo
@@ -596,12 +702,21 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
       hasOriginalFile: !!avatar?.originalFile,
       shouldStartGeneration,
       avatarFile: avatar?.originalFile?.name,
+      hasStartedGeneration: hasStartedGeneration.current,
     });
 
     if (!avatar?.originalFile || !shouldStartGeneration) {
       console.log("Generation useEffect: conditions not met, returning early");
       return;
     }
+
+    // Prevent double-execution in StrictMode
+    if (hasStartedGeneration.current) {
+      console.log("Generation useEffect: already started, skipping");
+      return;
+    }
+
+    hasStartedGeneration.current = true;
 
     const composeAllTiles = async () => {
       setIsComposing(true);
@@ -688,6 +803,174 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
     };
   }, [composedUrls]);
 
+  // Mount Stripe checkout when modal is shown
+  useEffect(() => {
+    if (
+      !showCheckoutModal ||
+      !clientSecret ||
+      isMountingCheckout.current ||
+      stripeCheckout
+    )
+      return;
+
+    isMountingCheckout.current = true;
+
+    // Wait for DOM element to exist
+    const mountCheckout = async () => {
+      let attempts = 0;
+      while (attempts < 20) {
+        const container = document.getElementById("checkout-container");
+        if (container) {
+          try {
+            // Initialize Stripe
+            const stripe = (window as any).Stripe(
+              import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+                "pk_test_51QR3oEFDLw2Bsp8hkebfPAC9xjk5J0CcNKDZLPzINrPdWWjRyDXEwIE7i1hXm9Qg3cpBGE9j03mDpPr1r3f88b4R00ZGrNm6Hm"
+            );
+
+            // Initialize embedded checkout
+            const checkout = await stripe.initEmbeddedCheckout({
+              clientSecret: clientSecret,
+            });
+
+            // Mount checkout in modal
+            checkout.mount("#checkout-container");
+            stripeCheckoutRef.current = checkout;
+            setStripeCheckout(checkout);
+            setIsLoadingCheckout(false);
+            isMountingCheckout.current = false;
+
+            // Poll for payment completion (check every 2 seconds)
+            const pollInterval = setInterval(async () => {
+              try {
+                // Check if modal is still open
+                if (!document.getElementById("checkout-container")) {
+                  clearInterval(pollInterval);
+                  return;
+                }
+
+                // Extract session ID from client secret (format: cs_test_xxx_secret_xxx)
+                const sessionId = clientSecret.split("_secret_")[0];
+
+                // Call backend to check session status
+                const response = await fetch(
+                  `/api/checkout/session-status?session_id=${sessionId}`
+                );
+
+                if (!response.ok) {
+                  console.error("Failed to check session status");
+                  return;
+                }
+
+                const data = await response.json();
+
+                if (data.status === "complete") {
+                  // Payment completed!
+                  clearInterval(pollInterval);
+                  console.log("Payment completed!");
+
+                  // Close modal
+                  setShowCheckoutModal(false);
+                  setClientSecret(null);
+
+                  // Start generation immediately
+                  setShouldStartGeneration(true);
+
+                  // Show success message
+                  setToast({
+                    message:
+                      "Payment successful! Generating your personalized feelings board...",
+                    type: "success",
+                  });
+
+                  // Scroll to board section
+                  setTimeout(() => {
+                    const boardSection =
+                      document.getElementById("board-section");
+                    boardSection?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+
+                  // Clean up checkout
+                  if (checkout) {
+                    try {
+                      checkout.destroy();
+                    } catch (error) {
+                      console.error(
+                        "Error destroying checkout after payment:",
+                        error
+                      );
+                    }
+                    stripeCheckoutRef.current = null;
+                    setStripeCheckout(null);
+                  }
+                }
+              } catch (error) {
+                console.error("Error polling session status:", error);
+              }
+            }, 2000); // Poll every 2 seconds
+
+            // Store interval for cleanup
+            (window as any).checkoutPollInterval = pollInterval;
+
+            return;
+          } catch (error) {
+            console.error("Error mounting Stripe checkout:", error);
+            setToast({
+              message: "Failed to load payment form. Please try again.",
+              type: "error",
+            });
+            setShowCheckoutModal(false);
+            setClientSecret(null);
+            setIsLoadingCheckout(false);
+            isMountingCheckout.current = false;
+            return;
+          }
+        }
+
+        // Wait 100ms before trying again
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        attempts++;
+      }
+
+      // Timeout after 2 seconds
+      console.error("Timeout: checkout-container element not found");
+      setToast({
+        message: "Failed to load payment form. Please try again.",
+        type: "error",
+      });
+      setShowCheckoutModal(false);
+      setClientSecret(null);
+      setIsLoadingCheckout(false);
+      isMountingCheckout.current = false;
+    };
+
+    mountCheckout();
+
+    return () => {
+      isMountingCheckout.current = false;
+    };
+  }, [showCheckoutModal, clientSecret, stripeCheckout]);
+
+  // Cleanup Stripe checkout when component unmounts
+  useEffect(() => {
+    return () => {
+      // Clean up polling interval
+      if ((window as any).checkoutPollInterval) {
+        clearInterval((window as any).checkoutPollInterval);
+        (window as any).checkoutPollInterval = null;
+      }
+      // Clean up Stripe checkout using ref to get latest value
+      if (stripeCheckoutRef.current) {
+        try {
+          stripeCheckoutRef.current.destroy();
+        } catch (error) {
+          console.error("Error destroying checkout on unmount:", error);
+        }
+        stripeCheckoutRef.current = null;
+      }
+    };
+  }, []); // Only run on unmount
+
   const currentCategoryData = feelingsData.find(
     (cat) => cat.key === currentCategory
   );
@@ -730,17 +1013,17 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              MaTalk Playground
+              Hero Me Feelings
             </h1>
             <p className="text-lg text-gray-600">
-              Explore feelings with AI-powered personalization
+              Create your personalized AAC feelings board
             </p>
           </div>
           <button
             onClick={onBack}
             className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
           >
-            Go to AI Demo
+            ← Back
           </button>
         </div>
 
@@ -912,26 +1195,25 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
                     Me feelings board with AI-powered personalization.
                   </p>
                   <div className="space-y-4">
-                    <button
-                      onClick={handleStartGeneration}
-                      disabled={isComposing}
-                      className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isComposing
-                        ? "Generating..."
-                        : "Continue (Free Preview)"}
-                    </button>
-
-                    {/* Generate Hero Me Button */}
+                    {/* Payment Button */}
                     <button
                       onClick={handlePaymentClick}
-                      disabled={isComposing}
-                      className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={
+                        isComposing || isLoadingCheckout || !isImageSaved
+                      }
+                      className="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isComposing
+                      {!isImageSaved
+                        ? "Processing image..."
+                        : isLoadingCheckout
+                        ? "Loading Payment..."
+                        : isComposing
                         ? "Generating..."
-                        : "Create Hero Me Feelings"}
+                        : "Create Hero Me Feelings - $2.00"}
                     </button>
+                    <p className="text-xs text-gray-500 text-center">
+                      Secure payment powered by Stripe
+                    </p>
                   </div>
                 </div>
               )}
@@ -1068,7 +1350,12 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
             {/* Navigation */}
             <div className="flex justify-center gap-4 mt-8">
               <button
-                onClick={() => setAvatar(null)}
+                onClick={() => {
+                  setAvatar(null);
+                  setUploadedImage(null);
+                  setShouldStartGeneration(false);
+                  hasStartedGeneration.current = false;
+                }}
                 className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
                 disabled={isComposing}
               >
@@ -1171,9 +1458,63 @@ const Playground: React.FC<PlaygroundProps> = ({ onBack }) => {
             </div>
           </div>
         )}
+
+        {/* Stripe Checkout Modal */}
+        {showCheckoutModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-6 border-b flex-shrink-0">
+                <h2 className="text-xl font-bold text-gray-900">
+                  Complete Payment
+                </h2>
+                <button
+                  onClick={() => {
+                    // Clean up polling interval first
+                    if ((window as any).checkoutPollInterval) {
+                      clearInterval((window as any).checkoutPollInterval);
+                      (window as any).checkoutPollInterval = null;
+                    }
+                    // Destroy Stripe checkout
+                    if (stripeCheckoutRef.current) {
+                      try {
+                        stripeCheckoutRef.current.destroy();
+                      } catch (error) {
+                        console.error("Error destroying checkout:", error);
+                      }
+                      stripeCheckoutRef.current = null;
+                    }
+                    // Reset all state
+                    setStripeCheckout(null);
+                    setShowCheckoutModal(false);
+                    setClientSecret(null);
+                    setIsLoadingCheckout(false);
+                    isMountingCheckout.current = false;
+                  }}
+                  className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                {isLoadingCheckout && (
+                  <div className="text-center py-12">
+                    <div className="animate-pulse text-lg font-semibold mb-2">
+                      Loading payment form...
+                    </div>
+                  </div>
+                )}
+                <div
+                  id="checkout-container"
+                  className="min-h-[400px]"
+                  style={{ display: isLoadingCheckout ? "none" : "block" }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Playground;
+export default HeroMe;

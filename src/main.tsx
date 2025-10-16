@@ -31,8 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/taste-of-matalk-ai" element={<App />} />
         <Route path="/data-deletion" element={<App />} />
         <Route path="/playground" element={<App />} />
-        <Route path="/playground/hero-me" element={<App />} />
-        <Route path="/playground/board" element={<App />} />
+        <Route path="/hero-me" element={<App />} />
         <Route path="/eula" element={<EULAStandalone />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyStandalone />} />
         <Route
