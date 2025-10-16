@@ -10,14 +10,17 @@ interface HeaderProps {
 
 export function Header({ onNavigate }: HeaderProps) {
   const [isHomeOpen, setIsHomeOpen] = useState(false);
+  const [isPlaygroundOpen, setIsPlaygroundOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileProductOpen, setIsMobileProductOpen] = useState(false);
+  const [isMobilePlaygroundOpen, setIsMobilePlaygroundOpen] = useState(false);
   const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false);
   const [isMobileRequestOpen, setIsMobileRequestOpen] = useState(false);
 
   const homeRef = useRef<HTMLDivElement>(null);
+  const playgroundRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +29,12 @@ export function Header({ onNavigate }: HeaderProps) {
     const handleClickOutside = (event: MouseEvent) => {
       if (homeRef.current && !homeRef.current.contains(event.target as Node)) {
         setIsHomeOpen(false);
+      }
+      if (
+        playgroundRef.current &&
+        !playgroundRef.current.contains(event.target as Node)
+      ) {
+        setIsPlaygroundOpen(false);
       }
       if (
         aboutRef.current &&
@@ -51,6 +60,7 @@ export function Header({ onNavigate }: HeaderProps) {
       if (window.innerWidth >= 768) {
         setIsMobileMenuOpen(false);
         setIsMobileProductOpen(false);
+        setIsMobilePlaygroundOpen(false);
         setIsMobileCompanyOpen(false);
         setIsMobileRequestOpen(false);
       }
@@ -69,6 +79,7 @@ export function Header({ onNavigate }: HeaderProps) {
     onNavigate(destination);
     setIsMobileMenuOpen(false);
     setIsMobileProductOpen(false);
+    setIsMobilePlaygroundOpen(false);
     setIsMobileCompanyOpen(false);
     setIsMobileRequestOpen(false);
   };
@@ -216,18 +227,55 @@ export function Header({ onNavigate }: HeaderProps) {
                 </div>
               )}
             </div>
-            <button
-              onClick={() => {
-                analytics.trackInteraction("Navigation Click", {
-                  destination: "playground",
-                  navigation_type: "desktop_menu",
-                });
-                onNavigate("playground");
-              }}
-              className="text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
-            >
-              Playground
-            </button>
+
+            {/* Playground Dropdown */}
+            <div className="relative" ref={playgroundRef}>
+              <button
+                onClick={() => setIsPlaygroundOpen(!isPlaygroundOpen)}
+                className="flex items-center space-x-1 text-slate-700 hover:text-violet-600 transition-colors font-medium touch-target"
+              >
+                <span>Playground</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${
+                    isPlaygroundOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isPlaygroundOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+                  <button
+                    onClick={() => {
+                      analytics.trackInteraction("Navigation Click", {
+                        destination: "playground",
+                        navigation_type: "dropdown_menu",
+                        menu: "playground",
+                      });
+                      onNavigate("playground");
+                      setIsPlaygroundOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                  >
+                    AI Playground
+                  </button>
+                  <button
+                    onClick={() => {
+                      analytics.trackInteraction("Navigation Click", {
+                        destination: "hero-me",
+                        navigation_type: "dropdown_menu",
+                        menu: "playground",
+                      });
+                      onNavigate("hero-me");
+                      setIsPlaygroundOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                  >
+                    Hero Me
+                  </button>
+                </div>
+              )}
+            </div>
+
             <button
               onClick={() => {
                 analytics.trackInteraction("Navigation Click", {
@@ -386,20 +434,45 @@ export function Header({ onNavigate }: HeaderProps) {
                 )}
               </div>
 
+              {/* Playground Section */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={() =>
+                    setIsMobilePlaygroundOpen(!isMobilePlaygroundOpen)
+                  }
+                  className="mobile-nav-item w-full text-left justify-between"
+                >
+                  <span>Playground</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${
+                      isMobilePlaygroundOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isMobilePlaygroundOpen && (
+                  <div className="mobile-nav-submenu">
+                    <button
+                      onClick={() => handleMobileNavigation("playground")}
+                      className="mobile-nav-item w-full text-left"
+                    >
+                      AI Playground
+                    </button>
+                    <button
+                      onClick={() => handleMobileNavigation("hero-me")}
+                      className="mobile-nav-item w-full text-left"
+                    >
+                      Hero Me
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* Pricing */}
               <button
                 onClick={() => handleMobileNavigation("pricing")}
                 className="mobile-nav-item w-full text-left border-b border-gray-100"
               >
                 Pricing
-              </button>
-
-              {/* Playground */}
-              <button
-                onClick={() => handleMobileNavigation("playground")}
-                className="mobile-nav-item w-full text-left border-b border-gray-100"
-              >
-                Playground
               </button>
 
               {/* Company Section */}

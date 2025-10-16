@@ -27,7 +27,7 @@ import { Blog } from "./components/Blog";
 import { BlogPost } from "./components/BlogPost";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 import { DataDeletion } from "./components/DataDeletion";
-import Playground from "./components/Playground";
+import HeroMe from "./components/HeroMe";
 
 export default function App() {
   const navigate = useNavigate();
@@ -67,10 +67,8 @@ export default function App() {
         return "data-deletion";
       case "/playground":
         return "playground";
-      case "/playground/hero-me":
+      case "/hero-me":
         return "hero-me";
-      case "/playground/board":
-        return "playground-board";
       default:
         // Check if it's a blog post URL
         if (pathname.startsWith("/blog/")) {
@@ -97,7 +95,6 @@ export default function App() {
     | "data-deletion"
     | "playground"
     | "hero-me"
-    | "playground-board"
   >(getCurrentPageFromPath(location.pathname));
 
   // Clean up any old data formats on app start
@@ -232,6 +229,9 @@ export default function App() {
       case "playground":
         navigate("/playground");
         break;
+      case "hero-me":
+        navigate("/hero-me");
+        break;
       default:
         navigate("/");
     }
@@ -295,10 +295,7 @@ export default function App() {
         return <TasteOfMatalkAI onBack={handleBackToHome} />;
 
       case "hero-me":
-        return <Playground onBack={handleBackToPlayground} />;
-
-      case "playground-board":
-        return <Playground onBack={handleBackToPlayground} />;
+        return <HeroMe onBack={handleBackToHome} />;
 
       case "home":
       default:
