@@ -14,7 +14,7 @@ import FileDrop from "./playground/FileDrop";
 import DisclaimerBanner from "./playground/DisclaimerBanner";
 
 // Debug mode: Set to 1 for testing, 6 for limited generation, 24 for production
-const DEBUG_TILE_COUNT = 1; // Change to 24 for production
+const DEBUG_TILE_COUNT = 24; // Change to 24 for production
 
 const PHRASES = [
   "Grabbing a fresh notebook",
