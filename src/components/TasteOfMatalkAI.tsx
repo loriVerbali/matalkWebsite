@@ -364,7 +364,7 @@ export function TasteOfMatalkAI({ onBack }: PlaygroundProps) {
                   </div>
                 </button>
                 <button
-                  onClick={() => navigate("/playground/hero-me")}
+                  onClick={() => navigate("/hero-me")}
                   className="px-6 py-3 rounded-md font-semibold transition-all duration-300 text-slate-600 hover:text-violet-600 hover:bg-violet-50"
                 >
                   <div className="flex items-center gap-2">
