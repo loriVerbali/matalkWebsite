@@ -774,6 +774,10 @@ body {
     opacity: 1 !important;
     z-index: 1 !important;
   }
+  /* Ensure everything inside the print container is visible */
+  .print-content * {
+    visibility: visible !important;
+  }
 }
 
 .print-content .print-page {
@@ -958,6 +962,7 @@ body {
     display: flex !important;
     flex-direction: column !important;
     visibility: visible !important;
+    overflow: visible !important; /* ensure label area isn't clipped */
   }
 
   .print-tile-image {
@@ -966,6 +971,7 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    min-height: 0 !important; /* allow flexbox to shrink for label space */
   }
 
   .print-tile-image img {
@@ -985,14 +991,16 @@ body {
     padding: 15px 10px !important;
     text-align: center !important;
     flex-shrink: 0 !important;
+    min-height: 40px !important; /* reserve space for text */
   }
 
   .print-tile-label span {
-    font-size: 16px !important;
+    font-size: 20px !important;
     color: black !important;
     font-weight: bold !important;
     line-height: 1.2 !important;
     display: block !important;
+    visibility: visible !important;
   }
 
   /* Simple print styles */
