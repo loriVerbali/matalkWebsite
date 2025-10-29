@@ -1158,7 +1158,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
                         src="/images/preview-example.png"
                         alt="Preview of personalized feelings board"
                         className="rounded-lg shadow-md"
-                        style={{ width: "80%" }}
+                        style={{ width: "300%" }}
                         onError={(e) => {
                           // Fallback if image doesn't exist
                           e.currentTarget.style.display = "none";
