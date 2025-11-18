@@ -2,6 +2,11 @@
   publish = "dist"
   command = "yarn run build"
 
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
