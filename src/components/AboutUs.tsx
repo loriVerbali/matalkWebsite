@@ -99,7 +99,7 @@ export function AboutUs({ onBack }: AboutUsProps) {
                   navigating AAC solutions. Our founder, Shay Cohen, experienced
                   firsthand the challenges of finding technology that truly
                   served his son's communication needs. That experience also
-                  inspired the name of our first product, Matalk AI - "ma-talk"
+                  inspired the name of our first product, Matalk AI - "matalk"
                   means sweet in Hebrew, and all our children are sweet.
                 </p>
                 <p className="text-slate-700 text-base sm:text-sm">

@@ -260,8 +260,8 @@ export function Testimonials() {
           <div className="text-center">
             <h2 className="h2 mb-6 text-slate-900">What People Are Saying</h2>
             <p className="lead text-slate-600 max-w-2xl mx-auto mb-8">
-              See what our users have to say about their experience with Ma-Talk
-              AI.
+              See what our users have to say about their experience with MaTalk
+              AI AI.
             </p>
             <div className="flex items-center justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
@@ -488,7 +488,7 @@ export function Testimonials() {
           <div className="text-center">
             <h2 className="h2 mb-6 text-slate-900">What People Are Saying</h2>
             <p className="lead text-slate-600 max-w-2xl mx-auto mb-8">
-              See what our users have to say about their experience with Ma-Talk
+              See what our users have to say about their experience with MaTalk
               AI.
             </p>
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto shadow-lg">
@@ -754,7 +754,7 @@ export function Testimonials() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lead text-slate-600 max-w-2xl mx-auto"
           >
-            See what our users have to say about their experience with Ma-Talk
+            See what our users have to say about their experience with MaTalk
             AI.
           </motion.p>
         </div>
