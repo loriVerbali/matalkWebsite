@@ -126,6 +126,30 @@ export function Footer({ onNavigate }: FooterProps) {
                 />
               </a>
             </div>
+
+            {/* Product Hunt Badge */}
+            <div className="mt-4">
+              <a
+                href="https://www.producthunt.com/products/verbali-presents-when-ai-meets-aac?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-verbali&#0045;presents&#0045;when&#0045;ai&#0045;meets&#0045;aac"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  analytics.trackInteraction("Social Media Click", {
+                    platform: "producthunt",
+                    destination: "product_page",
+                  });
+                }}
+                className="hover:opacity-80 transition-opacity inline-block"
+              >
+                <img
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1039820&theme=light&t=1763526214879"
+                  alt="Verbali&#0032;presents&#0058;&#0032;when&#0032;AI&#0032;meets&#0032;AAC - Verbali&#0032;is&#0032;using&#0032;AI&#0032;to&#0032;help&#0032;non&#0045;verbal&#0032;kids&#0032;speak&#0032;in&#0032;seconds | Product Hunt"
+                  style={{ width: "250px", height: "54px" }}
+                  width="250"
+                  height="54"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Product Links */}
