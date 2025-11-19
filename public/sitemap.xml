@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page -->
   <url>
-    <loc>https://matalk.ai/</loc>
+    <loc>https://verbali.io/</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,28 +10,28 @@
 
   <!-- Standalone Pages -->
   <url>
-    <loc>https://matalk.ai/eula</loc>
+    <loc>https://verbali.io/eula</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://matalk.ai/terms-of-use</loc>
+    <loc>https://verbali.io/terms-of-use</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://matalk.ai/privacy-policy</loc>
+    <loc>https://verbali.io/privacy-policy</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
-    <loc>https://matalk.ai/matalk-ai-privacy-policy</loc>
+    <loc>https://verbali.io/matalk-ai-privacy-policy</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
