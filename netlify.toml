@@ -7,6 +7,11 @@
   [headers.values]
     Content-Type = "application/xml"
 
+[[headers]]
+  for = "/sitemap.xsl"
+  [headers.values]
+    Content-Type = "application/xml"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
