@@ -248,7 +248,7 @@ export function FAQPage({ onBack, onNavigate }: FAQPageProps) {
             Still have questions? We're here to help.
           </p>
           <a
-            href="mailto:info@verbail.io"
+            href="mailto:info@verbali.io"
             className="btn-secondary inline-block"
           >
             Contact Support
