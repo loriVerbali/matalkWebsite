@@ -12,10 +12,10 @@ export function Footer({ onNavigate }: FooterProps) {
   const handleContactUs = () => {
     analytics.trackInteraction("Contact Email Click", {
       email_type: "info",
-      destination: "mailto:info@verbail.io",
+      destination: "mailto:info@verbali.io",
     });
     window.location.href =
-      "mailto:info@verbail.io?subject=Contact%20Verbali&body=Hello%20Verbali%20team,%0A%0A";
+      "mailto:info@verbali.io?subject=Contact%20Verbali&body=Hello%20Verbali%20team,%0A%0A";
   };
 
   return (
