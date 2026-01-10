@@ -300,7 +300,7 @@ export function Footer({ onNavigate }: FooterProps) {
 
         <div className="border-t border-violet-600/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="caption text-slate-500">
-            © 2025 Verbali. All rights reserved.
+            © 2026 Verbali. All rights reserved.
           </p>
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 mt-4 md:mt-0">
             <button
