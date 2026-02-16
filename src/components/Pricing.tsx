@@ -35,12 +35,91 @@ export function Pricing({ onBack }: PricingProps) {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {/* Flat License */}
+          <div className="relative">
+            {/* School Badge */}
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
+                SCHOOL PROGRAM
+              </span>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-lg p-8 pt-12 border border-blue-200 relative overflow-hidden">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-50"></div>
+
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <h3 className="h2 text-slate-900 mb-2">Flat License</h3>
+                  <div className="flex items-baseline justify-center mb-2">
+                    <span className="text-5xl font-bold text-blue-600">
+                      $200
+                    </span>
+                  </div>
+                  <p className="text-slate-600">one-time fee</p>
+                  <p className="text-sm text-blue-600 font-medium mt-2">
+                    Part of Apple School Business Program
+                  </p>
+                </div>
+
+                {/* Features */}
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                    <span className="text-slate-700">
+                      Full access to all features
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                    <span className="text-slate-700">
+                      AI-powered AAC creation
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                    <span className="text-slate-700">
+                      Cloud sync across devices
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                    <span className="text-slate-700">Customer support</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                    <span className="text-slate-700">Feature updates</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => {
+                      window.open(
+                        "https://apps.apple.com/za/app/matalk-ai-forever/id6756188044",
+                        "_blank"
+                      );
+                    }}
+                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-blue-500/20 touch-target"
+                    aria-label="Download Matalk AI Forever on the App Store"
+                  >
+                    <img
+                      src="/images/black.svg"
+                      alt="Download on the App Store"
+                      className="h-12 sm:h-14 w-auto transition-all duration-200"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* 7-Day Free Trial */}
           <div className="relative">
             {/* Free Trial Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
+              <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
                 FREE TRIAL
               </span>
             </div>
@@ -134,8 +213,8 @@ export function Pricing({ onBack }: PricingProps) {
           {/* Monthly Plan */}
           <div className="relative">
             {/* Cancel Anytime Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-              <span className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
+              <span className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
                 CANCEL ANYTIME
               </span>
             </div>
@@ -225,8 +304,8 @@ export function Pricing({ onBack }: PricingProps) {
           {/* Annual Plan - Most Popular */}
           <div className="relative">
             {/* Most Popular Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-              <span className="bg-gradient-to-r from-violet-600 to-violet-500 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
+              <span className="bg-gradient-to-r from-violet-600 to-violet-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
                 Most Popular
               </span>
             </div>

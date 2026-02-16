@@ -43,7 +43,6 @@ export function News({ onBack }: NewsProps) {
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12 relative z-10">
         <div className="space-y-8">
-          {/* Cornell Tech – Dec 2025 */}
           <motion.section
             className="card"
             initial={{ opacity: 0, y: 20 }}
@@ -74,14 +73,15 @@ export function News({ onBack }: NewsProps) {
             </p>
           </motion.section>
 
-          {/* Virginia Tech – Jan 2026 */}
           <motion.section
             className="card"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">Dec 2025</p>
+            <p className="text-sm font-medium text-violet-600 mb-4">
+              January 2026
+            </p>
             <h2 className="h2 mb-6">
               DaVoice Wakeword Collaboration with Verbali
             </h2>
@@ -113,6 +113,53 @@ export function News({ onBack }: NewsProps) {
                 className="text-blue-500 hover:text-blue-600"
               >
                 info@verbali.com
+              </a>
+            </p>
+          </motion.section>
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <p className="text-sm font-medium text-violet-600 mb-4">Dec 2025</p>
+            <h2 className="h2 mb-6">
+              Verbali is going to ATIA 2026 in Orlando, Florida
+            </h2>
+            <p className="text-slate-600 mb-6">
+              Verbali is proud to be a part of ATIA 2026 in Orlando, Florida. We
+              will be showcasing our products and services to the public at
+              booth 811. We are excited to be part of this journey and to help
+              shape the future of AAC. Come visit us at booth 811 to learn more
+              about our products and services.
+            </p>
+          </motion.section>
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <p className="text-sm font-medium text-violet-600 mb-4">Oct 2025</p>
+            <h2 className="h2 mb-6">
+              Verbali Launches a sister product named: VerbaliTalk
+            </h2>
+            <p className="text-slate-600 mb-6">
+              Verbali is proud to launch our a sister product named VerbaliTalk
+              as part of our offering . While we are focused on building the
+              future of AAC, we decided to launch a product focused on literate
+              AAC users. VerbaliTalk is the same product as Matalk AI but with a
+              focus on literate AAC users. There are less images and more text .
+              Our Keyboard still has the optional AI polish feature You can
+              download it from the App Store for a flat fee of $200 . It
+              includes all features of Matalk AI.
+              <a
+                href="https://apps.apple.com/ua/app/verbalitalk-forever/id6756187971"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                VERBALI TALK on the App Store
               </a>
             </p>
           </motion.section>
