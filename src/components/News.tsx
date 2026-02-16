@@ -79,7 +79,9 @@ export function News({ onBack }: NewsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">Dec 2025</p>
+            <p className="text-sm font-medium text-violet-600 mb-4">
+              January 2026
+            </p>
             <h2 className="h2 mb-6">
               DaVoice Wakeword Collaboration with Verbali
             </h2>
