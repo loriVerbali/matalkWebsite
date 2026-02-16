@@ -84,6 +84,32 @@ export function AboutUs({ onBack }: AboutUsProps) {
             </div>
           </motion.section>
 
+          {/* Cornell Tech Partnership */}
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h2 className="h2 mb-6">Cornell Tech Partnership</h2>
+            <p className="text-slate-600 mb-6">
+              Verbali has partnered with Cornell Tech to try and advance the
+              state of the art in AAC technology.We are excited to be part of
+              this journey and to help shape the future of AAC. We are currently
+              working together to find new ways to use AI to help children
+              communicate via their AAC device.
+            </p>
+            <p className="text-slate-600 mb-6">
+              Do you want to contribute to this project?or have ideas for new
+              features? Reach out to us at{" "}
+              <a
+                href="mailto:info@verbali.com"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                info@verbali.com
+              </a>
+            </p>
+          </motion.section>
           {/* Our Story */}
           <motion.section
             className="card"

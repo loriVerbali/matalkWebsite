@@ -1,7 +1,42 @@
+import { useState } from "react";
 import { analytics } from "../utils/analytics";
 
 // Placeholder image - replace with actual image when available
 const logoImage = "/images/verbiPose.png";
+
+function PartnerLogo({
+  src,
+  alt,
+  href,
+}: {
+  src: string;
+  alt: string;
+  href: string;
+}) {
+  const [loaded, setLoaded] = useState(true);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 hover:opacity-80 transition-opacity min-h-[12rem]"
+      aria-label={alt}
+    >
+      {loaded ? (
+        <img
+          src={src}
+          alt={alt}
+          className="h-40 sm:h-48 w-auto object-contain max-w-[640px]"
+          onError={() => setLoaded(false)}
+        />
+      ) : (
+        <span className="text-slate-600 font-medium text-sm sm:text-base">
+          {alt}
+        </span>
+      )}
+    </a>
+  );
+}
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -21,6 +56,25 @@ export function Footer({ onNavigate }: FooterProps) {
   return (
     <footer className="bg-white border-t border-violet-600/10">
       <div className="max-w-7xl mx-auto mobile-container py-12">
+        {/* Partners with */}
+        <div className="pb-8 mb-8 border-b border-violet-600/10">
+          <p className="text-3xl font-semibold text-slate-700 mb-4">
+            Partners with:
+          </p>
+          <div className="flex flex-wrap items-center gap-8 sm:gap-10">
+            <div className="flex flex-col items-center">
+              <PartnerLogo
+                src="/images/partners/davoice.jpeg"
+                alt="Davoice Wakeword"
+                href="https://www.davoice.io"
+              />
+              <span className="text-slate-700 text-sm sm:text-base mt-2">
+                DaVoice
+              </span>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
           {/* Company Info - More compact on mobile */}
           <div className="col-span-2 md:col-span-1 mb-4 sm:mb-0">

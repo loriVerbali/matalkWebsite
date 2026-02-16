@@ -15,6 +15,7 @@ import { Attribution } from "./components/Attribution";
 import { AboutUs } from "./components/AboutUs";
 import { Mission } from "./components/Mission";
 import { Leadership } from "./components/Leadership";
+import { News } from "./components/News";
 import { FeatureRequest } from "./components/FeatureRequest";
 import { LanguageRequest } from "./components/LanguageRequest";
 import { FAQPage } from "./components/FAQPage";
@@ -45,6 +46,8 @@ export default function App() {
         return "pricing";
       case "/about-us":
         return "about-us";
+      case "/news":
+        return "news";
       case "/mission":
         return "mission";
       case "/leadership":
@@ -82,6 +85,7 @@ export default function App() {
     | "home"
     | "pricing"
     | "about-us"
+    | "news"
     | "mission"
     | "leadership"
     | "faq"
@@ -196,6 +200,9 @@ export default function App() {
       case "about-us":
         navigate("/about-us");
         break;
+      case "news":
+        navigate("/news");
+        break;
       case "mission":
         navigate("/mission");
         break;
@@ -255,6 +262,9 @@ export default function App() {
 
       case "about-us":
         return <AboutUs onBack={handleBackToHome} />;
+
+      case "news":
+        return <News onBack={handleBackToHome} />;
 
       case "mission":
         return <Mission onBack={handleBackToHome} />;

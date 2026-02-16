@@ -316,6 +316,15 @@ export function Header({ onNavigate }: HeaderProps) {
                   </button>
                   <button
                     onClick={() => {
+                      onNavigate("news");
+                      setIsAboutOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                  >
+                    News
+                  </button>
+                  <button
+                    onClick={() => {
                       onNavigate("mission");
                       setIsAboutOpen(false);
                     }}
@@ -495,6 +504,12 @@ export function Header({ onNavigate }: HeaderProps) {
                       className="mobile-nav-item w-full text-left"
                     >
                       About Us
+                    </button>
+                    <button
+                      onClick={() => handleMobileNavigation("news")}
+                      className="mobile-nav-item w-full text-left"
+                    >
+                      News
                     </button>
                     <button
                       onClick={() => handleMobileNavigation("mission")}
