@@ -216,6 +216,25 @@ export function Footer({ onNavigate }: FooterProps) {
                 <button
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
+                      destination: "features",
+                      section: "product",
+                    });
+                    // Scroll to features section
+                    const featuresSection =
+                      document.getElementById("features");
+                    if (featuresSection) {
+                      featuresSection.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
+                >
+                  Features
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    analytics.trackInteraction("Footer Navigation", {
                       destination: "demo",
                       section: "product",
                     });

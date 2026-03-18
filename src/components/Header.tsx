@@ -174,28 +174,47 @@ export function Header({ onNavigate }: HeaderProps) {
 
               {isHomeOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  <button
-                    onClick={() => {
-                      analytics.trackInteraction("Navigation Click", {
-                        destination: "demo",
-                        navigation_type: "dropdown_menu",
-                        menu: "product",
-                      });
-                      onNavigate("home");
-                      // Scroll to demo section after navigation
-                      setTimeout(() => {
-                        const demoSection =
-                          document.getElementById("demo-section");
-                        if (demoSection) {
-                          demoSection.scrollIntoView({ behavior: "smooth" });
+                    <button
+                      onClick={() => {
+                        analytics.trackInteraction("Navigation Click", {
+                          destination: "features",
+                          navigation_type: "dropdown_menu",
+                          menu: "product",
+                        });
+                        // Scroll to features section
+                        const featuresSection =
+                          document.getElementById("features");
+                        if (featuresSection) {
+                          featuresSection.scrollIntoView({ behavior: "smooth" });
                         }
-                      }, 100);
-                      setIsHomeOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
-                  >
-                    Demo
-                  </button>
+                        setIsHomeOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                    >
+                      Features
+                    </button>
+                    <button
+                      onClick={() => {
+                        analytics.trackInteraction("Navigation Click", {
+                          destination: "demo",
+                          navigation_type: "dropdown_menu",
+                          menu: "product",
+                        });
+                        onNavigate("home");
+                        // Scroll to demo section after navigation
+                        setTimeout(() => {
+                          const demoSection =
+                            document.getElementById("demo-section");
+                          if (demoSection) {
+                            demoSection.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }, 100);
+                        setIsHomeOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                    >
+                      Demo
+                    </button>
                   <button
                     onClick={() => {
                       analytics.trackInteraction("Navigation Click", {
@@ -341,6 +360,24 @@ export function Header({ onNavigate }: HeaderProps) {
                   >
                     Leadership
                   </button>
+                  <button
+                    onClick={() => {
+                      onNavigate("verbali-privacy");
+                      setIsAboutOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                  >
+                    Privacy Policy
+                  </button>
+                  <button
+                    onClick={() => {
+                      onNavigate("terms-of-use");
+                      setIsAboutOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-violet-600 transition-colors touch-target"
+                  >
+                    Terms of Use
+                  </button>
                 </div>
               )}
             </div>
@@ -404,29 +441,53 @@ export function Header({ onNavigate }: HeaderProps) {
                 </button>
                 {isMobileProductOpen && (
                   <div className="mobile-nav-submenu">
-                    <button
-                      onClick={() => {
-                        analytics.trackInteraction("Navigation Click", {
-                          destination: "demo",
-                          navigation_type: "mobile_menu",
-                          menu: "product",
-                        });
-                        onNavigate("home");
-                        // Scroll to demo section after navigation
-                        setTimeout(() => {
-                          const demoSection =
-                            document.getElementById("demo-section");
-                          if (demoSection) {
-                            demoSection.scrollIntoView({ behavior: "smooth" });
+                      <button
+                        onClick={() => {
+                          analytics.trackInteraction("Navigation Click", {
+                            destination: "features",
+                            navigation_type: "mobile_menu",
+                            menu: "product",
+                          });
+                          // Scroll to features section
+                          const featuresSection =
+                            document.getElementById("features");
+                          if (featuresSection) {
+                            featuresSection.scrollIntoView({
+                              behavior: "smooth",
+                            });
                           }
-                        }, 100);
-                        setIsMobileMenuOpen(false);
-                        setIsMobileProductOpen(false);
-                      }}
-                      className="mobile-nav-item w-full text-left"
-                    >
-                      Demo
-                    </button>
+                          setIsMobileMenuOpen(false);
+                          setIsMobileProductOpen(false);
+                        }}
+                        className="mobile-nav-item w-full text-left"
+                      >
+                        Features
+                      </button>
+                      <button
+                        onClick={() => {
+                          analytics.trackInteraction("Navigation Click", {
+                            destination: "demo",
+                            navigation_type: "mobile_menu",
+                            menu: "product",
+                          });
+                          onNavigate("home");
+                          // Scroll to demo section after navigation
+                          setTimeout(() => {
+                            const demoSection =
+                              document.getElementById("demo-section");
+                            if (demoSection) {
+                              demoSection.scrollIntoView({
+                                behavior: "smooth",
+                              });
+                            }
+                          }, 100);
+                          setIsMobileMenuOpen(false);
+                          setIsMobileProductOpen(false);
+                        }}
+                        className="mobile-nav-item w-full text-left"
+                      >
+                        Demo
+                      </button>
                     <button
                       onClick={() => handleMobileNavigation("blog")}
                       className="mobile-nav-item w-full text-left"
@@ -517,12 +578,26 @@ export function Header({ onNavigate }: HeaderProps) {
                     >
                       Mission
                     </button>
-                    <button
-                      onClick={() => handleMobileNavigation("leadership")}
-                      className="mobile-nav-item w-full text-left"
-                    >
-                      Leadership
-                    </button>
+                      <button
+                        onClick={() => handleMobileNavigation("leadership")}
+                        className="mobile-nav-item w-full text-left"
+                      >
+                        Leadership
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleMobileNavigation("verbali-privacy")
+                        }
+                        className="mobile-nav-item w-full text-left"
+                      >
+                        Privacy Policy
+                      </button>
+                      <button
+                        onClick={() => handleMobileNavigation("terms-of-use")}
+                        className="mobile-nav-item w-full text-left"
+                      >
+                        Terms of Use
+                      </button>
                   </div>
                 )}
               </div>
