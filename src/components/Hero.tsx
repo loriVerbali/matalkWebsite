@@ -30,7 +30,7 @@ export function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            AI Meets AAC. Speak Naturally
+            AI‑Driven AAC Communication Platform – Verbali.io
           </motion.h1>
 
           {/* Subheadline */}
@@ -40,9 +40,23 @@ export function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Verbali is pioneering the next generation of AI-powered Augmentative
-            and Alternative Communication (AAC) tools, making communication more
-            natural and accessible than ever before.
+            Verbali is pioneering the next generation of{" "}
+            <a href="#features" className="text-violet-600 hover:underline">
+              AI-powered Augmentative and Alternative Communication (AAC)
+            </a>{" "}
+            tools, making communication more natural and accessible than ever
+            before. Explore our{" "}
+            <a href="/pricing" className="text-violet-600 hover:underline">
+              pricing
+            </a>{" "}
+            or{" "}
+            <a
+              href="mailto:info@verbali.io"
+              className="text-violet-600 hover:underline"
+            >
+              contact us
+            </a>{" "}
+            to learn more.
           </motion.p>
 
           {/* Catchphrase */}

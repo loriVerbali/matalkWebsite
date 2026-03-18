@@ -29,6 +29,7 @@ import { BlogPost } from "./components/BlogPost";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 import { DataDeletion } from "./components/DataDeletion";
 import HeroMe from "./components/HeroMe";
+import { StructuredData } from "./components/StructuredData";
 
 export default function App() {
   const navigate = useNavigate();
@@ -36,6 +37,98 @@ export default function App() {
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [showFeatureRequest, setShowFeatureRequest] = useState(false);
   const [showLanguageRequest, setShowLanguageRequest] = useState(false);
+
+  // --- Structured Data Schemas ---
+  
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Verbali.io",
+    "url": "https://verbali.io",
+    "logo": "https://verbali.io/logo.png",
+    "sameAs": [
+      "https://twitter.com/VerbaliIO",
+      "https://linkedin.com/company/verbali"
+    ]
+  };
+
+  const authorSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dr. Maya Patel",
+    "jobTitle": "Chief AI Scientist",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Verbali.io"
+    },
+    "url": "https://verbali.io/about"
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Verbali and Matalk AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Verbali is the company; Matalk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I get an invite?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Join the wait-list through this link - we review new testers every week and email invite codes as slots open."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What mobile platforms are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "iPhone & iPad: Available. Android Phones & Tablets: Available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "See the full pricing options on our Pricing page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my child's data safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All data is encrypted in transit and at rest. We follow child-privacy regulations, never sell or share personal information, and give parents the ability to delete data at any time."
+        }
+      }
+    ]
+  };
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Matalk AI",
+    "image": "https://verbali.io/logo.png",
+    "description": "AI-powered communication copilot for kids with speech challenges. Turns any tablet or phone into an AAC device with real-time AI assistance.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Verbali"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "4.99",
+      "highPrice": "200.00",
+      "offerCount": "4"
+    }
+  };
 
   // Determine current page from URL path
   const getCurrentPageFromPath = (pathname: string) => {
@@ -346,6 +439,14 @@ export default function App() {
     <div className="min-h-screen">
       {/* Header is always present */}
       <Header onNavigate={handleNavigation} />
+
+      {/* Structured Data for SEO */}
+      <StructuredData data={organizationSchema} />
+      <StructuredData data={authorSchema} />
+      {currentPage === "home" && <StructuredData data={faqSchema} />}
+      {(currentPage === "home" || currentPage === "pricing") && (
+        <StructuredData data={productSchema} />
+      )}
 
       {/* Main content area */}
       <main>{renderMainContent()}</main>
