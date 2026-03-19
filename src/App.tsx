@@ -28,6 +28,7 @@ import { Blog } from "./components/Blog";
 import { BlogPost } from "./components/BlogPost";
 import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
 import { DataDeletion } from "./components/DataDeletion";
+import { ForgotAdminPassword } from "./components/ForgotAdminPassword";
 import HeroMe from "./components/HeroMe";
 import { StructuredData } from "./components/StructuredData";
 
@@ -159,6 +160,8 @@ export default function App() {
         return "attribution";
       case "/taste-of-matalk-ai":
         return "taste-of-matalk-ai";
+      case "/forgotadminpassword":
+        return "forgot-admin-password";
       case "/data-deletion":
         return "data-deletion";
       case "/playground":
@@ -189,6 +192,7 @@ export default function App() {
     | "blog-post"
     | "attribution"
     | "taste-of-matalk-ai"
+    | "forgot-admin-password"
     | "data-deletion"
     | "playground"
     | "hero-me"
@@ -390,6 +394,9 @@ export default function App() {
 
       case "taste-of-matalk-ai":
         return <TasteOfMatalkAI onBack={handleBackToHome} />;
+
+      case "forgot-admin-password":
+        return <ForgotAdminPassword onBack={handleBackToHome} />;
 
       case "data-deletion":
         return <DataDeletion onBack={handleBackToHome} />;
