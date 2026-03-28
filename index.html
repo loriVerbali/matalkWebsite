@@ -12,25 +12,40 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://verbali.io/" />
 
+    <!-- LCP: hero mascot (WebP ~9KB vs 1.2MB PNG); browser still uses PNG fallback in <picture> if needed -->
+    <link
+      rel="preload"
+      href="/images/chasingBall.webp"
+      as="image"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://verbali.io/" />
     <meta property="og:title" content="MaTalk AI – AAC App for Non-Verbal Children | By Verbali" />
     <meta
       property="og:description"
       content="MaTalk AI is the AI-powered AAC app by Verbali helping non-verbal children communicate faster. Adaptive symbol grid. Free on iOS & Android."
     />
-    <meta property="og:url" content="https://verbali.io/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Verbali" />
-    <meta property="og:image" content="https://verbali.io/images/verbiPose.png" />
-    <meta property="og:image:alt" content="Verbali — MaTalk AI AAC app" />
+    <meta property="og:image" content="https://verbali.io/images/MatalkLogoWeb.png" />
+    <meta property="og:image:width" content="8192" />
+    <meta property="og:image:height" content="8192" />
+    <meta property="og:image:alt" content="MaTalk AI — AI-powered AAC app by Verbali" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Verbali" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://verbali.io/" />
     <meta name="twitter:title" content="MaTalk AI – AAC App for Non-Verbal Children | By Verbali" />
     <meta
       name="twitter:description"
       content="MaTalk AI is the AI-powered AAC app by Verbali helping non-verbal children communicate faster. Adaptive symbol grid. Free on iOS & Android."
     />
-    <meta name="twitter:image" content="https://verbali.io/images/verbiPose.png" />
+    <meta name="twitter:image" content="https://verbali.io/images/MatalkLogoWeb.png" />
+    <meta name="twitter:creator" content="@VerbaliIO" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

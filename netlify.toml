@@ -12,6 +12,18 @@
   [headers.values]
     Content-Type = "application/xml"
 
+# Long cache for fingerprinted Vite assets (filenames change each build).
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache raster/SVG images in /images; re-publish or rename files when updating.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

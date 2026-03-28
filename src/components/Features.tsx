@@ -541,7 +541,7 @@ export function Features() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="text-2xl md:text-4xl font-bold text-gray-800 font-sans"
                 >
-                  Re-imagining AAC with Matalk AI App
+                  How Our AI Symbol Grid AAC App Works
                 </motion.h2>
 
                 <motion.div
