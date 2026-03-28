@@ -258,10 +258,12 @@ export function Testimonials() {
 
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="text-center">
-            <h2 className="h2 mb-6 text-slate-900">What People Are Saying</h2>
+            <h2 className="h2 mb-6 text-slate-900">
+              Why Families Choose Our AAC Communication App
+            </h2>
             <p className="lead text-slate-600 max-w-2xl mx-auto mb-8">
               See what our users have to say about their experience with MaTalk
-              AI AI.
+              AI.
             </p>
             <div className="flex items-center justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
@@ -486,7 +488,9 @@ export function Testimonials() {
 
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="text-center">
-            <h2 className="h2 mb-6 text-slate-900">What People Are Saying</h2>
+            <h2 className="h2 mb-6 text-slate-900">
+              Why Families Choose Our AAC Communication App
+            </h2>
             <p className="lead text-slate-600 max-w-2xl mx-auto mb-8">
               See what our users have to say about their experience with MaTalk
               AI.
@@ -746,7 +750,7 @@ export function Testimonials() {
             transition={{ duration: 0.6 }}
             className="h2 mb-6 text-slate-900"
           >
-            What People Are Saying
+            Why Families Choose Our AAC Communication App
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
