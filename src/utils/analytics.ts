@@ -1,125 +1,117 @@
-import mixpanel from "mixpanel-browser";
+import type { OverridedMixpanel } from "mixpanel-browser";
 
-// Initialize Mixpanel
-const token = import.meta.env.VITE_MIXPANEL_TOKEN;
-if (token) {
-  mixpanel.init(token, {
-    debug: true,
-    track_pageview: true,
-    persistence: "localStorage",
-  });
-} else {
-  // Silently skip Mixpanel initialization if token is not available
-  // console.warn("Mixpanel token not found in environment variables");
+const TOKEN = import.meta.env.VITE_MIXPANEL_TOKEN;
+
+let mixpanelInstance: OverridedMixpanel | null = null;
+let loadPromise: Promise<OverridedMixpanel | null> | null = null;
+
+function loadMixpanel(): Promise<OverridedMixpanel | null> {
+  if (!TOKEN) {
+    return Promise.resolve(null);
+  }
+  if (mixpanelInstance) {
+    return Promise.resolve(mixpanelInstance);
+  }
+  if (!loadPromise) {
+    loadPromise = import("mixpanel-browser").then((mod) => {
+      const mixpanel = mod.default;
+      mixpanel.init(TOKEN, {
+        debug: true,
+        track_pageview: true,
+        persistence: "localStorage",
+      });
+      mixpanelInstance = mixpanel;
+      return mixpanel;
+    });
+  }
+  return loadPromise;
 }
 
-// Check if Mixpanel is initialized
-const isMixpanelInitialized = () => {
-  return typeof mixpanel !== "undefined" && mixpanel.track;
-};
+function withMixpanel(fn: (mp: OverridedMixpanel) => void): void {
+  void (async () => {
+    try {
+      const mp = await loadMixpanel();
+      if (mp) {
+        fn(mp);
+      }
+    } catch (error) {
+      console.warn("Analytics error:", error);
+    }
+  })();
+}
 
-// Utility functions for common tracking events
 export const analytics = {
-  // Track page views
-  trackPageView: (pageName: string, properties?: Record<string, any>) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.track("Page View", {
-          page_name: pageName,
-          ...properties,
-        });
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+  trackPageView: (pageName: string, properties?: Record<string, unknown>) => {
+    withMixpanel((mp) => {
+      mp.track("Page View", {
+        page_name: pageName,
+        ...properties,
+      });
+    });
   },
 
-  // Track user interactions
-  trackInteraction: (eventName: string, properties?: Record<string, any>) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.track(eventName, properties);
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+  trackInteraction: (
+    eventName: string,
+    properties?: Record<string, unknown>
+  ) => {
+    withMixpanel((mp) => {
+      mp.track(eventName, properties);
+    });
   },
 
-  // Track form submissions
   trackFormSubmission: (
     formName: string,
     success: boolean,
-    properties?: Record<string, any>
+    properties?: Record<string, unknown>
   ) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.track("Form Submission", {
-          form_name: formName,
-          success,
-          ...properties,
-        });
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+    withMixpanel((mp) => {
+      mp.track("Form Submission", {
+        form_name: formName,
+        success,
+        ...properties,
+      });
+    });
   },
 
-  // Track button clicks
-  trackButtonClick: (buttonName: string, properties?: Record<string, any>) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.track("Button Click", {
-          button_name: buttonName,
-          ...properties,
-        });
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+  trackButtonClick: (
+    buttonName: string,
+    properties?: Record<string, unknown>
+  ) => {
+    withMixpanel((mp) => {
+      mp.track("Button Click", {
+        button_name: buttonName,
+        ...properties,
+      });
+    });
   },
 
-  // Track external link clicks
   trackExternalLink: (
     linkName: string,
     url: string,
-    properties?: Record<string, any>
+    properties?: Record<string, unknown>
   ) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.track("External Link Click", {
-          link_name: linkName,
-          url,
-          ...properties,
-        });
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+    withMixpanel((mp) => {
+      mp.track("External Link Click", {
+        link_name: linkName,
+        url,
+        ...properties,
+      });
+    });
   },
 
-  // Set user properties
-  setUserProperties: (properties: Record<string, any>) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.people.set(properties);
-      }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+  setUserProperties: (properties: Record<string, unknown>) => {
+    withMixpanel((mp) => {
+      mp.people.set(properties);
+    });
   },
 
-  // Identify user
-  identify: (userId: string, properties?: Record<string, any>) => {
-    try {
-      if (isMixpanelInitialized()) {
-        mixpanel.identify(userId);
-        if (properties) {
-          mixpanel.people.set(properties);
-        }
+  identify: (userId: string, properties?: Record<string, unknown>) => {
+    withMixpanel((mp) => {
+      mp.identify(userId);
+      if (properties) {
+        mp.people.set(properties);
       }
-    } catch (error) {
-      console.warn("Analytics error:", error);
-    }
+    });
   },
 };
 

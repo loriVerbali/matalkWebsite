@@ -1,37 +1,74 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import faqPageStructuredData from "./data/faq-page-schema.json";
 import { analytics } from "./utils/analytics";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
-import { Struggle } from "./components/Struggle";
-import { Features } from "./components/Features";
-import { Demo } from "./components/Demo";
-import { CoreValues } from "./components/CoreValues";
-import { Testimonials } from "./components/Testimonials";
-import { FAQ } from "./components/FAQ";
-import { CTA } from "./components/CTA";
 import { Footer } from "./components/Footer";
-import { Attribution } from "./components/Attribution";
-import { AboutUs } from "./components/AboutUs";
-import { Mission } from "./components/Mission";
-import { Leadership } from "./components/Leadership";
-import { News } from "./components/News";
 import { FeatureRequest } from "./components/FeatureRequest";
 import { LanguageRequest } from "./components/LanguageRequest";
-import { FAQPage } from "./components/FAQPage";
 import { WaitList } from "./components/WaitList";
-import { VerbaliPrivacyPolicy } from "./components/VerbaliPrivacyPolicy";
-import { MaTalkPrivacyPolicy } from "./components/MaTalkPrivacyPolicy";
-import { TermsOfUse } from "./components/TermsOfUse";
-import { Pricing } from "./components/Pricing";
-import { Blog } from "./components/Blog";
-import { BlogPost } from "./components/BlogPost";
-import { TasteOfMatalkAI } from "./components/TasteOfMatalkAI";
-import { DataDeletion } from "./components/DataDeletion";
-import { ForgotAdminPassword } from "./components/ForgotAdminPassword";
-import HeroMe from "./components/HeroMe";
 import { StructuredData } from "./components/StructuredData";
+
+const HomeMid = lazy(() =>
+  import("./components/HomeMid").then((m) => ({ default: m.HomeMid }))
+);
+const Pricing = lazy(() =>
+  import("./components/Pricing").then((m) => ({ default: m.Pricing }))
+);
+const AboutUs = lazy(() =>
+  import("./components/AboutUs").then((m) => ({ default: m.AboutUs }))
+);
+const News = lazy(() =>
+  import("./components/News").then((m) => ({ default: m.News }))
+);
+const Mission = lazy(() =>
+  import("./components/Mission").then((m) => ({ default: m.Mission }))
+);
+const Leadership = lazy(() =>
+  import("./components/Leadership").then((m) => ({ default: m.Leadership }))
+);
+const FAQPage = lazy(() =>
+  import("./components/FAQPage").then((m) => ({ default: m.FAQPage }))
+);
+const VerbaliPrivacyPolicy = lazy(() =>
+  import("./components/VerbaliPrivacyPolicy").then((m) => ({
+    default: m.VerbaliPrivacyPolicy,
+  }))
+);
+const MaTalkPrivacyPolicy = lazy(() =>
+  import("./components/MaTalkPrivacyPolicy").then((m) => ({
+    default: m.MaTalkPrivacyPolicy,
+  }))
+);
+const TermsOfUse = lazy(() =>
+  import("./components/TermsOfUse").then((m) => ({ default: m.TermsOfUse }))
+);
+const Blog = lazy(() =>
+  import("./components/Blog").then((m) => ({ default: m.Blog }))
+);
+const BlogPost = lazy(() =>
+  import("./components/BlogPost").then((m) => ({ default: m.BlogPost }))
+);
+const Attribution = lazy(() =>
+  import("./components/Attribution").then((m) => ({ default: m.Attribution }))
+);
+const TasteOfMatalkAI = lazy(() =>
+  import("./components/TasteOfMatalkAI").then((m) => ({
+    default: m.TasteOfMatalkAI,
+  }))
+);
+const DataDeletion = lazy(() =>
+  import("./components/DataDeletion").then((m) => ({
+    default: m.DataDeletion,
+  }))
+);
+const ForgotAdminPassword = lazy(() =>
+  import("./components/ForgotAdminPassword").then((m) => ({
+    default: m.ForgotAdminPassword,
+  }))
+);
+const HeroMe = lazy(() => import("./components/HeroMe"));
 
 export default function App() {
   const navigate = useNavigate();
@@ -197,12 +234,19 @@ export default function App() {
     setCurrentPage(newPage);
   }, [location.pathname]);
 
-  // Track page views
+  // Track page views after idle to keep main thread free for first paint (mobile TBT).
   useEffect(() => {
-    analytics.trackPageView(currentPage, {
+    const payload = {
       page_type: currentPage,
       timestamp: new Date().toISOString(),
-    });
+    };
+    const run = () => analytics.trackPageView(currentPage, payload);
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(run, { timeout: 4000 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+    const timeoutId = window.setTimeout(run, 2000);
+    return () => window.clearTimeout(timeoutId);
   }, [currentPage]);
 
   // Handle demo section scrolling with proper timing
@@ -380,30 +424,7 @@ export default function App() {
         return (
           <>
             <Hero />
-            <div className="mb-8 sm:mb-0">
-              <Struggle />
-            </div>
-            <div className="mb-8 sm:mb-0">
-              <Features />
-            </div>
-            <div className="mb-8 sm:mb-0">
-              <Demo onNavigate={handleNavigation} />
-            </div>
-            {/* <div className="mb-8 sm:mb-0">
-              <TasteOfMatalkAI />
-            </div> */}
-            <div className="mb-8 sm:mb-0">
-              <CoreValues />
-            </div>
-            <div className="mb-8 sm:mb-0">
-              <Testimonials />
-            </div>
-            <div className="mb-8 sm:mb-0">
-              <FAQ onNavigate={handleNavigation} />
-            </div>
-            <div className="mb-8 sm:mb-0">
-              <CTA />
-            </div>
+            <HomeMid onNavigate={handleNavigation} />
             <Footer onNavigate={handleNavigation} />
           </>
         );
@@ -466,7 +487,9 @@ export default function App() {
       )}
 
       {/* Main content area */}
-      <main>{renderMainContent()}</main>
+      <main>
+        <Suspense fallback={null}>{renderMainContent()}</Suspense>
+      </main>
 
       {/* Footer only shows on non-home pages if needed */}
       {currentPage !== "home" && <Footer onNavigate={handleNavigation} />}

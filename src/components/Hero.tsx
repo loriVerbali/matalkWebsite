@@ -2,42 +2,52 @@ import { analytics } from "../utils/analytics";
 
 // App Store button
 const appStoreButton = "/images/black.svg";
-const runningRobotDog = "/images/chasingBall.png";
+const runningRobotDogWebp = "/images/chasingBall.webp";
+const runningRobotDogPng = "/images/chasingBall.png";
 import { motion } from "framer-motion";
+
+/** Intrinsic size of optimized WebP (320×213); avoids CLS with object-contain in an 80×80 box. */
+const HERO_MASCOT_WIDTH = 320;
+const HERO_MASCOT_HEIGHT = 213;
 
 export function Hero() {
   return (
     <section className="py-24 sm:mobile-section-padding bg-gradient-to-b from-purple-100/50 to-blue-100/50 relative overflow-hidden mobile-no-overflow">
       {/* Static Robot Dog on Section Border - Hidden on mobile for cleaner design */}
       <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 z-30 mobile-hide">
-        <motion.img
-          src={runningRobotDog}
-          alt="Matalk AI companion running"
-          fetchPriority="high"
-          className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 opacity-95 hover:opacity-100"
+        <motion.div
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 0.95 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          whileHover={{ scale: 1.1 }}
-        />
+          whileHover={{ scale: 1.05 }}
+          className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32"
+        >
+          <picture>
+            <source srcSet={runningRobotDogWebp} type="image/webp" />
+            <img
+              src={runningRobotDogPng}
+              alt="Matalk AI companion running"
+              width={HERO_MASCOT_WIDTH}
+              height={HERO_MASCOT_HEIGHT}
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-full object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 opacity-95 hover:opacity-100"
+            />
+          </picture>
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto mobile-container">
         <div className="text-center max-w-4xl mx-auto mobile-text-center">
-          {/* Headline */}
-          <motion.h1
-            className="h1 text-gradient mb-8 sm:mb-6"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
+          {/* Headline — plain h1 so LCP text paints immediately (no Framer opacity:0 gate). */}
+          <h1 className="h1 text-gradient mb-8 sm:mb-6">
             Verbali presents: AI-Powered AAC App for Non-Verbal Children
-          </motion.h1>
+          </h1>
 
           {/* Subheadline */}
           <motion.p
             className="lead text-slate-700 mb-8 sm:mb-8 max-w-3xl mx-auto"
-            initial={{ y: 20, opacity: 0 }}
+            initial={false}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
@@ -63,7 +73,7 @@ export function Hero() {
           {/* Catchphrase */}
           <motion.p
             className="text-lg sm:text-xl italic text-slate-600 mb-10 sm:mb-10 font-medium px-4"
-            initial={{ y: 20, opacity: 0 }}
+            initial={false}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
@@ -72,14 +82,14 @@ export function Hero() {
 
           {/* Trial Card */}
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
+            initial={false}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="glass-card max-w-6xl mx-auto mb-8 sm:mb-10 py-8 sm:py-12 bg-gradient-to-br from-white/90 to-blue-50/80"
           >
             {/* Card Header */}
             <h3 className="h3 text-gradient mb-6 text-center">
-              Available on iOS and Android — Start Your Free Trial Today
+              Available on iOS and Android — Free AAC App Trial
             </h3>
 
             {/* Download Buttons */}
@@ -103,6 +113,9 @@ export function Hero() {
                 <img
                   src={appStoreButton}
                   alt="Download on the App Store"
+                  width={180}
+                  height={54}
+                  decoding="async"
                   className="h-12 sm:h-14 w-auto transition-all duration-200"
                 />
               </button>
@@ -126,6 +139,9 @@ export function Hero() {
                 <img
                   src="/images/Google_Play_Store_badge_EN.svg"
                   alt="Get it on Google Play"
+                  width={180}
+                  height={54}
+                  decoding="async"
                   className="h-12 sm:h-14 w-auto transition-all duration-200"
                 />
               </button>
@@ -136,12 +152,19 @@ export function Hero() {
 
       {/* Mobile Robot Dog - Bottom Left Corner on Section Border */}
       <div className="sm:hidden absolute -bottom-3 left-4 z-30">
-        <img
-          src={runningRobotDog}
-          alt="Matalk AI companion running on border"
-          fetchPriority="high"
-          className="w-20 h-20 object-contain drop-shadow-lg opacity-85"
-        />
+        <picture>
+          <source srcSet={runningRobotDogWebp} type="image/webp" />
+          <img
+            src={runningRobotDogPng}
+            alt="Matalk AI companion running on border"
+            width={HERO_MASCOT_WIDTH}
+            height={HERO_MASCOT_HEIGHT}
+            decoding="async"
+            fetchPriority="high"
+            loading="eager"
+            className="w-20 h-20 object-contain drop-shadow-lg opacity-85"
+          />
+        </picture>
       </div>
     </section>
   );

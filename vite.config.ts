@@ -10,6 +10,9 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
+            if (id.includes("mixpanel-browser")) {
+              return "mixpanel";
+            }
             if (id.includes("framer-motion")) {
               return "framer-motion";
             }
