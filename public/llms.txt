@@ -1,0 +1,23 @@
+# Verbali / MaTalk AI — machine-readable site summary for LLM and AI assistants
+# https://llmstxt.org/
+
+## MaTalk AI
+MaTalk AI is Verbali's AI-powered AAC (augmentative and alternative communication) app for non-verbal children and their families, educators, and therapy teams. iOS and Android.
+
+## Key pages
+- Home: https://verbali.io/
+- Pricing: https://verbali.io/pricing
+- FAQ: https://verbali.io/faq
+- Blog / resources: https://verbali.io/blog
+- About: https://verbali.io/about-us
+- Playground (web experience): https://verbali.io/playground
+- Verbali privacy: https://verbali.io/verbali-privacy
+- MaTalk AI privacy: https://verbali.io/matalk-privacy
+- Terms: https://verbali.io/terms-of-use
+
+## App downloads
+- Apple App Store (MaTalk AI): https://apps.apple.com/us/app/ma-talk-ai/id6747360381
+- Google Play: https://play.google.com/store/apps/details?id=com.verbali.matalkai
+
+## Contact
+- General: info@verbali.io
