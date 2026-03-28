@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Play,
@@ -21,6 +21,20 @@ interface DemoProps {
 }
 
 export function Demo({ onNavigate }: DemoProps) {
+  useEffect(() => {
+    if (
+      document.querySelector(
+        'script[src="https://js.storylane.io/js/v2/storylane.js"]'
+      )
+    ) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://js.storylane.io/js/v2/storylane.js";
+    document.body.appendChild(script);
+  }, []);
+
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -286,25 +300,68 @@ export function Demo({ onNavigate }: DemoProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lead text-slate-600 max-w-3xl mx-auto"
           >
-            Watch our demo to see how Matalk AI transforms AAC communication,
-            and listen to our product overview podcast.{" "}
+            Don&apos;t just read about it—try it. Explore our interactive demo
+            to see how MaTalk AI makes everyday communication more natural, or{" "}
             <button
+              type="button"
               onClick={() => {
                 analytics.trackInteraction("Demo Playground Link Clicked", {
                   source: "demo_section",
                   destination: "playground",
                 });
-                // Navigate to playground using the same navigation system
                 if (onNavigate) {
-                  onNavigate("taste-of-matalk-ai");
+                  onNavigate("playground");
                 }
               }}
               className="text-violet-600 hover:text-violet-700 font-semibold underline transition-colors cursor-pointer"
             >
-              Or try out the Playground
-            </button>
+              jump into the Playground
+            </button>{" "}
+            to experience the app yourself. You can also watch our video walkthrough,
+            browse interface screenshots, and listen to our product overview podcast.
           </motion.p>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.12 }}
+          className="mb-8 sm:mb-12 lg:mb-16 max-w-5xl mx-auto"
+        >
+          <div className="sl-embed-root">
+            <div
+              className="sl-embed"
+              style={{
+                position: "relative",
+                paddingBottom: "calc(69.49% + 25px)",
+                width: "100%",
+                height: 0,
+                transform: "scale(1)",
+              }}
+            >
+              <iframe
+                loading="lazy"
+                title="MaTalk AI interactive demo"
+                className="sl-demo"
+                src="https://app.storylane.io/demo/h1obpx3bynoc?embed=popup"
+                name="sl-embed"
+                allow="fullscreen"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "1px solid rgba(63,95,172,0.35)",
+                  boxShadow: "0px 0px 18px rgba(26, 19, 72, 0.15)",
+                  borderRadius: 10,
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+          </div>
+        </motion.div>
 
         {/* Matalk AI Interface Carousel */}
         <motion.div
@@ -416,6 +473,7 @@ export function Demo({ onNavigate }: DemoProps) {
                     onLoadedMetadata={handleVideoLoadedMetadata}
                     onEnded={() => setIsVideoPlaying(false)}
                     playsInline
+                    preload="metadata"
                   >
                     <source
                       src="https://pub-478619cacb0f41448d8ea23825356593.r2.dev/Ma-Talk%20AI%20demo%20-%20for%20website%20(1).mp4"

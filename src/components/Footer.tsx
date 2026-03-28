@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { analytics } from "../utils/analytics";
 
 // Placeholder image - replace with actual image when available
@@ -213,79 +214,74 @@ export function Footer({ onNavigate }: FooterProps) {
             </h4>
             <ul className="space-y-1 sm:space-y-2 text-slate-700">
               <li>
-                <button
+                <Link
+                  to="/#features"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "features",
                       section: "product",
                     });
-                    // Scroll to features section
-                    const featuresSection =
-                      document.getElementById("features");
-                    if (featuresSection) {
-                      featuresSection.scrollIntoView({ behavior: "smooth" });
-                    }
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Features
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to="/#demo-section"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "demo",
                       section: "product",
                     });
-                    onNavigate("demo");
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Demo
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to="/blog"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "blog",
                       section: "product",
                     });
-                    onNavigate("blog");
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Blog
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to="/faq"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "faq",
                       section: "product",
                     });
-                    onNavigate("faq");
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   FAQ
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to="/pricing"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "pricing",
                       section: "product",
                     });
-                    onNavigate("pricing");
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Pricing
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -297,28 +293,36 @@ export function Footer({ onNavigate }: FooterProps) {
             </h4>
             <ul className="space-y-1 sm:space-y-2 text-slate-700">
               <li>
-                <button
-                  onClick={() => onNavigate("about-us")}
+                <Link
+                  to="/about-us"
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   About Us
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate("mission")}
+                <Link
+                  to="/news"
+                  className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
+                >
+                  News
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/mission"
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Mission
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate("leadership")}
+                <Link
+                  to="/leadership"
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Leadership
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -346,26 +350,26 @@ export function Footer({ onNavigate }: FooterProps) {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate("attribution")}
+                <Link
+                  to="/attribution"
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Attribution
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to="/data-deletion"
                   onClick={() => {
                     analytics.trackInteraction("Footer Navigation", {
                       destination: "data-deletion",
                       section: "resources",
                     });
-                    onNavigate("data-deletion");
                   }}
                   className="hover:text-violet-600 transition-colors text-left w-full text-sm sm:text-base min-h-[44px] flex items-center justify-start"
                 >
                   Delete My Data
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
@@ -376,36 +380,36 @@ export function Footer({ onNavigate }: FooterProps) {
             © 2026 Verbali. All rights reserved.
           </p>
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 mt-4 md:mt-0">
-            <button
-              onClick={() => onNavigate("verbali-privacy")}
+            <Link
+              to="/verbali-privacy"
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
               Verbali Privacy Policy
-            </button>
-            <button
-              onClick={() => onNavigate("matalk-privacy")}
+            </Link>
+            <Link
+              to="/matalk-privacy"
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
               Matalk AI Privacy Policy
-            </button>
-            <button
-              onClick={() => onNavigate("terms-of-use")}
+            </Link>
+            <Link
+              to="/terms-of-use"
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
               Terms of Use
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/data-deletion"
               onClick={() => {
                 analytics.trackInteraction("Footer Navigation", {
                   destination: "data-deletion",
                   section: "legal_footer",
                 });
-                onNavigate("data-deletion");
               }}
               className="caption text-slate-500 hover:text-violet-600 transition-colors text-left min-h-[44px] flex items-center justify-start"
             >
               Delete My Data
-            </button>
+            </Link>
           </div>
         </div>
       </div>

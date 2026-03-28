@@ -13,6 +13,7 @@ export function Hero() {
         <motion.img
           src={runningRobotDog}
           alt="Matalk AI companion running"
+          fetchPriority="high"
           className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 opacity-95 hover:opacity-100"
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 0.95 }}
@@ -30,7 +31,7 @@ export function Hero() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            AI‑Driven AAC Communication Platform – Verbali.io
+            Verbali presents: AI-Powered AAC App for Non-Verbal Children
           </motion.h1>
 
           {/* Subheadline */}
@@ -78,7 +79,7 @@ export function Hero() {
           >
             {/* Card Header */}
             <h3 className="h3 text-gradient mb-6 text-center">
-              Start your free trial today
+              Available on iOS and Android — Start Your Free Trial Today
             </h3>
 
             {/* Download Buttons */}
@@ -138,6 +139,7 @@ export function Hero() {
         <img
           src={runningRobotDog}
           alt="Matalk AI companion running on border"
+          fetchPriority="high"
           className="w-20 h-20 object-contain drop-shadow-lg opacity-85"
         />
       </div>

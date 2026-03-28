@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import faqPageStructuredData from "./data/faq-page-schema.json";
 import { analytics } from "./utils/analytics";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
@@ -65,70 +66,37 @@ export default function App() {
     "url": "https://verbali.io/about"
   };
 
-  const faqSchema = {
+  const softwareApplicationSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@type": "SoftwareApplication",
+    name: "MaTalk AI",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "iOS, Android",
+    description:
+      "AI-powered AAC app helping non-verbal children build sentences in seconds.",
+    offers: [
       {
-        "@type": "Question",
-        "name": "What is Verbali and Matalk AI?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Verbali is the company; Matalk AI is our flagship app that turns any tablet or phone into an AI-powered communication copilot for kids with speech challenges."
-        }
+        "@type": "Offer",
+        price: "5.00",
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          billingDuration: "P1M",
+        },
       },
       {
-        "@type": "Question",
-        "name": "How can I get an invite?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Join the wait-list through this link - we review new testers every week and email invite codes as slots open."
-        }
+        "@type": "Offer",
+        price: "200.00",
+        priceCurrency: "USD",
       },
-      {
-        "@type": "Question",
-        "name": "What mobile platforms are supported?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "iPhone & iPad: Available. Android Phones & Tablets: Available."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does it cost?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "See the full pricing options on our Pricing page."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my child's data safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. All data is encrypted in transit and at rest. We follow child-privacy regulations, never sell or share personal information, and give parents the ability to delete data at any time."
-        }
-      }
-    ]
-  };
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Matalk AI",
-    "image": "https://verbali.io/logo.png",
-    "description": "AI-powered communication copilot for kids with speech challenges. Turns any tablet or phone into an AAC device with real-time AI assistance.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Verbali"
+    ],
+    url: "https://verbali.io",
+    downloadUrl:
+      "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
+    author: {
+      "@type": "Organization",
+      name: "Verbali",
     },
-    "offers": {
-      "@type": "AggregateOffer",
-      "priceCurrency": "USD",
-      "lowPrice": "4.99",
-      "highPrice": "200.00",
-      "offerCount": "4"
-    }
   };
 
   // Determine current page from URL path
@@ -447,12 +415,54 @@ export default function App() {
       {/* Header is always present */}
       <Header onNavigate={handleNavigation} />
 
+      {currentPage === "home" && (
+        <nav aria-label="Site directory" className="sr-only">
+          <ul>
+            <li>
+              <Link to="/pricing">Pricing</Link>
+            </li>
+            <li>
+              <Link to="/blog">Resources — Blog</Link>
+            </li>
+            <li>
+              <Link to="/faq">FAQ</Link>
+            </li>
+            <li>
+              <Link to="/about-us">About Us</Link>
+            </li>
+            <li>
+              <Link to="/news">News</Link>
+            </li>
+            <li>
+              <Link to="/mission">Mission</Link>
+            </li>
+            <li>
+              <Link to="/leadership">Leadership</Link>
+            </li>
+            <li>
+              <Link to="/playground">Playground</Link>
+            </li>
+            <li>
+              <Link to="/matalk-privacy">MaTalk AI privacy policy</Link>
+            </li>
+            <li>
+              <Link to="/verbali-privacy">Verbali privacy policy</Link>
+            </li>
+            <li>
+              <Link to="/terms-of-use">Terms of use</Link>
+            </li>
+          </ul>
+        </nav>
+      )}
+
       {/* Structured Data for SEO */}
       <StructuredData data={organizationSchema} />
       <StructuredData data={authorSchema} />
-      {currentPage === "home" && <StructuredData data={faqSchema} />}
+      {currentPage === "faq" && (
+        <StructuredData data={faqPageStructuredData as object} />
+      )}
       {(currentPage === "home" || currentPage === "pricing") && (
-        <StructuredData data={productSchema} />
+        <StructuredData data={softwareApplicationSchema} />
       )}
 
       {/* Main content area */}

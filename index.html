@@ -4,43 +4,44 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/images/verbiPose.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verbali.io – AI Meets AAC | Real‑Time Speech‑to‑Text for Accessible Communication</title>
-    <meta name="description" content="Verbali – AI-powered AAC app helping non-verbal children build sentences in seconds. Adaptive LLM + symbol grid, available on iOS & Android. Start free today.">
+    <title>When AI Meets AAC | MaTalk AI AAC App · Verbali</title>
+    <meta
+      name="description"
+      content="MaTalk AI is Verbali's AI-powered AAC app helping non-verbal children build sentences in seconds. Adaptive symbol grid. Free on iOS & Android."
+    />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://verbali.io/" />
-    <script src="https://js.stripe.com/v3/"></script>
 
-    <!-- Meta Pixel Code -->
-    <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js"
-      );
-      fbq("init", "1533973837747073");
-      fbq("track", "PageView");
-    </script>
-    <!-- End Meta Pixel Code -->
-    <!-- Chatling Bot Code -->
-    <script> window.chtlConfig = { chatbotId: "1617468812" } </script>
-    <script async data-id="1617468812" id="chtl-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+    <meta property="og:title" content="MaTalk AI – AAC App for Non-Verbal Children | By Verbali" />
+    <meta
+      property="og:description"
+      content="MaTalk AI is the AI-powered AAC app by Verbali helping non-verbal children communicate faster. Adaptive symbol grid. Free on iOS & Android."
+    />
+    <meta property="og:url" content="https://verbali.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Verbali" />
+    <meta property="og:image" content="https://verbali.io/images/verbiPose.png" />
+    <meta property="og:image:alt" content="Verbali — MaTalk AI AAC app" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MaTalk AI – AAC App for Non-Verbal Children | By Verbali" />
+    <meta
+      name="twitter:description"
+      content="MaTalk AI is the AI-powered AAC app by Verbali helping non-verbal children communicate faster. Adaptive symbol grid. Free on iOS & Android."
+    />
+    <meta name="twitter:image" content="https://verbali.io/images/verbiPose.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="dns-prefetch" href="https://js.stripe.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://chatling.ai" />
+    <link rel="dns-prefetch" href="https://js.storylane.io" />
   </head>
   <body>
     <!-- Meta Pixel Code - Noscript Fallback -->
@@ -53,5 +54,54 @@
     /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script defer src="https://js.stripe.com/v3/"></script>
+    <!-- Meta Pixel Code — deferred after first paint to reduce main-thread blocking on mobile -->
+    <script>
+      window.requestIdleCallback =
+        window.requestIdleCallback ||
+        function (cb) {
+          setTimeout(cb, 1);
+        };
+      window.requestIdleCallback(function () {
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod
+              ? n.callMethod.apply(n, arguments)
+              : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = "2.0";
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(
+          window,
+          document,
+          "script",
+          "https://connect.facebook.net/en_US/fbevents.js"
+        );
+        fbq("init", "1533973837747073");
+        fbq("track", "PageView");
+      });
+    </script>
+    <!-- Chatling Bot Code — deferred -->
+    <script>
+      window.requestIdleCallback(function () {
+        window.chtlConfig = { chatbotId: "1617468812" };
+        var s = document.createElement("script");
+        s.async = true;
+        s.dataset.id = "1617468812";
+        s.id = "chtl-script";
+        s.type = "text/javascript";
+        s.src = "https://chatling.ai/js/embed.js";
+        document.body.appendChild(s);
+      });
+    </script>
   </body>
 </html>

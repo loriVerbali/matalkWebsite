@@ -7,6 +7,39 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
+function renderBlogContent(content: string) {
+  const segments = content.split(
+    /(__BLOG_IMAGE_START__\|[^|]+\|[^|]*\|__BLOG_IMAGE_END__)/
+  );
+  return segments.map((segment, i) => {
+    const m = segment.match(
+      /^__BLOG_IMAGE_START__\|([^|]+)\|([^|]*)\|__BLOG_IMAGE_END__$/
+    );
+    if (m) {
+      return (
+        <figure key={i} className="my-8">
+          <ImageWithFallback
+            src={m[1]}
+            alt={m[2].trim() || "Blog illustration"}
+            className="w-full max-w-2xl mx-auto rounded-lg border border-violet-100 shadow-md object-contain bg-white"
+          />
+        </figure>
+      );
+    }
+    if (!segment) {
+      return null;
+    }
+    return (
+      <div
+        key={i}
+        className="whitespace-pre-wrap [&_+_figure]:mt-6 [&:not(:empty)]:mb-4"
+      >
+        {segment}
+      </div>
+    );
+  });
+}
+
 interface BlogPostProps {
   onBack: () => void;
 }
@@ -133,8 +166,8 @@ export function BlogPost({ onBack }: BlogPostProps) {
             </header>
 
             <div className="prose prose-lg max-w-none">
-              <div className="text-slate-700 leading-relaxed whitespace-pre-wrap">
-                {post.content}
+              <div className="text-slate-700 leading-relaxed">
+                {renderBlogContent(post.content)}
               </div>
             </div>
           </div>
