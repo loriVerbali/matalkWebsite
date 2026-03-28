@@ -1,4 +1,76 @@
-import blogData from "./blog-data.json";
+import baseBlogData from "./blog-data.json";
+import extraBlogData from "./blog-articles-extra.json";
+
+type RawParagraph =
+  | {
+      number?: number;
+      format?: "normal" | "bullet";
+      text: string;
+    }
+  | {
+      number?: number;
+      format: "image";
+      src: string;
+      alt?: string;
+    };
+
+interface RawSection {
+  heading: string;
+  paragraphs: RawParagraph[];
+}
+
+interface RawBlogPost {
+  title: string;
+  image?: string;
+  author?: string;
+  authorRole?: string;
+  tags?: string[];
+  publishDate?: string;
+  featured?: boolean;
+  sections: RawSection[];
+  outline?: string[];
+}
+
+const blogData: RawBlogPost[] = [
+  ...(baseBlogData as unknown as RawBlogPost[]),
+  ...(extraBlogData as unknown as RawBlogPost[]),
+];
+
+const IMAGE_MARKER = (src: string, alt: string) =>
+  `__BLOG_IMAGE_START__|${src}|${alt}|__BLOG_IMAGE_END__`;
+
+function paragraphToString(p: RawParagraph): string {
+  if ("format" in p && p.format === "image") {
+    const path = p.src.startsWith("/") ? p.src : `/images/${p.src}`;
+    return IMAGE_MARKER(path, p.alt ?? "");
+  }
+  return p.text;
+}
+
+function firstTextExcerpt(sections: RawSection[]): string {
+  for (const section of sections) {
+    for (const p of section.paragraphs) {
+      if ("format" in p && p.format === "image") continue;
+      if ("text" in p && p.text?.trim()) {
+        const t = p.text.trim();
+        return t.length > 200 ? t.substring(0, 200) + "..." : t;
+      }
+    }
+  }
+  return "";
+}
+
+function wordCountFromSections(sections: RawSection[]): number {
+  let n = 0;
+  for (const section of sections) {
+    for (const p of section.paragraphs) {
+      if ("text" in p && p.text) {
+        n += p.text.split(/\s+/).filter(Boolean).length;
+      }
+    }
+  }
+  return n;
+}
 
 export interface BlogPost {
   id: string;
@@ -23,36 +95,34 @@ export interface BlogFilters {
 // Transform the JSON data to match BlogPost interface
 function transformBlogData(): BlogPost[] {
   return blogData.map((post, index) => {
-    // Create content from sections
     const content = post.sections
       .map((section) => {
         const sectionContent = section.paragraphs
-          .map((paragraph) => paragraph.text)
+          .map((paragraph) => paragraphToString(paragraph as RawParagraph))
           .join("\n\n");
         return `${section.heading}\n\n${sectionContent}`;
       })
       .join("\n\n");
 
-    // Create excerpt from first section
-    const firstSection = post.sections[0];
+    const teaser = firstTextExcerpt(post.sections);
     const excerpt =
-      firstSection.paragraphs
-        .map((p) => p.text)
-        .join(" ")
-        .substring(0, 200) + "...";
+      teaser ||
+      post.title.substring(0, 200) + (post.title.length > 200 ? "..." : "");
+
+    const words = wordCountFromSections(post.sections);
 
     return {
       id: `post-${index + 1}`,
       title: post.title,
       excerpt,
       content,
-      author: "Verbali Team",
-      authorRole: "AI Communication Experts",
-      publishDate: new Date().toISOString(), // Using current date as fallback
-      tags: ["AI", "Communication", "Technology"],
-      featured: index === 0, // First post is featured
+      author: post.author ?? "Verbali Team",
+      authorRole: post.authorRole ?? "AI Communication Experts",
+      publishDate: post.publishDate ?? new Date().toISOString(),
+      tags: post.tags ?? ["AI", "Communication", "Technology"],
+      featured: post.featured ?? index === 0,
       imageUrl: post.image ? `/images/${post.image}` : undefined,
-      readTime: Math.ceil(content.split(" ").length / 200), // Rough estimate: 200 words per minute
+      readTime: Math.max(1, Math.ceil(words / 200)),
     };
   });
 }

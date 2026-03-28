@@ -1,0 +1,924 @@
+import { writeFileSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const article2 = {
+  title:
+    "Faster Than Words: The Agonizing Wait for AAC and How AI is a Game Changer",
+  image: "MatalkLogoWeb.png",
+  author: "Verbali",
+  authorRole: "Co-founder & CEO",
+  tags: ["AAC", "AI", "MaTalk AI", "Communication"],
+  publishDate: "2026-03-28T12:00:00.000Z",
+  featured: false,
+  sections: [
+    {
+      heading: "Introduction",
+      paragraphs: [
+        {
+          number: 1,
+          format: "normal",
+          text: "Imagine you’re at dinner with your family. You’ve just taken a bite of something unexpectedly spicy, and a searing heat floods your mouth. You desperately need water, right now. But your mouth is full. You can’t speak. Pointing feels too slow, and waiting is agony. You’re trapped in a moment of silent, urgent need.",
+        },
+        {
+          number: 2,
+          format: "normal",
+          text: "This fleeting feeling of powerlessness is a daily reality for many non-verbal individuals. Communication for them is a constant challenge, navigated through gestures, sign language, or by guiding someone’s hand. A large number rely on Augmentative and Alternative Communication (AAC) systems — apps and devices designed to give them a voice.",
+        },
+        {
+          number: 3,
+          format: "normal",
+          text: "You’ve likely seen an AAC device before: a tablet-like screen filled not with letters, but with images or symbols that represent words. To form a sentence like, “I want to eat a banana,” the user finds and taps the corresponding images for “I,” “Want,” “Eat,” and “Banana.”",
+        },
+        {
+          number: 4,
+          format: "normal",
+          text: "Simple, right? It is — for simple requests.",
+        },
+        {
+          number: 5,
+          format: "image",
+          src: "MatalkLogoWeb.png",
+          alt: "MaTalk AI by Verbali",
+        },
+      ],
+    },
+    {
+      heading: "The Conversational Bottleneck",
+      paragraphs: [
+        {
+          number: 6,
+          format: "normal",
+          text: "The current system excels at routine, predictable statements, often centered around “I want.” Users can memorize the location of common symbols, allowing for relatively quick access to basic needs.",
+        },
+        {
+          number: 7,
+          format: "normal",
+          text: "But what happens when the conversation shifts? What if a child wants to ask a complex question at school, share a feeling, or tell a joke? Suddenly, the simple grid becomes a labyrinth. The user must hunt for each specific word, navigating through folders and screens. The more vocabulary an AAC system offers to support these rich interactions, the more complex its layout becomes.",
+        },
+        {
+          number: 8,
+          format: "normal",
+          text: "Herein lies the fundamental problem: finding the right images to build a spontaneous thought takes time. Too much time.",
+        },
+        {
+          number: 9,
+          format: "normal",
+          text: "This delay creates a chasm in the natural flow of conversation. Meaningful dialogue thrives on effortless, back-and-forth engagement. Research suggests that for a conversation to feel natural, a conversational partner should wait up to 45 seconds for an AAC user to compose a response. Imagine a 45-second commercial break after every question you were asked. Most people would lose focus, change the subject, or simply walk away.",
+        },
+        {
+          number: 10,
+          format: "normal",
+          text: "In either case, the outcome is the same: the connection is broken, and the child is left unable to fully express themselves.",
+        },
+      ],
+    },
+    {
+      heading: "AI: From agonizing pause to natural conversation",
+      paragraphs: [
+        {
+          number: 11,
+          format: "normal",
+          text: "This conversational gap is precisely where AI enters as a true game-changer. Think of AI not just as a tool, but as a hyper-efficient personal assistant — one that can understand context and anticipate needs almost instantly.",
+        },
+        {
+          number: 12,
+          format: "normal",
+          text: "In the world of AAC, AI can serve as the user’s co-pilot in conversation. Instead of forcing the user to manually search for every word, AI can analyze the ongoing dialogue and instantly predict and present the most likely responses. As this “assistant” learns the user’s personality and preferences, its suggestions become increasingly tailored and accurate.",
+        },
+        {
+          number: 13,
+          format: "normal",
+          text: "For example, in response to the question, “What would you like to eat?” an AI-powered AAC could immediately offer contextually relevant choices like “Can I have pizza?,” “I’m not hungry yet,” or “What are the options?,” completely bypassing the slow, manual search.",
+        },
+        {
+          number: 14,
+          format: "normal",
+          text: "Furthermore, AI can help construct richer, more nuanced sentences, empowering the user to express not just what they want, but who they are. This capability transforms a clunky, transactional exchange into an engaging and authentic conversation.",
+        },
+      ],
+    },
+    {
+      heading: "The Revolution is Here",
+      paragraphs: [
+        {
+          number: 15,
+          format: "normal",
+          text: "In the past few years, companies like OpenAI (ChatGPT), Google (Gemini), and Anthropic (Claude) have revolutionized what’s possible with AI. These models are smarter, faster, and more versatile than ever, capable of generating everything from text and images to lifelike synthetic voices.",
+        },
+        {
+          number: 16,
+          format: "normal",
+          text: "The assistive technology space is not being left behind. Pioneering companies are harnessing the power of AI to fundamentally reinvent the AAC experience. Verbali, for example, is building its AAC from the ground up with AI at its core.",
+        },
+        {
+          number: 17,
+          format: "normal",
+          text: "Verbali’s flagship product, Ma-Talk AI AAC app, uses AI to remove the heavy lifting of manual configuration for caregivers and therapists. More importantly, it adapts in real-time to the user and the situation, providing the most relevant conversational options with incredible speed. Ma-Talk AI can generate a response in under 10 seconds — a pace that is fast enough to bridge the conversational gap and foster a truly natural, back-and-forth experience.",
+        },
+        {
+          number: 18,
+          format: "normal",
+          text: "For millions of people, the barrier to communication has never been a lack of thoughts, feelings, or ideas. It has been the speed of the tools used to express them. With AI, we are finally on the verge of breaking that barrier, ushering in a new era where every voice can be heard, without the wait.",
+        },
+        {
+          number: 19,
+          format: "normal",
+          text: "The writer is the Co-founder and CEO of Verbali and a father to a non-verbal rockstar of a kid.",
+        },
+      ],
+    },
+  ],
+  outline: [
+    "Introduction",
+    "The Conversational Bottleneck",
+    "AI: From agonizing pause to natural conversation",
+    "The Revolution is Here",
+  ],
+};
+
+const article1 = {
+  title:
+    "Best AAC Apps for Nonverbal Children in 2026: A Complete Guide for Parents and Caregivers",
+  image: "MatalkLogoWeb.png",
+  author: "Verbali Team",
+  authorRole: "",
+  tags: ["AAC", "Parents", "MaTalk AI", "Guide", "Nonverbal Children"],
+  publishDate: "2026-03-28T12:00:00.000Z",
+  featured: false,
+  sections: [
+    {
+      heading: "A Father’s Story: Why Verbali Exists",
+      paragraphs: [
+        {
+          number: 1,
+          format: "normal",
+          text: "The founder of Verbali did not build this app because he spotted a market gap. He built it because his son could not speak.",
+        },
+        {
+          number: 2,
+          format: "normal",
+          text: "He watched his son try to tell him something. He could see it in his eyes, in the way his hands moved, in the frustration that built when the words would not come. The apps they tried were clunky. The grids were static. The vocabulary was someone else’s idea of what a child might want to say. His son would tap and tap and still not be understood.",
+        },
+        {
+          number: 3,
+          format: "normal",
+          text: "That experience, repeated across hundreds of ordinary moments, is what became verbali.io.",
+        },
+        {
+          number: 4,
+          format: "normal",
+          text: "This is not a story about technology. It is a story about a parent who refused to accept that his child had nothing to say. He knew his son had thoughts, feelings, opinions, humor. The tools just were not good enough to carry them.",
+        },
+        {
+          number: 5,
+          format: "normal",
+          text: "If you are reading this as a parent or caregiver, you already understand that feeling. This guide is written for you.",
+        },
+      ],
+    },
+    {
+      heading: "What Is AAC and Who Is It For?",
+      paragraphs: [
+        {
+          number: 6,
+          format: "normal",
+          text: "AAC stands for Augmentative and Alternative Communication. It covers any method, tool, or strategy that helps someone communicate when speech alone is not enough or not possible.",
+        },
+        {
+          number: 7,
+          format: "normal",
+          text: "That includes low-tech options like picture boards and sign language. It also includes high-tech apps that use symbols, grids, and voice output to help a person express themselves through a device.",
+        },
+        {
+          number: 8,
+          format: "normal",
+          text: "AAC is used by children and adults with a wide range of conditions, including:",
+        },
+        {
+          number: 9,
+          format: "bullet",
+          text: "Autism spectrum disorder (ASD)",
+        },
+        {
+          number: 10,
+          format: "bullet",
+          text: "Cerebral palsy",
+        },
+        {
+          number: 11,
+          format: "bullet",
+          text: "Apraxia of speech",
+        },
+        {
+          number: 12,
+          format: "bullet",
+          text: "Down syndrome",
+        },
+        {
+          number: 13,
+          format: "bullet",
+          text: "Acquired brain injuries",
+        },
+        {
+          number: 14,
+          format: "bullet",
+          text: "Developmental delays affecting speech",
+        },
+        {
+          number: 15,
+          format: "normal",
+          text: "The research on AAC is clear: using an AAC device does not reduce a child’s motivation to develop speech. In many cases, it supports it. AAC gives a child a voice while speech therapy continues. It reduces frustration. It opens up relationships.",
+        },
+        {
+          number: 16,
+          format: "normal",
+          text: "The question is not whether your child needs AAC. The question is which tool fits them best.",
+        },
+      ],
+    },
+    {
+      heading: "What Most AAC Apps Get Wrong",
+      paragraphs: [
+        {
+          number: 17,
+          format: "normal",
+          text: "Most AAC apps were designed by clinicians for clinical settings. That is not a criticism. It is just context. And it explains a lot of the frustration parents feel when they try to use these tools at home.",
+        },
+        {
+          number: 18,
+          format: "normal",
+          text: "Static Grids That Do Not Grow With Your Child",
+        },
+        {
+          number: 19,
+          format: "normal",
+          text: "The most common complaint from parents is that the grid stays the same. Your child changes. Their interests change. The words they need change. But the app does not adapt. You end up with a vocabulary set built for a generic child, not yours.",
+        },
+        {
+          number: 20,
+          format: "normal",
+          text: "High Costs and Clinical Gatekeeping",
+        },
+        {
+          number: 21,
+          format: "normal",
+          text: "Many premium AAC apps cost USD 200 to USD 300 upfront. Some require ongoing subscriptions on top of that. And in many cases, families are told they need a formal AAC assessment before a device is funded, which can take months or years through public systems.",
+        },
+        {
+          number: 22,
+          format: "normal",
+          text: "Meanwhile, your child is waiting.",
+        },
+        {
+          number: 23,
+          format: "normal",
+          text: "Complexity That Discourages Daily Use",
+        },
+        {
+          number: 24,
+          format: "normal",
+          text: "Some apps are powerful but genuinely hard to set up. Parents spend hours configuring pages, uploading photos, and building vocabulary sets before their child ever touches the screen. If the setup is too complicated, the app ends up in a drawer.",
+        },
+        {
+          number: 25,
+          format: "normal",
+          text: "No Personalization",
+        },
+        {
+          number: 26,
+          format: "normal",
+          text: "Generic vocabulary sets assume all nonverbal children want to say the same things. They do not account for a child who loves trains, or one who wants to talk about their favorite cartoon, or one who needs very specific phrases for their daily routine.",
+        },
+      ],
+    },
+    {
+      heading: "The Best AAC Apps for Nonverbal Children in 2026",
+      paragraphs: [
+        {
+          number: 27,
+          format: "normal",
+          text: "Below is a practical overview of widely discussed AAC options in 2026 — strengths, limitations, and how they compare — so you can narrow the field before you try apps with your child.",
+        },
+      ],
+    },
+    {
+      heading: "MaTalk AI (Verbali)",
+      paragraphs: [
+        {
+          number: 28,
+          format: "normal",
+          text: "Price: USD 200 one-time purchase OR USD 4.99/month subscription. Platforms: iOS and Android.",
+        },
+        {
+          number: 29,
+          format: "normal",
+          text: "verbali.io is the app the founder built for his son. It pairs large language models with AAC design to give nonverbal users a faster, more intuitive way to express themselves. The grid-based interface adapts to each child’s individual communication style over time.",
+        },
+        {
+          number: 30,
+          format: "normal",
+          text: "The AI component is not a gimmick. It learns how your child communicates and adjusts predictions and suggestions accordingly. This means less tapping, faster sentences, and more natural expression.",
+        },
+        {
+          number: 31,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 32,
+          format: "bullet",
+          text: "Built by a parent who has lived this experience, not just designed it",
+        },
+        {
+          number: 33,
+          format: "bullet",
+          text: "AI-powered personalization that adapts to your child",
+        },
+        {
+          number: 34,
+          format: "bullet",
+          text: "Available on both iOS and Android",
+        },
+        {
+          number: 35,
+          format: "bullet",
+          text: "Affordable entry point at USD 5/month, with a one-time option for families who prefer it",
+        },
+        {
+          number: 36,
+          format: "bullet",
+          text: "Designed for children with complex communication needs",
+        },
+        {
+          number: 37,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 38,
+          format: "bullet",
+          text: "Newer to the market than some established competitors",
+        },
+        {
+          number: 39,
+          format: "bullet",
+          text: "AI-based features may require some time to calibrate to your child’s patterns",
+        },
+      ],
+    },
+    {
+      heading: "Proloquo2Go",
+      paragraphs: [
+        {
+          number: 40,
+          format: "normal",
+          text: "Price: USD 249.99 one-time. Platforms: iOS only.",
+        },
+        {
+          number: 41,
+          format: "normal",
+          text: "Proloquo2Go is one of the most recognized names in AAC. It has been around since 2009 and has a large community of users, therapists, and resources built around it.",
+        },
+        {
+          number: 42,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 43,
+          format: "bullet",
+          text: "Widely supported by SLPs and schools",
+        },
+        {
+          number: 44,
+          format: "bullet",
+          text: "Large vocabulary library",
+        },
+        {
+          number: 45,
+          format: "bullet",
+          text: "Strong track record and established user community",
+        },
+        {
+          number: 46,
+          format: "bullet",
+          text: "Customizable to different access methods",
+        },
+        {
+          number: 47,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 48,
+          format: "bullet",
+          text: "iOS only",
+        },
+        {
+          number: 49,
+          format: "bullet",
+          text: "USD 249.99 is a significant upfront investment",
+        },
+        {
+          number: 50,
+          format: "bullet",
+          text: "Setup can be complex without professional support",
+        },
+        {
+          number: 51,
+          format: "bullet",
+          text: "No AI-driven personalization",
+        },
+      ],
+    },
+    {
+      heading: "TouchChat HD AAC with WordPower",
+      paragraphs: [
+        {
+          number: 52,
+          format: "normal",
+          text: "Price: USD 299.99 one-time. Platforms: iOS only.",
+        },
+        {
+          number: 53,
+          format: "normal",
+          text: "TouchChat HD AAC with WordPower offers a robust vocabulary system built around the WordPower language system, which is widely used in AAC therapy.",
+        },
+        {
+          number: 54,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 55,
+          format: "bullet",
+          text: "Cross-platform availability",
+        },
+        {
+          number: 56,
+          format: "bullet",
+          text: "WordPower vocabulary system is clinically respected",
+        },
+        {
+          number: 57,
+          format: "bullet",
+          text: "Supports multiple access methods",
+        },
+        {
+          number: 58,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 59,
+          format: "bullet",
+          text: "USD 299.99 is the highest upfront cost on this list",
+        },
+        {
+          number: 60,
+          format: "bullet",
+          text: "Complex setup without SLP guidance",
+        },
+        {
+          number: 61,
+          format: "bullet",
+          text: "No adaptive AI features",
+        },
+      ],
+    },
+    {
+      heading: "TD Snap (Tobii Dynavox)",
+      paragraphs: [
+        {
+          number: 62,
+          format: "normal",
+          text: "Price: Free version available (no voice output). USD 9.99/month subscription required for voice output. Add-on content packs (PODD, Gateway, Metacom) cost extra per month. Platforms: iOS and Windows.",
+        },
+        {
+          number: 63,
+          format: "normal",
+          text: "TD Snap is part of the Tobii Dynavox ecosystem. The free version lets families explore the app, but it does not include voice output. Voice output requires a subscription, and specialized content systems like PODD, Gateway, or Metacom are additional monthly costs.",
+        },
+        {
+          number: 64,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 65,
+          format: "bullet",
+          text: "Free version allows exploration before committing",
+        },
+        {
+          number: 66,
+          format: "bullet",
+          text: "Works with Tobii eye-tracking hardware",
+        },
+        {
+          number: 67,
+          format: "bullet",
+          text: "Backed by extensive AAC research",
+        },
+        {
+          number: 68,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 69,
+          format: "bullet",
+          text: "Free version has no voice output",
+        },
+        {
+          number: 70,
+          format: "bullet",
+          text: "Costs add up quickly with subscription plus content pack add-ons",
+        },
+        {
+          number: 71,
+          format: "bullet",
+          text: "New users must subscribe; no one-time purchase available",
+        },
+      ],
+    },
+    {
+      heading: "Avaz AAC",
+      paragraphs: [
+        {
+          number: 72,
+          format: "normal",
+          text: "Price: USD 199.99 lifetime (iOS). Subscription version also available. Free download with in-app purchase. Platforms: iOS and Android.",
+        },
+        {
+          number: 73,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 74,
+          format: "bullet",
+          text: "Free download to try before buying",
+        },
+        {
+          number: 75,
+          format: "bullet",
+          text: "USD 199.99 lifetime option is competitive",
+        },
+        {
+          number: 76,
+          format: "bullet",
+          text: "Includes word prediction",
+        },
+        {
+          number: 77,
+          format: "bullet",
+          text: "Supports multiple languages",
+        },
+        {
+          number: 78,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 79,
+          format: "bullet",
+          text: "iOS only",
+        },
+        {
+          number: 80,
+          format: "bullet",
+          text: "No AI-driven personalization",
+        },
+      ],
+    },
+    {
+      heading: "CoughDrop",
+      paragraphs: [
+        {
+          number: 81,
+          format: "normal",
+          text: "Price: USD 9/month or USD 295 lifetime. Platforms: iOS, Android, and web browser.",
+        },
+        {
+          number: 82,
+          format: "normal",
+          text: "CoughDrop is cloud-based, meaning your child’s boards sync across devices and can be edited from any browser — ideal for families where multiple caregivers, teachers, and therapists need access.",
+        },
+        {
+          number: 83,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 84,
+          format: "bullet",
+          text: "Cloud-based syncing across devices and users",
+        },
+        {
+          number: 85,
+          format: "bullet",
+          text: "Multiple caregivers can collaborate on boards",
+        },
+        {
+          number: 86,
+          format: "bullet",
+          text: "Works in a browser, not just on a device",
+        },
+        {
+          number: 87,
+          format: "bullet",
+          text: "Flexible monthly or lifetime pricing",
+        },
+        {
+          number: 88,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 89,
+          format: "bullet",
+          text: "Requires internet for some features",
+        },
+        {
+          number: 90,
+          format: "bullet",
+          text: "Less AI personalization than newer apps",
+        },
+      ],
+    },
+    {
+      heading: "Pictalk",
+      paragraphs: [
+        {
+          number: 91,
+          format: "normal",
+          text: "Price: Free. Platforms: iOS and Android.",
+        },
+        {
+          number: 92,
+          format: "normal",
+          text: "A free, picture-based communication app. A reasonable starting point for families new to AAC.",
+        },
+        {
+          number: 93,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 94,
+          format: "bullet",
+          text: "Completely free",
+        },
+        {
+          number: 95,
+          format: "bullet",
+          text: "Simple interface, easy to start",
+        },
+        {
+          number: 96,
+          format: "bullet",
+          text: "Available on both platforms",
+        },
+        {
+          number: 97,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 98,
+          format: "bullet",
+          text: "Limited vocabulary and customization",
+        },
+        {
+          number: 99,
+          format: "bullet",
+          text: "Not designed for complex communication needs",
+        },
+        {
+          number: 100,
+          format: "bullet",
+          text: "May be outgrown quickly",
+        },
+      ],
+    },
+    {
+      heading: "Ollie AAC",
+      paragraphs: [
+        {
+          number: 101,
+          format: "normal",
+          text: "Price: USD 9.99 one-time for core communication, for life. Free monthly AI credits included. Optional subscription or one-time purchase for additional AI credits. Platforms: iOS only.",
+        },
+        {
+          number: 102,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 103,
+          format: "bullet",
+          text: "Very low entry cost at USD 9.99",
+        },
+        {
+          number: 104,
+          format: "bullet",
+          text: "AI features included with free monthly credits",
+        },
+        {
+          number: 105,
+          format: "bullet",
+          text: "Good option for families on a tight budget",
+        },
+        {
+          number: 106,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 107,
+          format: "bullet",
+          text: "Newer app with a smaller user community",
+        },
+        {
+          number: 108,
+          format: "bullet",
+          text: "Heavy AI use requires additional credit purchases",
+        },
+        {
+          number: 109,
+          format: "bullet",
+          text: "Less clinical track record",
+        },
+        {
+          number: 110,
+          format: "bullet",
+          text: "iOS only",
+        },
+      ],
+    },
+    {
+      heading: "Weave Chat",
+      paragraphs: [
+        {
+          number: 111,
+          format: "normal",
+          text: "Price: Free. Platforms: iOS and Android.",
+        },
+        {
+          number: 112,
+          format: "normal",
+          text: "A free communication app focused on social interaction.",
+        },
+        {
+          number: 113,
+          format: "normal",
+          text: "Strengths:",
+        },
+        {
+          number: 114,
+          format: "bullet",
+          text: "Free",
+        },
+        {
+          number: 115,
+          format: "bullet",
+          text: "Social communication focus",
+        },
+        {
+          number: 116,
+          format: "bullet",
+          text: "Available on both platforms",
+        },
+        {
+          number: 117,
+          format: "normal",
+          text: "Limitations:",
+        },
+        {
+          number: 118,
+          format: "bullet",
+          text: "Limited scope compared to full AAC systems",
+        },
+        {
+          number: 119,
+          format: "bullet",
+          text: "Not a replacement for comprehensive AAC for children with complex needs",
+        },
+      ],
+    },
+    {
+      heading: "How to Choose an AAC App: A 7-Step Checklist for Parents",
+      paragraphs: [
+        {
+          number: 120,
+          format: "bullet",
+          text: "Know your child’s access needs — Can they tap accurately? Do they need larger buttons or switch/eye-gaze access?",
+        },
+        {
+          number: 121,
+          format: "bullet",
+          text: "Check platform compatibility — iOS-only apps exclude Android users entirely.",
+        },
+        {
+          number: 122,
+          format: "bullet",
+          text: "Be honest about your budget — Factor in subscriptions and add-on content packs, not just the base price.",
+        },
+        {
+          number: 123,
+          format: "bullet",
+          text: "Look for customization — Your child has specific interests, routines, and relationships. The app should reflect their actual life.",
+        },
+        {
+          number: 124,
+          format: "bullet",
+          text: "Consider who else will use it — Teachers, therapists, grandparents. Cloud-based apps make collaboration easier.",
+        },
+        {
+          number: 125,
+          format: "bullet",
+          text: "Try before you buy — Most apps offer a free version or trial. Let your child try it and watch how they respond.",
+        },
+        {
+          number: 126,
+          format: "bullet",
+          text: "Think about growth — Your child will change. The app should grow with them.",
+        },
+      ],
+    },
+    {
+      heading: "Conclusion",
+      paragraphs: [
+        {
+          number: 127,
+          format: "normal",
+          text: "The founder of Verbali built an app because his son deserved better tools. That is the whole story.",
+        },
+        {
+          number: 128,
+          format: "normal",
+          text: "If you are a parent sitting with this same feeling, the most important thing to know is this: your child has something to say. The right app will not give them a voice. It will give their existing voice a way out.",
+        },
+        {
+          number: 129,
+          format: "normal",
+          text: "Take the checklist above seriously. Try the free options. Do not let cost be the only factor, but do not let marketing be the deciding one either.",
+        },
+        {
+          number: 130,
+          format: "normal",
+          text: "And if you want to see what AI-powered AAC looks like when it is built by someone who has lived this experience, verbali.io is a good place to start.",
+        },
+      ],
+    },
+    {
+      heading: "FAQs",
+      paragraphs: [
+        {
+          number: 131,
+          format: "normal",
+          text: "Q: What is the best AAC app for a nonverbal child with autism? There is no single best app for every child. Proloquo2Go and TouchChat HD AAC with WordPower are widely used and clinically supported. Verbali is a strong option if you want AI-powered personalization at a lower price point. The best approach is to try a few and see what your child responds to.",
+        },
+        {
+          number: 132,
+          format: "normal",
+          text: "Q: Are there free AAC apps for nonverbal children? Yes. Pictalk and Weave Chat are free. TD Snap has a free version but it does not include voice output. Free apps can be a useful starting point, but most families with children who have complex communication needs will eventually need a more robust paid option.",
+        },
+        {
+          number: 133,
+          format: "normal",
+          text: "Q: Do AAC apps replace speech therapy? No. AAC apps support communication alongside speech therapy, not instead of it. Research consistently shows that AAC use does not reduce a child’s motivation to develop speech.",
+        },
+        {
+          number: 134,
+          format: "normal",
+          text: "Q: What is the difference between a one-time purchase and a subscription AAC app? A one-time purchase means you pay once and own the app. A subscription means you pay monthly or annually. Verbali offers both: USD 200 one-time or USD 5/month.",
+        },
+        {
+          number: 135,
+          format: "normal",
+          text: "Q: Can my child’s school use the same AAC app I use at home? It depends on the app and the school’s devices. Cloud-based apps like CoughDrop make it easier to share boards across settings. Check whether the app is available on your school’s devices.",
+        },
+        {
+          number: 136,
+          format: "normal",
+          text: "Q: At what age can a child start using an AAC app? There is no minimum age. Many children start before age two. Early introduction is generally supported by research.",
+        },
+        {
+          number: 137,
+          format: "normal",
+          text: "Q: Is Verbali suitable for children with complex communication needs? Yes. Verbali was specifically designed for children with complex communication needs. The grid-based interface adapts to individual communication styles and the AI learns from how your child uses the app over time. Learn more at verbali.io",
+        },
+      ],
+    },
+  ],
+  outline: [],
+};
+
+const out = [article1, article2];
+const dest = join(__dirname, "..", "src", "components", "blog-articles-extra.json");
+writeFileSync(dest, JSON.stringify(out, null, 2), "utf8");
+console.log("Wrote", dest);

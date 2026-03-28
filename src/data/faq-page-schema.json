@@ -1,0 +1,110 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is MaTalk AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MaTalk AI is Verbali's AI-powered AAC app designed to help non-verbal children communicate faster and more naturally. It is built to support real-life communication with a modern AAC experience that helps users build sentences in seconds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does MaTalk AI use AI to support AAC communication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MaTalk AI uses an adaptive LLM together with a symbol grid to support faster, more relevant communication. This helps users access language more efficiently and supports more natural communication in everyday moments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is MaTalk AI designed for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MaTalk AI is designed for non-verbal children and the families, educators, and therapy teams who support them. It is built for accessible communication across everyday settings such as home, school, and community interactions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is MaTalk AI different from traditional AAC tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MaTalk AI combines AI assistance with visual AAC interaction to help users build sentences faster and communicate more naturally. Unlike more static systems, it is designed to support real-life conversation in the moment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does MaTalk AI work on iPhone, iPad, and Android?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. MaTalk AI is available on iOS and Android."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does MaTalk AI help with real-life conversations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MaTalk AI is built to support faster communication during real interactions. By helping users access relevant language more quickly, it is designed to make conversation easier in everyday life."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can MaTalk AI support autistic children or gestalt language processors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Verbali's content includes discussion of Gestalt Language Processing and AAC, including ways MaTalk AI can support more natural communication. Families should use the app in coordination with their educators, therapists, or care team based on individual needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Verbali focus on privacy and responsible data handling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Verbali provides privacy information on its website, including a general privacy policy and a MaTalk AI privacy policy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is AI-powered AAC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI-powered AAC is augmentative and alternative communication technology that uses artificial intelligence to help users communicate faster and more naturally. In MaTalk AI, Verbali combines AI with a symbol-based AAC experience to help users build sentences in seconds and access more relevant communication options in the moment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does AI improve AAC devices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI can improve AAC devices by helping surface more relevant words, phrases, or responses during communication. Instead of relying only on static layouts, AI-assisted AAC can support faster message building, more adaptive language access, and a more natural conversation flow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is AI AAC suitable for children with autism?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI AAC may be helpful for some children with autism, depending on their communication profile, support needs, and therapy goals. MaTalk AI is designed to support more natural communication, and families can use it alongside guidance from educators, therapists, and care teams based on the child's individual needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between traditional and AI AAC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Traditional AAC systems often rely on fixed vocabulary layouts and more manual navigation. AI AAC adds adaptive support that can help surface more relevant communication options in the moment, helping users get to useful language faster and participate more naturally in everyday conversations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is AI-based communication prediction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI-based communication prediction is designed to improve speed and relevance, but it is not meant to replace the user's intent or choice. Performance depends on context, personalization, vocabulary, and how the system is used. In MaTalk AI, AI is intended to assist communication by surfacing relevant options while keeping the user in control."
+      }
+    }
+  ]
+}
