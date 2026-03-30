@@ -139,7 +139,7 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                 Admin Code
               </h2>
               <div className="text-7xl font-black text-black tracking-widest my-8 px-6 py-4 bg-slate-50 rounded-2xl border-2 border-slate-200 shadow-inner inline-block mx-auto">
-                78567
+                7856
               </div>
               <p className="text-slate-600 mb-10 text-lg">
                 This is to open the settings and board area in the app.
