@@ -80,7 +80,9 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
           Back to Home
         </Button>
 
-        <div className={`bg-white rounded-3xl shadow-xl p-8 border border-slate-200 text-center transition-transform ${shake ? "animate-shake" : ""}`}>
+        <div
+          className={`bg-white rounded-3xl shadow-xl p-8 border border-slate-200 text-center transition-transform ${shake ? "animate-shake" : ""}`}
+        >
           {!isUnlocked ? (
             <div className="py-4">
               <h1 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">
@@ -102,7 +104,9 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                     <div
                       key={i}
                       className={`w-4 h-4 rounded-full transition-colors duration-300 shadow-inner ${
-                        i < inputNumbers.length ? "bg-indigo-600 shadow-indigo-400" : "bg-slate-200"
+                        i < inputNumbers.length
+                          ? "bg-indigo-600 shadow-indigo-400"
+                          : "bg-slate-200"
                       }`}
                     />
                   ))}
@@ -135,18 +139,18 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                 Admin Code
               </h2>
               <div className="text-7xl font-black text-black tracking-widest my-8 px-6 py-4 bg-slate-50 rounded-2xl border-2 border-slate-200 shadow-inner inline-block mx-auto">
-                7856
+                78567
               </div>
               <p className="text-slate-600 mb-10 text-lg">
                 This is to open the settings and board area in the app.
               </p>
-              
+
               <div className="flex flex-col gap-5 items-center">
                 <button
                   onClick={() => {
                     window.open(
                       "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                      "_blank"
+                      "_blank",
                     );
                   }}
                   className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-indigo-500/20 touch-target"
@@ -162,7 +166,7 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                   onClick={() => {
                     window.open(
                       "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                      "_blank"
+                      "_blank",
                     );
                   }}
                   className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-indigo-500/20 touch-target"
