@@ -49,6 +49,47 @@ export function News({ onBack }: NewsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <p className="text-sm font-medium text-violet-600 mb-4">
+              March 2026
+            </p>
+            <h2 className="h2 mb-6">
+              Verbali is partnering with Ablenet to bring the power of AI to the
+              classroom
+            </h2>
+            <p className="text-slate-600 mb-6">
+              Verbali is partnering with Ablenet to bring the power of AI to the
+              classroom. Ablenet is a company that is dedicated to helping
+              students with special needs succeed in the classroom. They are a
+              leading provider of AAC solutions and are dedicated to helping
+              students with special needs succeed in the classroom. We are
+              excited to be part of this journey and to help shape the future of
+              AAC. Visit their website at{" "}
+              <a
+                href="https://www.ablenetinc.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                https://www.ablenetinc.com/
+              </a>
+            </p>
+            <p className="text-slate-600 mb-0">
+              For more information or to get involved, contact us at{" "}
+              <a
+                href="mailto:info@verbali.com"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                info@verbali.com
+              </a>
+            </p>
+          </motion.section>
+
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <p className="text-sm font-medium text-violet-600 mb-4">Feb 2026</p>
             <h2 className="h2 mb-6">
               New Feature: Export and Import your profile without re-configuring
