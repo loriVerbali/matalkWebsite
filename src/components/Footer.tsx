@@ -73,6 +73,16 @@ export function Footer({ onNavigate }: FooterProps) {
                 DaVoice
               </span>
             </div>
+            <div className="flex flex-col items-center">
+              <PartnerLogo
+                src="/images/partners/ablenet.jpg"
+                alt="Ablenet"
+                href="https://www.ablenetinc.com/"
+              />
+              <span className="text-slate-700 text-sm sm:text-base mt-2">
+                Ablenet
+              </span>
+            </div>
           </div>
         </div>
 
