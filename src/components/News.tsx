@@ -58,12 +58,41 @@ export function News({ onBack }: NewsProps) {
             </h2>
             <p className="text-slate-600 mb-6">
               Verbali is partnering with Ablenet to bring the power of AI to the
-              classroom. Ablenet is a company that is dedicated to helping
-              students with special needs succeed in the classroom. They are a
-              leading provider of AAC solutions and are dedicated to helping
-              students with special needs succeed in the classroom. We are
-              excited to be part of this journey and to help shape the future of
-              AAC. Visit their website at{" "}
+              classroom. MaTalk AI Forever is now available from AbleNet on the
+              QuickTalker Freestyle speech device! Start a{" "}
+              <a
+                href="https://quicktalkerfreestyle.com/client-information-form-slp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                benefit check
+              </a>{" "}
+              to make your request.
+              <br />
+              Matalk AI Forever is competitively priced at $200.00 <br />
+              You can download it from the App Store.
+              <br />
+              <br />
+              <button
+                onClick={() => {
+                  window.open(
+                    "https://apps.apple.com/za/app/matalk-ai-forever/id6756188044",
+                    "_blank",
+                  );
+                }}
+                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-blue-500/20 touch-target"
+                aria-label="Download Matalk AI Forever on the App Store"
+              >
+                <img
+                  src="/images/black.svg"
+                  alt="Download on the App Store"
+                  className="h-12 sm:h-14 w-auto transition-all duration-200"
+                />
+              </button>
+              <br />
+              <br />
+              <p>Check out AbleNet's website for more information.</p>
               <a
                 href="https://www.ablenetinc.com/"
                 target="_blank"
