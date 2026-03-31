@@ -75,7 +75,7 @@ export function Footer({ onNavigate }: FooterProps) {
             </div>
             <div className="flex flex-col items-center">
               <PartnerLogo
-                src="/images/partners/ablenet.jpg"
+                src="/images/partners/ablenet.png"
                 alt="Ablenet"
                 href="https://www.ablenetinc.com/"
               />
