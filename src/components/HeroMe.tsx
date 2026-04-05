@@ -499,6 +499,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
   const hasProcessedPayment = useRef(false);
   const hasStartedGeneration = useRef(false);
   const stripeCheckoutRef = useRef<any>(null);
+  const [couponCode, setCouponCode] = useState("");
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
 
   // Check for payment completion from URL (fallback if polling doesn't catch it)
   useEffect(() => {
@@ -652,8 +656,89 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
     }
   };
 
+  const handleCouponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^a-zA-Z0-9]/g, "").slice(0, 6);
+    setCouponCode(value);
+    setCouponError(null);
+    if (value.length === 6) {
+      verifyCoupon(value);
+    }
+  };
+
+  const verifyCoupon = async (code: string) => {
+    setIsValidatingCoupon(true);
+    setCouponError(null);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/coupon/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await response.json();
+      if (data.valid) {
+        setIsCouponApplied(true);
+        setToast({
+          message: "Coupon applied! Enjoy for free.",
+          type: "success",
+        });
+      } else {
+        setIsCouponApplied(false);
+        setCouponError(
+          data.reason === "ALREADY_USED"
+            ? "Coupon already used"
+            : "Invalid coupon code"
+        );
+      }
+    } catch (err) {
+      console.error("Coupon verification error:", err);
+      setCouponError("Error verifying coupon");
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
+
   const handlePaymentClick = async () => {
     if (!uploadedImage) return;
+
+    if (isCouponApplied) {
+      setIsLoadingCheckout(true);
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/coupon/set-used`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: couponCode }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.reason || "Failed to use coupon");
+        }
+
+        // Coupon marked as used, proceed to generation
+        setShouldStartGeneration(true);
+        setToast({
+          message: "Coupon accepted! Generating your board...",
+          type: "success",
+        });
+
+        // Scroll to board section
+        setTimeout(() => {
+          const boardSection = document.getElementById("board-section");
+          boardSection?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+
+        return;
+      } catch (err) {
+        console.error("Coupon set-used error:", err);
+        setToast({
+          message: "Failed to apply coupon. Please try again.",
+          type: "error",
+        });
+        return;
+      } finally {
+        setIsLoadingCheckout(false);
+      }
+    }
 
     setIsLoadingCheckout(true);
 
@@ -749,8 +834,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
           for (const tile of category.tiles) {
             try {
               console.log(
-                `🔄 Processing tile ${processedCount + 1}/${totalTiles}: ${
-                  tile.key
+                `🔄 Processing tile ${processedCount + 1}/${totalTiles}: ${tile.key
                 }`
               );
 
@@ -838,7 +922,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             // Initialize Stripe
             const stripe = (window as any).Stripe(
               import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
-                "pk_test_51QR3oEFDLw2Bsp8hkebfPAC9xjk5J0CcNKDZLPzINrPdWWjRyDXEwIE7i1hXm9Qg3cpBGE9j03mDpPr1r3f88b4R00ZGrNm6Hm"
+              "pk_test_51QR3oEFDLw2Bsp8hkebfPAC9xjk5J0CcNKDZLPzINrPdWWjRyDXEwIE7i1hXm9Qg3cpBGE9j03mDpPr1r3f88b4R00ZGrNm6Hm"
             );
 
             // Initialize embedded checkout
@@ -1180,6 +1264,62 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
               )}
             </div>
 
+            <div className="bg-white rounded-lg shadow-md p-6 mb-4">
+              {/* Coupon Code Input */}
+              <div className="max-w-xs mx-auto text-left mb-4">
+                <label
+                  htmlFor="coupon-code"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Coupon Code
+                </label>
+                <div className="relative">
+                  <input
+                    id="coupon-code"
+                    type="text"
+                    value={couponCode}
+                    onChange={handleCouponChange}
+                    placeholder="Enter 6-digit code"
+                    disabled={isCouponApplied || isValidatingCoupon}
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all ${isCouponApplied
+                        ? "bg-green-50 border-green-300 text-green-700"
+                        : couponError
+                          ? "bg-red-50 border-red-300 text-red-700"
+                          : "bg-white border-gray-300"
+                      }`}
+                  />
+                  {isValidatingCoupon && (
+                    <div className="absolute right-3 top-2.5">
+                      <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                    </div>
+                  )}
+                  {isCouponApplied && (
+                    <div className="absolute right-3 top-2.5 text-green-600">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                {couponError && (
+                  <p className="mt-1 text-xs text-red-500">{couponError}</p>
+                )}
+                {isCouponApplied && (
+                  <p className="mt-1 text-xs text-green-600">
+                    Coupon code applied successfully!
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div className="bg-white rounded-lg shadow-md p-6">
               {!uploadedImage ? (
                 <FileDrop
@@ -1219,10 +1359,12 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
                       {!isImageSaved
                         ? "Processing image..."
                         : isLoadingCheckout
-                        ? "Loading Payment..."
-                        : isComposing
-                        ? "Generating..."
-                        : "Create Hero Me Feelings - $2.00"}
+                          ? "Loading..."
+                          : isComposing
+                            ? "Generating..."
+                            : isCouponApplied
+                              ? "Create Hero Me Feelings - FREE"
+                              : "Create Hero Me Feelings - $2.00"}
                     </button>
                     <p className="text-xs text-gray-500 text-center">
                       Secure payment powered by Stripe
