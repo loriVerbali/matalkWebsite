@@ -276,7 +276,7 @@ export const generateFeelingImageDirectly = async (
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       // Use the image generation model
-      const model = "gemini-2.5-flash-image-preview";
+      const model = "gemini-3.1-flash-image-preview";
 
       // Create polished prompt for direct feeling image generation
       const prompt = `Convert this uploaded image into something that depicts the feeling "${feelingName}". 
@@ -462,7 +462,7 @@ export const generateAvatar = async (
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       // Use the image generation model
-      const model = "gemini-2.5-flash-image-preview";
+      const model = "gemini-3.1-flash-image-preview";
 
       // Create prompt for avatar generation from uploaded photo
       const prompt = `Create a 2D cartoon avatar from this photo. Keep face identity (hair/skin/eyes), age-appropriate, no text, transparent background, 512×512 PNG. Style: friendly, sticker-like, thick outline, high contrast, child-safe. Return only the image.`;
