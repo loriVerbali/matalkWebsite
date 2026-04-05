@@ -65,7 +65,7 @@ export const replaceFaceInImage = async (
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       // Use the image generation model
-      const model = "gemini-2.5-flash-image-preview";
+      const model = "gemini-3.1-flash-image-preview";
 
       // Create prompt for face replacement
       const prompt = `Replace the face in this feeling/emotion image with the cartoon avatar face from the reference image. Keep the same pose, expression, clothing, background, and overall composition. The person should look ${feelingName}. Maintain the same artistic style and colors. Return only the modified image with the face replaced.`;
@@ -418,8 +418,7 @@ export const generateFeelingImageDirectly = async (
       lastError =
         error instanceof Error ? error.message : "Unknown error occurred";
       console.warn(
-        `Direct feeling generation attempt ${
-          attempt + 1
+        `Direct feeling generation attempt ${attempt + 1
         } failed for ${feelingName}:`,
         lastError
       );
