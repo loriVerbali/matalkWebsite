@@ -675,7 +675,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
         body: JSON.stringify({ code }),
       });
       const data = await response.json();
-      if (data.valid) {
+      if (data.data?.valid) {
         setIsCouponApplied(true);
         setToast({
           message: "Coupon applied! Enjoy for free.",
@@ -684,7 +684,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       } else {
         setIsCouponApplied(false);
         setCouponError(
-          data.reason === "ALREADY_USED"
+          data.data?.reason === "ALREADY_USED"
             ? "Coupon already used"
             : "Invalid coupon code"
         );
@@ -711,7 +711,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
         if (!response.ok) {
           const data = await response.json();
-          throw new Error(data.reason || "Failed to use coupon");
+          throw new Error(data.data?.reason || data.message || "Failed to use coupon");
         }
 
         // Coupon marked as used, proceed to generation
