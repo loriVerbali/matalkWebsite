@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { analytics } from "../../utils/analytics";
 import type { TileSpec, Lang } from "../../lib/playground/types";
 import {
   speak,
@@ -40,6 +41,11 @@ const Tile: React.FC<TileProps> = ({
 
         const text = tile.label[language];
         console.log(`🔊 Attempting to speak: "${text}" in ${language}`);
+        analytics.trackInteraction("Tile Spoken", {
+          tileKey: tile.key,
+          label: text,
+          language,
+        });
         await speak(text, language);
         console.log(`✅ Speech completed for: "${text}"`);
       } catch (error) {

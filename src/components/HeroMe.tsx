@@ -503,6 +503,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
   const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
+  
+  // Track page view on mount
+  useEffect(() => {
+    analytics.trackPageView("HeroMe");
+  }, []);
 
   // Check for payment completion from URL (fallback if polling doesn't catch it)
   useEffect(() => {
@@ -545,13 +550,13 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
           // Fetch image from backend
           return fetch(
             `${API_BASE_URL}/api/temp-image-retrieve?imageId=${imageId}`
-          );
+          ).then(res => ({ res, imageId }));
         })
-        .then((res) => {
+        .then(({ res, imageId }) => {
           if (!res.ok) throw new Error("Failed to retrieve image");
-          return res.blob();
+          return res.blob().then(blob => ({ blob, imageId }));
         })
-        .then((blob) => {
+        .then(({ blob, imageId }) => {
           const filename = "uploaded-image.png";
           const file = new File([blob], filename, { type: blob.type });
 
@@ -570,6 +575,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             type: "success",
           });
 
+          analytics.trackInteraction("Payment Success", {
+            sessionId,
+            imageId
+          });
+
           // Scroll to board section
           setTimeout(() => {
             const boardSection = document.getElementById("board-section");
@@ -578,6 +588,9 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
         })
         .catch((error) => {
           console.error("Error after payment:", error);
+          analytics.trackInteraction("Payment Restoral Failed", {
+            error: error instanceof Error ? error.message : "Restoral error"
+          });
           setToast({
             message:
               "Payment successful but couldn't restore image. Please upload again.",
@@ -620,6 +633,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
   const handleFileSelect = async (file: File) => {
     console.log("File selected:", file.name, file.type, file.size);
+    analytics.trackInteraction("File Selection", {
+      fileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+    });
 
     setIsUploading(true);
     setError(null);
@@ -642,6 +660,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       setIsImageSaved(true); // Image is ready immediately
 
       // Show success message
+      analytics.trackInteraction("File Processed Success");
       setToast({
         message: "Photo uploaded successfully!",
         type: "success",
@@ -650,6 +669,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       console.error("Upload error:", err);
       const errorMessage =
         err instanceof Error ? err.message : "An unexpected error occurred";
+      analytics.trackInteraction("File Processed Failed", { error: errorMessage });
       setError(errorMessage);
     } finally {
       setIsUploading(false);
@@ -661,6 +681,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
     setCouponCode(value);
     setCouponError(null);
     if (value.length === 6) {
+      analytics.trackInteraction("Coupon Code Entered", { code: value });
       verifyCoupon(value);
     }
   };
@@ -676,21 +697,30 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       });
       const data = await response.json();
       if (data.data?.valid) {
+        analytics.trackInteraction("Coupon Validation Success", { code });
         setIsCouponApplied(true);
         setToast({
           message: "Coupon applied! Enjoy for free.",
           type: "success",
         });
       } else {
-        setIsCouponApplied(false);
-        setCouponError(
+        const reason =
           data.data?.reason === "ALREADY_USED"
             ? "Coupon already used"
-            : "Invalid coupon code"
-        );
+            : "Invalid coupon code";
+        analytics.trackInteraction("Coupon Validation Failure", {
+          code,
+          reason,
+        });
+        setIsCouponApplied(false);
+        setCouponError(reason);
       }
     } catch (err) {
       console.error("Coupon verification error:", err);
+      analytics.trackInteraction("Coupon Validation Error", {
+        code,
+        error: err instanceof Error ? err.message : "Fetch error",
+      });
       setCouponError("Error verifying coupon");
     } finally {
       setIsValidatingCoupon(false);
@@ -699,6 +729,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
   const handlePaymentClick = async () => {
     if (!uploadedImage) return;
+
+    analytics.trackButtonClick("Create Hero Me Clicked", {
+      isCouponApplied,
+      couponCode: isCouponApplied ? couponCode : undefined,
+    });
 
     if (isCouponApplied) {
       setIsLoadingCheckout(true);
@@ -713,6 +748,8 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
           const data = await response.json();
           throw new Error(data.data?.reason || data.message || "Failed to use coupon");
         }
+        
+        analytics.trackInteraction("Coupon Set Used Success", { code: couponCode });
 
         // Coupon marked as used, proceed to generation
         setShouldStartGeneration(true);
@@ -730,6 +767,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
         return;
       } catch (err) {
         console.error("Coupon set-used error:", err);
+        const errorMessage = err instanceof Error ? err.message : "Failed to use coupon";
+        analytics.trackInteraction("Coupon Set Used Failed", { 
+          code: couponCode, 
+          error: errorMessage 
+        });
         setToast({
           message: "Failed to apply coupon. Please try again.",
           type: "error",
@@ -748,6 +790,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       formData.append("image", uploadedImage);
 
       console.log("📤 Uploading image to backend before payment...");
+      analytics.trackInteraction("Checkout Image Upload Started");
 
       const uploadResponse = await fetch(
         `${API_BASE_URL}/api/temp-image-upload`,
@@ -763,6 +806,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
       const { imageId } = await uploadResponse.json();
       console.log("✅ Image uploaded, ID:", imageId);
+      analytics.trackInteraction("Checkout Image Upload Success", { imageId });
 
       // Call backend to create checkout session with imageId in metadata
       const response = await fetch(
@@ -783,8 +827,11 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       // Set client secret and show modal - useEffect will handle mounting
       setClientSecret(client_secret);
       setShowCheckoutModal(true);
+      analytics.trackInteraction("Checkout Modal Requested");
     } catch (error) {
       console.error("Payment error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Payment error";
+      analytics.trackInteraction("Checkout Failed", { error: errorMessage });
       setToast({
         message: "Failed to initialize payment. Please try again.",
         type: "error",
@@ -821,6 +868,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
       setImagesCreated(0);
       const newComposedTiles = new Map<string, Blob>();
       const newComposedUrls = new Map<string, string>();
+
+      analytics.trackInteraction("Board Generation Started", {
+        totalTiles: feelingsData.reduce((t, c) => t + c.tiles.length, 0),
+      });
 
       try {
         // Process all tiles
@@ -879,8 +930,15 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
 
         setComposedTiles(newComposedTiles);
         setComposedUrls(newComposedUrls);
+        analytics.trackInteraction("Board Generation Success", {
+          tilesCreated: newComposedTiles.size,
+        });
       } catch (error) {
         console.error("Failed to compose tiles:", error);
+        analytics.trackInteraction("Board Generation Failed", {
+          error: error instanceof Error ? error.message : "Generation error",
+          tilesCreatedSoFar: newComposedTiles.size,
+        });
         setToast({
           message: "Failed to generate personalized feeling images",
           type: "error",
@@ -1117,7 +1175,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             </p>
           </div>
           <button
-            onClick={onBack}
+            onClick={() => {
+              analytics.trackButtonClick("Back Button Clicked");
+              onBack();
+            }}
             className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
           >
             ← Back
@@ -1146,13 +1207,17 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             {/* Action Buttons */}
             <div className="flex gap-4 justify-center mb-8">
               <button
-                onClick={() => setShowHowItWorks(true)}
+                onClick={() => {
+                  analytics.trackButtonClick("How It Works Clicked");
+                  setShowHowItWorks(true);
+                }}
                 className="bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 How it works
               </button>
               <button
                 onClick={() => {
+                  analytics.trackButtonClick("Upload Navigation Clicked");
                   const uploadSection =
                     document.getElementById("upload-section");
                   uploadSection?.scrollIntoView({ behavior: "smooth" });
@@ -1192,7 +1257,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
               {/* Print Reference Images Button */}
               <div className="text-center mt-6">
                 <button
-                  onClick={handlePrint}
+                  onClick={() => {
+                    analytics.trackButtonClick("Free Print Clicked");
+                    handlePrint();
+                  }}
                   className="bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
                 >
                   <svg
@@ -1225,7 +1293,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
               {/* What it will look like link */}
               <div className="mt-3">
                 <button
-                  onClick={() => setShowPreview(!showPreview)}
+                  onClick={() => {
+                    analytics.trackButtonClick("Toggle Preview", { show: !showPreview });
+                    setShowPreview(!showPreview);
+                  }}
                   className="text-blue-600 hover:text-blue-700 text-sm underline"
                 >
                   What it will look like
@@ -1425,12 +1496,18 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
                 <div className="flex flex-row gap-4 items-center justify-center">
                   <LanguageSelector
                     value={language}
-                    onChange={setLanguage}
+                    onChange={(val) => {
+                      analytics.trackInteraction("Language Changed", { language: val });
+                      setLanguage(val);
+                    }}
                     disabled={isComposing}
                   />
                   <HighContrastToggle
                     value={highContrast}
-                    onChange={setHighContrast}
+                    onChange={(val) => {
+                      analytics.trackInteraction("High Contrast Toggled", { value: val });
+                      setHighContrast(val);
+                    }}
                   />
                 </div>
               </div>
@@ -1440,7 +1517,10 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             <CategoryTabs
               categories={feelingsData}
               currentCategory={currentCategory}
-              onCategoryChange={setCurrentCategory}
+              onCategoryChange={(cat) => {
+                analytics.trackInteraction("Category Changed", { category: cat });
+                setCurrentCategory(cat);
+              }}
               language={language}
             />
 
@@ -1506,6 +1586,7 @@ const HeroMe: React.FC<HeroMeProps> = ({ onBack }) => {
             <div className="flex justify-center gap-4 mt-8">
               <button
                 onClick={() => {
+                  analytics.trackButtonClick("Upload New Photo Clicked");
                   setAvatar(null);
                   setUploadedImage(null);
                   setShouldStartGeneration(false);

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import { analytics } from "../../utils/analytics";
 import type { Category } from "../../lib/playground/types";
 
 interface PrintButtonProps {
@@ -60,7 +61,10 @@ const PrintButton: React.FC<PrintButtonProps> = ({
       </div>
 
       <button
-        onClick={handlePrint}
+        onClick={() => {
+          analytics.trackButtonClick("Print Collage Clicked");
+          handlePrint();
+        }}
         disabled={disabled || isGenerating}
         className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         style={{ minHeight: "56px" }}
