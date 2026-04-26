@@ -103,11 +103,10 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                   .map((_, i) => (
                     <div
                       key={i}
-                      className={`w-4 h-4 rounded-full transition-colors duration-300 shadow-inner ${
-                        i < inputNumbers.length
-                          ? "bg-indigo-600 shadow-indigo-400"
-                          : "bg-slate-200"
-                      }`}
+                      className={`w-4 h-4 rounded-full transition-colors duration-300 shadow-inner ${i < inputNumbers.length
+                        ? "bg-indigo-600 shadow-indigo-400"
+                        : "bg-slate-200"
+                        }`}
                     />
                   ))}
               </div>
@@ -139,7 +138,7 @@ export function ForgotAdminPassword({ onBack }: ForgotAdminPasswordProps) {
                 Admin Code
               </h2>
               <div className="text-7xl font-black text-black tracking-widest my-8 px-6 py-4 bg-slate-50 rounded-2xl border-2 border-slate-200 shadow-inner inline-block mx-auto">
-                7856
+                78567
               </div>
               <p className="text-slate-600 mb-10 text-lg">
                 This is to open the settings and board area in the app.
