@@ -223,13 +223,12 @@ export function LanguageRequest({ onBack, isOpen }: LanguageRequestProps) {
       const requestData = {
         fullName: formData.fullName,
         email: formData.email,
-        role: formData.role === "other" ? formData.customRole : formData.role,
-        language:
-          formData.language === "other"
-            ? formData.customLanguage
-            : formData.language,
-        region:
-          formData.region === "other" ? formData.customRegion : formData.region,
+        role: formData.role,
+        customRole: formData.customRole,
+        language: formData.language,
+        customLanguage: formData.customLanguage,
+        region: formData.region,
+        customRegion: formData.customRegion,
         additionalInfo: formData.additionalInfo,
         submittedAt: new Date().toISOString(),
       };
