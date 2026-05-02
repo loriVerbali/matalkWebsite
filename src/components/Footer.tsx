@@ -83,6 +83,16 @@ export function Footer({ onNavigate }: FooterProps) {
                 Ablenet
               </span>
             </div>
+            <div className="flex flex-col items-center">
+              <PartnerLogo
+                src="/images/partners/cornellTech.png"
+                alt="Cornell Tech"
+                href="https://tech.cornell.edu/"
+              />
+              <span className="text-slate-700 text-sm sm:text-base mt-2">
+                Cornell Tech
+              </span>
+            </div>
           </div>
         </div>
 

@@ -49,6 +49,67 @@ export function News({ onBack }: NewsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-violet-600 mb-4">
+                  May 2026
+                </p>
+                <h2 className="h2 mb-6">
+                  Verbali Collaboration with Cornell Tech
+                </h2>
+                <p className="text-slate-600 mb-6">
+                  Verbali is proud to announce that we are working with
+                  researchers from <strong>Cornell Tech</strong> to advance the
+                  future of AI-powered AAC solutions.
+                </p>
+                <p className="text-slate-600 mb-6">
+                  We are specifically collaborating with{" "}
+                  <a
+                    href="https://www.linkedin.com/in/tobias-weinberg/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-600 font-medium"
+                  >
+                    Tobias Weinberg
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://www.linkedin.com/in/thijsroumen/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-600 font-medium"
+                  >
+                    Thijs Roumen
+                  </a>{" "}
+                  to push the boundaries of natural and accessible
+                  communication for non-verbal children.
+                </p>
+                <p className="text-slate-600 mb-0">
+                  For more information or to get involved, contact us at{" "}
+                  <a
+                    href="mailto:info@verbali.com"
+                    className="text-blue-500 hover:text-blue-600"
+                  >
+                    info@verbali.com
+                  </a>
+                </p>
+              </div>
+              <div className="md:w-1/3 flex justify-center md:justify-end shrink-0">
+                <img
+                  src="/images/partners/cornellTech.png"
+                  alt="Cornell Tech Logo"
+                  className="max-h-32 w-auto object-contain bg-white p-4 rounded-xl shadow-sm border border-slate-100"
+                />
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <p className="text-sm font-medium text-violet-600 mb-4">
               March 2026
             </p>

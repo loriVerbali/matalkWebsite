@@ -146,6 +146,24 @@ export function Hero() {
                 />
               </button>
             </div>
+
+            {/* Partners Logos Section */}
+            <div className="mt-12 pt-8 border-t border-slate-200/50">
+              <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">
+                In Partnership With
+              </p>
+              <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-16">
+                <a href="https://tech.cornell.edu/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
+                  <img src="/images/partners/cornellTech.png" alt="Cornell Tech" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+                </a>
+                <a href="https://www.ablenetinc.com/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
+                  <img src="/images/partners/ablenet.png" alt="Ablenet" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+                </a>
+                <a href="https://www.davoice.io" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
+                  <img src="/images/partners/davoice.jpeg" alt="DaVoice" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all rounded" />
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
