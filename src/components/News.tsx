@@ -59,8 +59,16 @@ export function News({ onBack }: NewsProps) {
                 </h2>
                 <p className="text-slate-600 mb-6">
                   Verbali is proud to announce that we are working with
-                  researchers from <strong>Cornell Tech</strong> to advance the
-                  future of AI-powered AAC solutions.
+                  researchers from{" "}
+                  <a
+                    href="https://tech.cornell.edu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-600 font-medium"
+                  >
+                    Cornell Tech
+                  </a>{" "}
+                  to advance the future of AI-powered AAC solutions.
                 </p>
                 <p className="text-slate-600 mb-6">
                   We are specifically collaborating with{" "}
@@ -83,6 +91,18 @@ export function News({ onBack }: NewsProps) {
                   </a>{" "}
                   to push the boundaries of natural and accessible
                   communication for non-verbal children.
+                </p>
+                <p className="text-slate-600 mb-6">
+                  Check out Cornell Tech for more information.
+                  <br />
+                  <a
+                    href="https://tech.cornell.edu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-600"
+                  >
+                    https://tech.cornell.edu/
+                  </a>
                 </p>
                 <p className="text-slate-600 mb-0">
                   For more information or to get involved, contact us at{" "}
