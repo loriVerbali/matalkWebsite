@@ -9,10 +9,12 @@ function PartnerLogo({
   src,
   alt,
   href,
+  className = "h-40 sm:h-48",
 }: {
   src: string;
   alt: string;
   href: string;
+  className?: string;
 }) {
   const [loaded, setLoaded] = useState(true);
   return (
@@ -20,14 +22,14 @@ function PartnerLogo({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-2 hover:opacity-80 transition-opacity min-h-[12rem]"
+      className="flex items-center gap-2 hover:opacity-80 transition-opacity min-h-[8rem]"
       aria-label={alt}
     >
       {loaded ? (
         <img
           src={src}
           alt={alt}
-          className="h-40 sm:h-48 w-auto object-contain max-w-[640px]"
+          className={`${className} w-auto object-contain max-w-[640px]`}
           onError={() => setLoaded(false)}
         />
       ) : (
@@ -68,6 +70,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 src="/images/partners/davoice.jpeg"
                 alt="Davoice Wakeword"
                 href="https://www.davoice.io"
+                className="h-20 sm:h-24"
               />
               <span className="text-slate-700 text-sm sm:text-base mt-2">
                 DaVoice
@@ -78,6 +81,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 src="/images/partners/ablenet.png"
                 alt="Ablenet"
                 href="https://www.ablenetinc.com/"
+                className="h-10 sm:h-12"
               />
               <span className="text-slate-700 text-sm sm:text-base mt-2">
                 Ablenet
@@ -88,6 +92,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 src="/images/partners/cornellTech.png"
                 alt="Cornell Tech"
                 href="https://tech.cornell.edu/"
+                className="h-60 sm:h-72"
               />
               <span className="text-slate-700 text-sm sm:text-base mt-2">
                 Cornell Tech

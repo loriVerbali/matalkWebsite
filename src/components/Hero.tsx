@@ -154,13 +154,13 @@ export function Hero() {
               </p>
               <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-16">
                 <a href="https://tech.cornell.edu/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
-                  <img src="/images/partners/cornellTech.png" alt="Cornell Tech" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+                  <img src="/images/partners/cornellTech.png" alt="Cornell Tech" className="h-32 sm:h-40 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
                 </a>
                 <a href="https://www.ablenetinc.com/" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
-                  <img src="/images/partners/ablenet.png" alt="Ablenet" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+                  <img src="/images/partners/ablenet.png" alt="Ablenet" className="h-5 sm:h-6 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
                 </a>
                 <a href="https://www.davoice.io" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 transition-opacity transform hover:scale-105 transition-all duration-300">
-                  <img src="/images/partners/davoice.jpeg" alt="DaVoice" className="h-10 sm:h-14 w-auto object-contain grayscale hover:grayscale-0 transition-all rounded" />
+                  <img src="/images/partners/davoice.jpeg" alt="DaVoice" className="h-10 sm:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all rounded" />
                 </a>
               </div>
             </div>
