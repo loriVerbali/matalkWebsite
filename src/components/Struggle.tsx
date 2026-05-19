@@ -1,9 +1,106 @@
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
+import { analytics } from "../utils/analytics";
+
 // Placeholder image - replace with actual image when available
 const sleepingRobotDog = "/images/verbiSleeping.png";
 
 export function Struggle() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const playStartTimeRef = useRef<number | null>(null);
+  const cumulativeTimeRef = useRef<number>(0);
+  const videoUrl = "https://pub-478619cacb0f41448d8ea23825356593.r2.dev/Website%20video.mp4";
+
+  const handlePlay = () => {
+    playStartTimeRef.current = Date.now();
+    analytics.trackInteraction("Video Play", {
+      video_url: videoUrl,
+      current_time: videoRef.current ? videoRef.current.currentTime : 0,
+    });
+  };
+
+  const handlePause = () => {
+    if (playStartTimeRef.current !== null) {
+      const elapsed = (Date.now() - playStartTimeRef.current) / 1000;
+      if (elapsed > 0.1) {
+        cumulativeTimeRef.current += elapsed;
+        analytics.trackInteraction("Video Play Duration", {
+          video_url: videoUrl,
+          segment_duration_seconds: parseFloat(elapsed.toFixed(1)),
+          cumulative_duration_seconds: parseFloat(
+            cumulativeTimeRef.current.toFixed(1)
+          ),
+          event_type: "pause",
+        });
+      }
+      playStartTimeRef.current = null;
+    }
+  };
+
+  const handleEnded = () => {
+    if (playStartTimeRef.current !== null) {
+      const elapsed = (Date.now() - playStartTimeRef.current) / 1000;
+      cumulativeTimeRef.current += elapsed;
+      analytics.trackInteraction("Video Play Duration", {
+        video_url: videoUrl,
+        segment_duration_seconds: parseFloat(elapsed.toFixed(1)),
+        cumulative_duration_seconds: parseFloat(
+          cumulativeTimeRef.current.toFixed(1)
+        ),
+        event_type: "ended",
+        completed: true,
+      });
+      playStartTimeRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (playStartTimeRef.current !== null) {
+          const elapsed = (Date.now() - playStartTimeRef.current) / 1000;
+          if (elapsed > 0.1) {
+            cumulativeTimeRef.current += elapsed;
+            analytics.trackInteraction("Video Play Duration", {
+              video_url: videoUrl,
+              segment_duration_seconds: parseFloat(elapsed.toFixed(1)),
+              cumulative_duration_seconds: parseFloat(
+                cumulativeTimeRef.current.toFixed(1)
+              ),
+              event_type: "tab_hidden",
+            });
+          }
+          playStartTimeRef.current = null;
+        }
+      } else {
+        if (videoRef.current && !videoRef.current.paused) {
+          playStartTimeRef.current = Date.now();
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+
+      if (playStartTimeRef.current !== null) {
+        const elapsed = (Date.now() - playStartTimeRef.current) / 1000;
+        if (elapsed > 0.1) {
+          analytics.trackInteraction("Video Play Duration", {
+            video_url: videoUrl,
+            segment_duration_seconds: parseFloat(elapsed.toFixed(1)),
+            cumulative_duration_seconds: parseFloat(
+              (cumulativeTimeRef.current + elapsed).toFixed(1)
+            ),
+            event_type: "unmount",
+          });
+        }
+      }
+    };
+  }, []);
+
   return (
     <section className="pt-16 pb-20 sm:mobile-section-padding lg:py-28 bg-lavender-50 relative overflow-hidden mobile-no-overflow">
       {/* Background decoration */}
@@ -80,6 +177,49 @@ export function Struggle() {
                 className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 object-contain drop-shadow-xl"
               />
             </div>
+          </motion.div>
+
+          {/* Video Component */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="max-w-3xl mx-auto mb-8 relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-slate-200/60 bg-slate-900 aspect-video group"
+          >
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              onPlay={handlePlay}
+              onPause={handlePause}
+              onEnded={handleEnded}
+            >
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+
+          {/* Contact reach out info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mb-12 relative z-10"
+          >
+            <p className="text-slate-600 font-medium sm:text-lg">
+              Reach out:{" "}
+              <a
+                href="mailto:info@verbali.io"
+                onClick={() => {
+                  analytics.trackExternalLink("Contact Email Click", "mailto:info@verbali.io");
+                }}
+                className="text-purple-600 hover:text-purple-700 transition-colors font-semibold underline decoration-2 underline-offset-4"
+              >
+                info@verbali.io
+              </a>
+            </p>
           </motion.div>
 
           {/* Second hero subtitle - Extra spacing and bottom padding on mobile for robot dog space */}

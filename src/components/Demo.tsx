@@ -435,30 +435,27 @@ export function Demo({ onNavigate }: DemoProps) {
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                      index === currentImageIndex
-                        ? "bg-violet-600 scale-125"
-                        : "bg-violet-300 hover:bg-violet-400"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${index === currentImageIndex
+                      ? "bg-violet-600 scale-125"
+                      : "bg-violet-300 hover:bg-violet-400"
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 )
               )}
             </div>
           </div>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 lg:items-stretch mb-8 sm:mb-12 lg:mb-16">
+        </motion.div>        <div className="max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16">
           {/* Video Demo */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-4 sm:space-y-6 flex flex-col"
           >
             <div className="glass-card bg-white/90 backdrop-blur-lg border border-purple-100/50 shadow-xl flex-1 flex flex-col">
-              <h3 className="h3 mb-3 sm:mb-4 text-slate-900">Watch the Demo</h3>
-              <p className="text-slate-600 mb-4 sm:mb-6 text-sm sm:text-base">
+              <h3 className="h3 mb-3 sm:mb-4 text-slate-900 text-center">Watch the Demo</h3>
+              <p className="text-slate-600 mb-4 sm:mb-6 text-sm sm:text-base text-center max-w-2xl mx-auto">
                 See how Matalk AI makes AAC communication natural and intuitive
                 for children with speech challenges.
               </p>
@@ -535,106 +532,6 @@ export function Demo({ onNavigate }: DemoProps) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Podcast Audio */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4 sm:space-y-6 flex flex-col"
-          >
-            <div className="glass-card bg-white/90 backdrop-blur-lg border border-blue-100/50 shadow-xl flex-1 flex flex-col">
-              <h3 className="h3 mb-3 sm:mb-4 text-slate-900">
-                Product Overview Podcast
-              </h3>
-              <p className="text-slate-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                Listen to our comprehensive product overview that covers
-                Verbali's mission, features, and impact.
-              </p>
-
-              {/* Audio Player */}
-              <div className="bg-gradient-to-br from-violet-50 to-blue-50 rounded-xl p-4 sm:p-6 border border-violet-100/50 flex-1 flex flex-col justify-center">
-                <audio
-                  ref={audioRef}
-                  onTimeUpdate={handleAudioTimeUpdate}
-                  onLoadedMetadata={handleAudioLoadedMetadata}
-                  onEnded={() => setIsAudioPlaying(false)}
-                  className="hidden"
-                >
-                  <source
-                    src="https://pub-478619cacb0f41448d8ea23825356593.r2.dev/Ma-Talk%20AI_%20A%20Pilot%20Guide%20for%20Augmentative%20Communication.wav"
-                    type="audio/wav"
-                  />
-                  Your browser does not support the audio element.
-                </audio>
-
-                {/* Audio Controls */}
-                <div className="space-y-4">
-                  {/* Progress Bar */}
-                  <div
-                    className="w-full h-3 bg-white/60 rounded-full cursor-pointer touch-target"
-                    onClick={handleAudioProgressClick}
-                  >
-                    <div
-                      className="h-full bg-violet-500 rounded-full transition-all duration-200"
-                      style={{ width: `${audioProgress}%` }}
-                    ></div>
-                  </div>
-
-                  {/* Control Buttons */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <button
-                        onClick={toggleAudioPlay}
-                        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-violet-600 text-white rounded-full hover:bg-violet-700 transition-colors shadow-lg touch-target"
-                      >
-                        {isAudioPlaying ? (
-                          <Pause size={18} />
-                        ) : (
-                          <Play size={18} />
-                        )}
-                      </button>
-
-                      <button
-                        onClick={resetAudio}
-                        className="text-violet-600 hover:text-violet-700 transition-colors touch-target"
-                      >
-                        <RotateCcw size={18} />
-                      </button>
-
-                      <button
-                        onClick={toggleAudioMute}
-                        className="text-violet-600 hover:text-violet-700 transition-colors touch-target"
-                      >
-                        {isAudioMuted ? (
-                          <VolumeX size={18} />
-                        ) : (
-                          <Volume2 size={18} />
-                        )}
-                      </button>
-                    </div>
-
-                    <div className="text-slate-600 text-xs sm:text-sm font-medium">
-                      {formatTime(audioCurrentTime)} /{" "}
-                      {formatTime(audioDuration)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Additional Info */}
-              <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-white/60 rounded-lg border border-white/50">
-                <p className="text-xs sm:text-sm text-slate-600">
-                  <strong>🎧 Episode Length:</strong> Comprehensive overview
-                  covering all aspects of Verbali
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                  <strong>🎯 Perfect for:</strong> Parents, caregivers,
-                  therapists, and educators
-                </p>
               </div>
             </div>
           </motion.div>
