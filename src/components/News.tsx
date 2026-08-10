@@ -1,11 +1,53 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Check, Link2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface NewsProps {
   onBack: () => void;
 }
 
+interface ShareLinkProps {
+  id: string;
+  copiedId: string | null;
+  onCopy: (id: string) => void;
+}
+
+function ShareLink({ id, copiedId, onCopy }: ShareLinkProps) {
+  const copied = copiedId === id;
+  return (
+    <button
+      onClick={() => onCopy(id)}
+      className="inline-flex items-center space-x-1 text-slate-400 hover:text-violet-600 transition-colors"
+      aria-label="Copy link to this update"
+      title="Copy link to this update"
+    >
+      {copied ? <Check className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
+      {copied && <span className="text-xs font-medium">Copied!</span>}
+    </button>
+  );
+}
+
 export function News({ onBack }: NewsProps) {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const timer = setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleCopy = (id: string) => {
+    const url = `${window.location.origin}/news#${id}`;
+    navigator.clipboard.writeText(url);
+    window.history.replaceState(null, "", `/news#${id}`);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   return (
     <div className="min-h-screen bg-lavender-50 relative overflow-hidden">
       {/* Background decoration */}
@@ -44,12 +86,22 @@ export function News({ onBack }: NewsProps) {
       <div className="max-w-4xl mx-auto px-4 py-12 relative z-10">
         <div className="space-y-8">
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            id="davoice-on-device"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">July 2026</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                July 2026
+              </p>
+              <ShareLink
+                id="davoice-on-device"
+                copiedId={copiedId}
+                onCopy={handleCopy}
+              />
+            </div>
             <h2 className="h2 mb-6">
               All speech processing now runs fully on-device with DaVoice
             </h2>
@@ -187,16 +239,24 @@ export function News({ onBack }: NewsProps) {
           </motion.section>
 
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            id="cornell-tech"
           >
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
               <div className="flex-1">
-                <p className="text-sm font-medium text-violet-600 mb-4">
-                  May 2026
-                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-medium text-violet-600 mb-0">
+                    May 2026
+                  </p>
+                  <ShareLink
+                    id="cornell-tech"
+                    copiedId={copiedId}
+                    onCopy={handleCopy}
+                  />
+                </div>
                 <h2 className="h2 mb-6">
                   Verbali Collaboration with Cornell Tech
                 </h2>
@@ -268,14 +328,18 @@ export function News({ onBack }: NewsProps) {
           </motion.section>
 
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            id="ablenet"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">
-              March 2026
-            </p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                March 2026
+              </p>
+              <ShareLink id="ablenet" copiedId={copiedId} onCopy={handleCopy} />
+            </div>
             <h2 className="h2 mb-6">
               Verbali is partnering with Ablenet to bring the power of AI to the
               classroom
@@ -338,12 +402,22 @@ export function News({ onBack }: NewsProps) {
           </motion.section>
 
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            id="profile-export"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">Feb 2026</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                Feb 2026
+              </p>
+              <ShareLink
+                id="profile-export"
+                copiedId={copiedId}
+                onCopy={handleCopy}
+              />
+            </div>
             <h2 className="h2 mb-6">
               New Feature: Export and Import your profile without re-configuring
             </h2>
@@ -368,14 +442,22 @@ export function News({ onBack }: NewsProps) {
           </motion.section>
 
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            id="davoice-wake-word"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">
-              January 2026
-            </p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                January 2026
+              </p>
+              <ShareLink
+                id="davoice-wake-word"
+                copiedId={copiedId}
+                onCopy={handleCopy}
+              />
+            </div>
             <h2 className="h2 mb-6">
               DaVoice Wakeword Collaboration with Verbali
             </h2>
@@ -411,12 +493,22 @@ export function News({ onBack }: NewsProps) {
             </p>
           </motion.section>
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            id="atia-2026"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">Dec 2025</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                Dec 2025
+              </p>
+              <ShareLink
+                id="atia-2026"
+                copiedId={copiedId}
+                onCopy={handleCopy}
+              />
+            </div>
             <h2 className="h2 mb-6">
               Verbali is going to ATIA 2026 in Orlando, Florida
             </h2>
@@ -429,12 +521,22 @@ export function News({ onBack }: NewsProps) {
             </p>
           </motion.section>
           <motion.section
-            className="card"
+            className="card scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            id="verbalitalk"
           >
-            <p className="text-sm font-medium text-violet-600 mb-4">Oct 2025</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-sm font-medium text-violet-600 mb-0">
+                Oct 2025
+              </p>
+              <ShareLink
+                id="verbalitalk"
+                copiedId={copiedId}
+                onCopy={handleCopy}
+              />
+            </div>
             <h2 className="h2 mb-6">
               Verbali Launches a sister product named: VerbaliTalk
             </h2>
