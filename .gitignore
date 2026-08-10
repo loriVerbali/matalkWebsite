@@ -2,7 +2,7 @@
 node_modules/
 /.pnp
 .pnp.js
-
+/node_modules
 # Production build
 /dist
 /build
@@ -177,3 +177,4 @@ dist/
 *.njsproj
 *.sln
 *.sw? 
+node_modules/

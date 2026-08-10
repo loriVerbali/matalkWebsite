@@ -49,6 +49,118 @@ export function News({ onBack }: NewsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <p className="text-sm font-medium text-violet-600 mb-4">July 2026</p>
+            <h2 className="h2 mb-6">
+              All speech processing now runs fully on-device with DaVoice
+            </h2>
+            <p className="text-slate-600 mb-6">
+              We have moved our speech-to-text and text-to-speech engines to run
+              entirely on-device using{" "}
+              <a
+                href="https://davoice.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600 font-medium"
+              >
+                DaVoice
+              </a>
+              . Nothing your child says ever leaves the tablet — no audio is
+              sent to the cloud, and speech recognition and voice output keep
+              working even without an internet connection. It also means faster,
+              more reliable responses in real conversations.
+            </p>
+            <p className="text-slate-600 mb-4">
+              Before making the switch, we benchmarked wake word engines on our
+              own setup. An always-listening AAC experience has to react
+              instantly to "Hey Verbi" without misfiring — false positives
+              disrupt the very conversation the app is meant to support. Here is
+              what we measured:
+            </p>
+            <div className="bg-slate-50 rounded-xl p-5 mb-4">
+              <p className="text-sm font-medium text-slate-900 mb-4">
+                Wake word detection accuracy (Verbali's test setup)
+              </p>
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-slate-700">DaVoice</span>
+                    <span className="font-medium text-slate-900">
+                      97.65% — zero false positives observed
+                    </span>
+                  </div>
+                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-violet-600 rounded-full"
+                      style={{ width: "97.65%" }}
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-slate-700">
+                      Other commercial engines we evaluated
+                    </span>
+                    <span className="font-medium text-slate-900">~75%</span>
+                  </div>
+                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-slate-400 rounded-full"
+                      style={{ width: "75%" }}
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-slate-700">openWakeWord</span>
+                    <span className="font-medium text-slate-900">62%</span>
+                  </div>
+                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-slate-400 rounded-full"
+                      style={{ width: "62%" }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 mt-4 mb-0">
+                Figures are from our own testing on our setup. Every engine we
+                tested other than DaVoice had false-positive rates too high for
+                production use.
+              </p>
+            </div>
+            <p className="text-slate-600 mb-6">
+              We knew we'd made the right choice, but it really hit home
+              watching it perform live in a very noisy exhibition hall at ATIA
+              2026 without missing a single wake word. We have no affiliation
+              with DaVoice beyond being a happy customer — if you are building
+              anything voice-activated, we can genuinely recommend them. Learn
+              more at{" "}
+              <a
+                href="https://davoice.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                https://davoice.io
+              </a>
+            </p>
+            <p className="text-slate-600 mb-0">
+              For more information or to get involved, contact us at{" "}
+              <a
+                href="mailto:info@verbali.com"
+                className="text-blue-500 hover:text-blue-600"
+              >
+                info@verbali.com
+              </a>
+            </p>
+          </motion.section>
+
+          <motion.section
+            className="card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
               <div className="flex-1">
                 <p className="text-sm font-medium text-violet-600 mb-4">
