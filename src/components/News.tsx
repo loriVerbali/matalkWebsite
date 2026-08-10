@@ -66,15 +66,22 @@ export function News({ onBack }: NewsProps) {
               </a>
               . Nothing your child says ever leaves the tablet — no audio is
               sent to the cloud, and speech recognition and voice output keep
-              working even without an internet connection. It also means faster,
-              more reliable responses in real conversations.
+              working even without an internet connection. Here is the story of
+              how we got there.
             </p>
-            <p className="text-slate-600 mb-4">
-              Before making the switch, we benchmarked wake word engines on our
-              own setup. An always-listening AAC experience has to react
-              instantly to "Hey Verbi" without misfiring — false positives
-              disrupt the very conversation the app is meant to support. Here is
-              what we measured:
+            <h3 className="text-lg font-semibold text-slate-900 mb-3">
+              Our search for an on-device voice solution
+            </h3>
+            <p className="text-slate-600 mb-6">
+              As part of the MaTalk AI experience, we wanted to allow children
+              to activate the app hands-free using a custom wake word: "Hey
+              Verbi." An always-listening AAC experience has to react instantly
+              without misfiring — false positives disrupt the very conversation
+              the app is meant to support. We evaluated a number of wake word
+              technologies before selecting DaVoice, which consistently
+              delivered the best combination of accuracy, reliability, and
+              on-device performance — even in noisy environments. Here is what
+              we measured on our own setup:
             </p>
             <div className="bg-slate-50 rounded-xl p-5 mb-4">
               <p className="text-sm font-medium text-slate-900 mb-4">
@@ -109,18 +116,6 @@ export function News({ onBack }: NewsProps) {
                     ></div>
                   </div>
                 </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-slate-700">openWakeWord</span>
-                    <span className="font-medium text-slate-900">62%</span>
-                  </div>
-                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-slate-400 rounded-full"
-                      style={{ width: "62%" }}
-                    ></div>
-                  </div>
-                </div>
               </div>
               <p className="text-xs text-slate-500 mt-4 mb-0">
                 Figures are from our own testing on our setup. Every engine we
@@ -131,10 +126,45 @@ export function News({ onBack }: NewsProps) {
             <p className="text-slate-600 mb-6">
               We knew we'd made the right choice, but it really hit home
               watching it perform live in a very noisy exhibition hall at ATIA
-              2026 without missing a single wake word. We have no affiliation
-              with DaVoice beyond being a happy customer — if you are building
-              anything voice-activated, we can genuinely recommend them. Learn
-              more at{" "}
+              2026 without missing a single wake word.
+            </p>
+            <p className="text-slate-600 mb-6">
+              At the time, we knew DaVoice as a wake word provider. We did not
+              realize that the platform also included lightweight,
+              high-performance on-device speech-to-text and text-to-speech. Our
+              existing implementation still relied on local Whisper for
+              speech-to-text and Sherpa for text-to-speech. While this allowed
+              voice interactions to be processed directly on the device, it also
+              presented several challenges. Users were required to download an
+              additional speech model during onboarding — even the smallest
+              model required approximately 70 MB, while larger models could add
+              close to half a gigabyte to the app. The larger models could
+              improve recognition, but they also increased download times,
+              storage requirements, and the overall size and complexity of the
+              application.
+            </p>
+            <p className="text-slate-600 mb-6">
+              After discovering DaVoice's complete voice stack, we decided to
+              benchmark its speech-to-text and text-to-speech against our
+              existing solution.
+            </p>
+            <h3 className="text-lg font-semibold text-slate-900 mb-3">
+              Expanding our use of DaVoice
+            </h3>
+            <p className="text-slate-600 mb-6">
+              The benchmark results exceeded our expectations. After originally
+              choosing DaVoice for wake word detection, we decided to migrate
+              our speech-to-text and text-to-speech to the same platform. The
+              difference has been significant. DaVoice provides a lightweight
+              engine for both on-device speech-to-text and text-to-speech. Its
+              technology is easier to integrate and maintain, requires less
+              storage, and delivers a faster and smoother experience for MaTalk
+              AI users.
+            </p>
+            <p className="text-slate-600 mb-6">
+              We have no affiliation with DaVoice beyond being a happy customer
+              — if you are building anything voice-activated, we can genuinely
+              recommend them. Learn more at{" "}
               <a
                 href="https://davoice.io/"
                 target="_blank"
