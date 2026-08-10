@@ -132,8 +132,9 @@ export function News({ onBack }: NewsProps) {
               At the time, we knew DaVoice as a wake word provider. We did not
               realize that the platform also included lightweight,
               high-performance on-device speech-to-text and text-to-speech. Our
-              existing implementation still relied on local Whisper for
-              speech-to-text and Sherpa for text-to-speech. While this allowed
+              existing implementation still relied on local speech-to-text and
+              text-to-speech engines that were robotic in sound and heavy.
+              While this allowed
               voice interactions to be processed directly on the device, it also
               presented several challenges. Users were required to download an
               additional speech model during onboarding — even the smallest
