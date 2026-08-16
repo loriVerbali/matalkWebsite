@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import faqPageStructuredData from "./data/faq-page-schema.json";
 import { analytics } from "./utils/analytics";
 import { Header } from "./components/Header";
+import { PromoBanner } from "./components/PromoBanner";
 import { Hero } from "./components/Hero";
 import { Footer } from "./components/Footer";
 import { FeatureRequest } from "./components/FeatureRequest";
@@ -433,6 +434,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      {/* Back to School promo bar, above the sticky header */}
+      <PromoBanner onNavigate={handleNavigation} />
+
       {/* Header is always present */}
       <Header onNavigate={handleNavigation} />
 

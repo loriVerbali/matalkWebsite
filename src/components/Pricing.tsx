@@ -1,503 +1,146 @@
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "./ui/button";
+import { PlanCards, ScheduleDemoCTA } from "./PlanCards";
 
 interface PricingProps {
   onBack: () => void;
 }
 
+const FAQS: { question: string; answer: React.ReactNode }[] = [
+  {
+    question:
+      "What is the difference between MaTalk AI and MaTalk AI Forever?",
+    answer: (
+      <>
+        Same app, same features. <strong>MaTalk AI</strong> is a subscription
+        you can cancel anytime. <strong>MaTalk AI Forever</strong> is license
+        based — you pay once and the app is yours forever.
+      </>
+    ),
+  },
+  {
+    question: "My school uses Apple School Manager — do you support that?",
+    answer: (
+      <>
+        Yes. Both apps are available through{" "}
+        <strong>Apple School Manager</strong>, so a school or district buys
+        licenses in volume, assigns them to student iPads, and reassigns them as
+        classes change. Email{" "}
+        <a
+          href="mailto:info@verbali.io"
+          className="text-violet-600 hover:underline"
+        >
+          info@verbali.io
+        </a>{" "}
+        and we'll walk you through it, or schedule a demo first.
+      </>
+    ),
+  },
+  {
+    question: "We use Apple Business Manager — is that supported?",
+    answer: (
+      <>
+        Yes. Clinics, practices and organizations can buy and distribute both
+        apps through <strong>Apple Business Manager</strong> the same way,
+        assigning licenses to devices or users and reassigning them as staff and
+        caseloads change.
+      </>
+    ),
+  },
+  {
+    question: "Is there a free trial?",
+    answer: (
+      <>
+        Yes! We offer a <strong>7-day free trial</strong> so you can explore all
+        features with no commitment.
+      </>
+    ),
+  },
+  {
+    question: "What's included in my subscription?",
+    answer:
+      "Your subscription includes unlimited AAC card creation, AI-powered speech processing, cloud sync across all your devices, and regular feature updates. Annual subscribers also get priority support.",
+  },
+  {
+    question: "Can I switch between plans?",
+    answer:
+      "Yes! You can upgrade or downgrade your plan at any time. If you switch from monthly to annual, you'll be credited for unused monthly time. Downgrades take effect at your next billing cycle.",
+  },
+  {
+    question: "Which resellers do you work with?",
+    answer: (
+      <>
+        We currently work with <strong>AbleNet</strong> and are expanding our
+        reseller network. If you use another reseller, email us at{" "}
+        <a
+          href="mailto:info@verbali.io"
+          className="text-violet-600 hover:underline"
+        >
+          info@verbali.io
+        </a>
+        —we'd love to connect with them.
+      </>
+    ),
+  },
+  {
+    question: "What happens to my data if I cancel?",
+    answer:
+      "Your data remains accessible for 30 days after cancellation, giving you time to export your AAC cards and settings. After 30 days, your account data is permanently deleted for your privacy.",
+  },
+];
+
 export function Pricing({ onBack }: PricingProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 py-12">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto mobile-container">
+        <Button
+          onClick={onBack}
+          variant="ghost"
+          className="mb-8 -ml-4 text-slate-600 hover:text-violet-600"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Home
+        </Button>
+
         {/* Header */}
-        <div className="text-center mb-16">
-          <Button
-            onClick={onBack}
-            variant="ghost"
-            className="mb-8 -ml-4 text-slate-600 hover:text-violet-600"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
-
-          <h1 className="h1 text-slate-900 mb-6">
-            Choose Your <span className="text-gradient">Matalk AI</span> Plan
+        <div className="text-center flex flex-col items-center gap-4 mb-12">
+          <span className="bg-gradient-to-r from-violet-600 to-indigo-500 text-white text-xs sm:text-sm font-bold tracking-[0.08em] uppercase px-5 sm:px-6 py-2.5 rounded-full whitespace-nowrap shadow-lg shadow-violet-500/30">
+            Patent Pending
+          </span>
+          <h1 className="h1 text-slate-900">
+            Choose your <span className="text-gradient">Matalk AI</span> plan
           </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Unlock the power of AI-driven AAC communication. Start your journey
-            today with our flexible pricing options.
+          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
+            Two apps, same MaTalk AI. Both include the adaptive symbol grid,
+            Live Listen &amp; Suggest, Smart Starters, AI image generation,
+            cloud sync across devices, customer support, and every future
+            update.
           </p>
-          <div className="mt-6 text-center">
-            <span className="bg-gradient-to-r from-violet-100 to-indigo-100 text-violet-700 px-4 py-2 rounded-full text-sm font-medium">
-              🚀 Start your free trial today
-            </span>
-          </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
-          {/* Flat License */}
-          <div className="relative">
-            {/* School Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
-              <span className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
-                SCHOOL PROGRAM
-              </span>
-            </div>
+        {/* Plans */}
+        <PlanCards location="pricing_page" size="large" />
 
-            <div className="bg-white rounded-3xl shadow-lg p-8 pt-12 border border-blue-200 relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-50"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <h3 className="h2 text-slate-900 mb-2">Flat License</h3>
-                  <div className="flex items-baseline justify-center mb-2">
-                    <span className="text-5xl font-bold text-blue-600">
-                      $200
-                    </span>
-                  </div>
-                  <p className="text-slate-600">one-time fee</p>
-                  <p className="text-sm text-blue-600 font-medium mt-2">
-                    Part of Apple School Business Program
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Full access to all features
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      AI-powered AAC creation
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Cloud sync across devices
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Customer support</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Feature updates</span>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://apps.apple.com/za/app/matalk-ai-forever/id6756188044",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-blue-500/20 touch-target"
-                    aria-label="Download Matalk AI Forever on the App Store"
-                  >
-                    <img
-                      src="/images/black.svg"
-                      alt="Download on the App Store"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 7-Day Free Trial */}
-          <div className="relative">
-            {/* Free Trial Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
-                FREE TRIAL
-              </span>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-lg p-8 pt-12 border border-emerald-200 relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent opacity-50"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <h3 className="h2 text-slate-900 mb-2">7-Day Free Trial</h3>
-                  <div className="flex items-baseline justify-center mb-2">
-                    <span className="text-5xl font-bold text-emerald-600">
-                      FREE
-                    </span>
-                  </div>
-                  <p className="text-slate-600">for 7 days</p>
-                  <p className="text-sm text-emerald-600 font-medium mt-2">
-                    Perfect for trying Verbali
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-emerald-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Full access to all features
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-emerald-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      AI-powered AAC creation
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-emerald-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Cloud sync across devices
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-emerald-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Customer support</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-emerald-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Feature updates</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-emerald-500/20 touch-target"
-                    aria-label="Download Matalk AI on the App Store"
-                  >
-                    <img
-                      src="/images/black.svg"
-                      alt="Download on the App Store"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-emerald-500/20 touch-target"
-                    aria-label="Download Matalk AI on Google Play"
-                  >
-                    <img
-                      src="/images/Google_Play_Store_badge_EN.svg"
-                      alt="Get it on Google Play"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Monthly Plan */}
-          <div className="relative">
-            {/* Cancel Anytime Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
-              <span className="bg-gradient-to-r from-orange-600 to-orange-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
-                CANCEL ANYTIME
-              </span>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-lg p-8 pt-12 border border-slate-200 relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-30"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <h3 className="h2 text-slate-900 mb-4">Monthly Plan</h3>
-                  <div className="mb-4">
-                    <div className="text-2xl font-bold text-indigo-600 mb-1">
-                      $4.99/month
-                    </div>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Full access to all features
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      AI-powered AAC creation
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Cloud sync across devices
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Customer support</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Feature updates</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Matalk AI on the App Store"
-                  >
-                    <img
-                      src="/images/black.svg"
-                      alt="Download on the App Store"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Matalk AI on Google Play"
-                  >
-                    <img
-                      src="/images/Google_Play_Store_badge_EN.svg"
-                      alt="Get it on Google Play"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Annual Plan - Most Popular */}
-          <div className="relative">
-            {/* Most Popular Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 w-full px-2">
-              <span className="bg-gradient-to-r from-violet-600 to-violet-500 text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg whitespace-nowrap inline-block mx-auto">
-                Most Popular
-              </span>
-            </div>
-
-            {/* Save Badge */}
-            <div className="absolute -top-6 -right-6 z-10">
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 text-white p-3 rounded-2xl shadow-lg transform rotate-12 scale-90 sm:scale-100">
-                <div className="text-center">
-                  <div className="font-bold text-sm">SAVE</div>
-                  <div className="text-xs">2 MONTHS FREE</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-xl p-8 pt-12 border-2 border-violet-200 relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-50 to-transparent opacity-50"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  <h3 className="h2 text-slate-900 mb-2">Annual Plan</h3>
-                  <div className="flex items-baseline justify-center mb-2">
-                    <span className="text-5xl font-bold text-violet-600">
-                      $49.99
-                    </span>
-                  </div>
-                  <p className="text-slate-600">per year</p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-violet-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Full access to all features
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-violet-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      AI-powered AAC creation
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-violet-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">
-                      Cloud sync across devices
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-violet-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Customer support</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-violet-600 mr-3 flex-shrink-0" />
-                    <span className="text-slate-700">Feature updates</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Matalk AI on the App Store"
-                  >
-                    <img
-                      src="/images/black.svg"
-                      alt="Download on the App Store"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                  <button
-                    onClick={() => {
-                      window.open(
-                        "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                        "_blank"
-                      );
-                    }}
-                    className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                    aria-label="Download Matalk AI on Google Play"
-                  >
-                    <img
-                      src="/images/Google_Play_Store_badge_EN.svg"
-                      alt="Get it on Google Play"
-                      className="h-12 sm:h-14 w-auto transition-all duration-200"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Schools & clinics — schedule a demo */}
+        <div className="mt-12">
+          <ScheduleDemoCTA location="pricing_page" />
         </div>
 
-        {/* FAQ Section */}
-        <div className="mt-20 max-w-3xl mx-auto">
-          <h2 className="h2 text-center text-slate-900 mb-12">
+        {/* FAQ */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <h2 className="h2 text-center text-slate-900 mb-10">
             Frequently Asked Questions
           </h2>
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="h3 text-slate-900 mb-3">Is there a free trial?</h3>
-              <p className="text-slate-700">
-                Yes! We offer a <strong>7-day free trial</strong> so you can
-                explore all features with no commitment.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="h3 text-slate-900 mb-3">
-                What's included in my subscription?
-              </h3>
-              <p className="text-slate-700">
-                Your subscription includes unlimited AAC card creation,
-                AI-powered speech processing, cloud sync across all your
-                devices, and regular feature updates. Annual subscribers also
-                get priority support.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="h3 text-slate-900 mb-3">
-                Can I switch between plans?
-              </h3>
-              <p className="text-slate-700">
-                Yes! You can upgrade or downgrade your plan at any time. If you
-                switch from monthly to annual, you'll be credited for unused
-                monthly time. Downgrades take effect at your next billing cycle.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="h3 text-slate-900 mb-3">
-                What happens to my data if I cancel?
-              </h3>
-              <p className="text-slate-700">
-                Your data remains accessible for 30 days after cancellation,
-                giving you time to export your AAC cards and settings. After 30
-                days, your account data is permanently deleted for your privacy.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-3xl p-12 text-white">
-            <h2 className="h2 text-white mb-4">
-              Ready to Transform Communication?
-            </h2>
-            <p className="text-xl text-violet-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of families already using Verbali to enhance AAC
-              communication with the power of AI.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <button
-                onClick={() => {
-                  window.open(
-                    "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                    "_blank"
-                  );
-                }}
-                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Matalk AI on the App Store"
+          <div className="space-y-5">
+            {FAQS.map((faq) => (
+              <div
+                key={faq.question}
+                className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg"
               >
-                <img
-                  src="/images/black.svg"
-                  alt="Download on the App Store"
-                  className="h-12 sm:h-14 w-auto transition-all duration-200"
-                />
-              </button>
-              <button
-                onClick={() => {
-                  window.open(
-                    "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                    "_blank"
-                  );
-                }}
-                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Matalk AI on Google Play"
-              >
-                <img
-                  src="/images/Google_Play_Store_badge_EN.svg"
-                  alt="Get it on Google Play"
-                  className="h-12 sm:h-14 w-auto transition-all duration-200"
-                />
-              </button>
-            </div>
+                <h3 className="h3 text-slate-900 mb-3">{faq.question}</h3>
+                <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
