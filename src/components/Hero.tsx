@@ -1,10 +1,8 @@
-import { analytics } from "../utils/analytics";
+import { motion } from "framer-motion";
+import { PlanCards, ScheduleDemoCTA } from "./PlanCards";
 
-// App Store button
-const appStoreButton = "/images/black.svg";
 const runningRobotDogWebp = "/images/chasingBall.webp";
 const runningRobotDogPng = "/images/chasingBall.png";
-import { motion } from "framer-motion";
 
 /** Intrinsic size of optimized WebP (320×213); avoids CLS with object-contain in an 80×80 box. */
 const HERO_MASCOT_WIDTH = 320;
@@ -87,64 +85,29 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="glass-card max-w-6xl mx-auto mb-8 sm:mb-10 py-8 sm:py-12 bg-gradient-to-br from-white/90 to-blue-50/80"
           >
-            {/* Card Header */}
-            <h3 className="h3 text-gradient mb-6 text-center">
-              Available on iOS and Android — Free AAC App Trial
-            </h3>
+            {/* Card Header — Patent Pending */}
+            <div className="flex flex-col items-center gap-3 max-w-2xl mx-auto text-center">
+              <span className="bg-gradient-to-r from-violet-600 to-indigo-500 text-white text-xs sm:text-sm font-bold tracking-[0.08em] uppercase px-5 sm:px-6 py-2.5 rounded-full whitespace-nowrap shadow-lg shadow-violet-500/30">
+                Patent Pending
+              </span>
+              <h3 className="h3 text-gradient">
+                Two apps. Pick the one that fits.
+              </h3>
+              <p className="text-base sm:text-[17px] leading-relaxed text-slate-600">
+                You'll find both in the App Store. They run the same AI and the
+                same adaptive symbol grid — one is a subscription, the other you
+                buy once.
+              </p>
+            </div>
 
-            {/* Download Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-              {/* Official App Store Download Button */}
-              <button
-                onClick={() => {
-                  analytics.trackInteraction("Hero App Store Click", {
-                    location: "hero_section",
-                    destination: "app_store",
-                  });
-                  // Open Matalk AI App Store link
-                  window.open(
-                    "https://apps.apple.com/us/app/ma-talk-ai/id6747360381",
-                    "_blank"
-                  );
-                }}
-                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Matalk AI on the App Store"
-              >
-                <img
-                  src={appStoreButton}
-                  alt="Download on the App Store"
-                  width={180}
-                  height={54}
-                  decoding="async"
-                  className="h-12 sm:h-14 w-auto transition-all duration-200"
-                />
-              </button>
+            {/* The two apps */}
+            <div className="mt-10">
+              <PlanCards location="hero_section" />
+            </div>
 
-              {/* Google Play Store Download Button */}
-              <button
-                onClick={() => {
-                  analytics.trackInteraction("Hero Google Play Click", {
-                    location: "hero_section",
-                    destination: "google_play",
-                  });
-                  // Open Matalk AI Google Play Store link
-                  window.open(
-                    "https://play.google.com/store/apps/details?id=com.verbali.matalkai&utm_source=na_Med",
-                    "_blank"
-                  );
-                }}
-                className="group transition-all duration-200 hover:scale-105 hover:shadow-xl transform focus:outline-none focus:ring-4 focus:ring-violet-500/20 touch-target"
-                aria-label="Download Matalk AI on Google Play"
-              >
-                <img
-                  src="/images/Google_Play_Store_badge_EN.svg"
-                  alt="Get it on Google Play"
-                  width={180}
-                  height={54}
-                  decoding="async"
-                  className="h-12 sm:h-14 w-auto transition-all duration-200"
-                />
-              </button>
+            {/* Schools & clinics — schedule a demo */}
+            <div className="mt-8">
+              <ScheduleDemoCTA location="hero_section" />
             </div>
 
             {/* Partners Logos Section */}
