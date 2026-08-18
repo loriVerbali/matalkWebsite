@@ -37,9 +37,14 @@ export function Hero() {
 
       <div className="max-w-7xl mx-auto mobile-container">
         <div className="text-center max-w-4xl mx-auto mobile-text-center">
+          {/* Badge */}
+          <span className="inline-block bg-violet-100/80 text-violet-700 text-sm sm:text-base font-semibold px-5 py-2 rounded-full mb-6">
+            Verbali presents MaTalk AI
+          </span>
+
           {/* Headline — plain h1 so LCP text paints immediately (no Framer opacity:0 gate). */}
           <h1 className="h1 text-gradient mb-8 sm:mb-6">
-            Verbali presents: AI-Powered AAC App for Non-Verbal Children
+            AI-Powered AAC for More Natural Conversations
           </h1>
 
           {/* Subheadline */}
