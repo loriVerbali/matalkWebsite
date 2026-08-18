@@ -17,8 +17,8 @@ declare global {
 
 const CALENDLY_CSS = "https://assets.calendly.com/assets/external/widget.css";
 const CALENDLY_JS = "https://assets.calendly.com/assets/external/widget.js";
-const CONTACT_API_URL =
-  "https://matalkwebsitebe-production.up.railway.app/api/contact";
+const WEBINAR_LIST_API_URL =
+  "https://matalkwebsitebe-production.up.railway.app/api/webinar-list";
 
 /**
  * Calendly's widget assets are pulled in the first time the modal opens rather
@@ -248,7 +248,7 @@ export function ScheduleDemoModal({ isOpen, onClose }: ScheduleDemoModalProps) {
         state: form.state,
       });
       try {
-        const response = await fetch(CONTACT_API_URL, {
+        const response = await fetch(WEBINAR_LIST_API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
