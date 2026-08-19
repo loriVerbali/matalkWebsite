@@ -149,9 +149,9 @@ export function News({ onBack }: NewsProps) {
               </p>
               <div className="space-y-3">
                 <div>
-                  <div className="flex justify-between text-sm mb-1">
+                  <div className="flex flex-col gap-0.5 sm:flex-row sm:justify-between sm:gap-4 text-sm mb-1">
                     <span className="text-slate-700">DaVoice</span>
-                    <span className="font-medium text-slate-900">
+                    <span className="font-medium text-slate-900 sm:text-right">
                       97.65% — zero false positives observed
                     </span>
                   </div>
@@ -163,11 +163,13 @@ export function News({ onBack }: NewsProps) {
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between text-sm mb-1">
+                  <div className="flex flex-col gap-0.5 sm:flex-row sm:justify-between sm:gap-4 text-sm mb-1">
                     <span className="text-slate-700">
                       Other commercial engines we evaluated
                     </span>
-                    <span className="font-medium text-slate-900">~75%</span>
+                    <span className="font-medium text-slate-900 sm:text-right">
+                      ~75%
+                    </span>
                   </div>
                   <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
                     <div
@@ -202,7 +204,10 @@ export function News({ onBack }: NewsProps) {
               close to half a gigabyte to the app. The larger models could
               improve recognition, but they also increased download times,
               storage requirements, and the overall size and complexity of the
-              application.
+              application. Licensing was another concern: most on-device
+              speech libraries available today include eSpeak as part of their
+              solution, and its GPL license can create licensing issues for
+              commercial applications.
             </p>
             <p className="text-slate-600 mb-6">
               After discovering DaVoice's complete voice stack, we decided to
