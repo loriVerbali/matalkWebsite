@@ -126,8 +126,16 @@ export function News({ onBack }: NewsProps) {
             </h3>
             <p className="text-slate-600 mb-6">
               As part of the MaTalk AI experience, we wanted to allow children
-              to activate the app hands-free using a custom wake word: "Hey
-              Verbi." An always-listening AAC experience has to react instantly
+              to activate the app hands-free using a custom{" "}
+              <a
+                href="https://davoice.io/wake-word"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600 font-medium"
+              >
+                wake word
+              </a>
+              : "Hey Verbi." An always-listening AAC experience has to react instantly
               without misfiring — false positives disrupt the very conversation
               the app is meant to support. We evaluated a number of wake word
               technologies before selecting DaVoice, which consistently
