@@ -4,11 +4,11 @@ import { ScheduleDemoModal } from "../components/ScheduleDemoModal";
 const logoImage = "/images/verbiPose.png";
 
 /**
- * Shareable landing page for the demo form (/schedule-demo). Renders the same
+ * Shareable landing page for the demo form (/ScheduleVerbaliDemo). Renders the same
  * modal used on the pricing page, already open; closing it sends the visitor
  * to the homepage instead of leaving them on an empty backdrop.
  */
-export default function ScheduleDemoStandalone() {
+export default function ScheduleVerbaliDemo() {
   const navigate = useNavigate();
 
   return (
