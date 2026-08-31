@@ -7,6 +7,7 @@ import TermsOfUseStandalone from "./pages/TermsOfUseStandalone.tsx";
 import PrivacyPolicyStandalone from "./pages/PrivacyPolicyStandalone.tsx";
 import MaTalkPrivacyPolicyStandalone from "./pages/MaTalkPrivacyPolicyStandalone.tsx";
 import DataDeletionStandalone from "./pages/DataDeletionStandalone.tsx";
+import ScheduleDemoStandalone from "./pages/ScheduleDemoStandalone.tsx";
 import "./styles/globals.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/playground" element={<App />} />
         <Route path="/hero-me" element={<App />} />
         <Route path="/forgotadminpassword" element={<App />} />
+        <Route path="/schedule-demo" element={<ScheduleDemoStandalone />} />
         <Route path="/eula" element={<EULAStandalone />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyStandalone />} />
         <Route
